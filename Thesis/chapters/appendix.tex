@@ -1,0 +1,181 @@
+\chapter*{Appendix}
+\addcontentsline{toc}{chapter}{Appendix}
+\renewcommand\thetheorem{A.\arabic{theorem}}
+
+
+\begin{lemma}[Expectation of Powers of a zero-mean Gaussian random variable]
+  If $X\sim\N(0,\sigma^2)$, then $\EE[X^2] = \sigma^2$ and $\EE[X^4] = 3\sigma^4$.
+\end{lemma}
+
+
+% \begin{theorem}[Properties of Indicator Functions]
+%   \label{theorem:indiprop}
+%   Let $(X,\Sigma,\mu)$ be a measure space and $A,B$ be subsets of $\Omega$, then
+%   \begin{enumerate}
+%     \item $\mathbf{1}_{A\cap B}=\mathbf{1}_A\mathbf{1}_B$.
+%     \item $\int\limits_{X}\mathbf{1}_A\d \mu = \mu(A)$.
+%   \end{enumerate}
+% \end{theorem}
+
+\begin{theorem}[Pointwise Limit of Measurable Functions is Measurable]
+  \label{theorem:pointwise-limit-of-measurable-functions-is-measurable}
+  Let $(f_n)$ be a sequence of measurable functions converging pointwisely to $f$. Then $f$ is measurable.
+\end{theorem}
+
+% \begin{theorem}[Approximation of a Measurable Function]
+%   \label{theorem:meafuncapp}
+%   Let $(X,\Sigma)$ be a measurable space and $f:\Omega\to\RR$ be a measurable function. Then there exists a sequence of step functions $(f_n)_{n\in\NN}$ that pointwise converges to $f$ i.e.
+%   $$\forall x\in X, f(x)=\lim\limits_{n\to\infty}f_n(x).$$
+%   If $f\ge0$, we can choose $\{f_n\}$ to be increasing.
+% \end{theorem}
+
+\begin{theorem}[Fubini's Theorem]
+  \label{theorem:fubini}
+  Let $(\Omega,\F,\mu)$ and $(\Gamma,\G,\nu)$ be measure spaces, and $(\Omega\times\Gamma,\F\otimes\G,\mu\times\nu)$ be the product measure space. Then for any measurable function $f:\Omega\times\Gamma\to\RR$,
+  \begin{equation}  \int\limits_{\Omega\times\Gamma}f\d (\mu\times\nu) = \int\limits_{\Omega}\int\limits_{\Gamma}f\d \mu\d \nu = \int\limits_{\Gamma}\int\limits_{\Omega}f\d \nu\d \mu.
+  \end{equation}
+\end{theorem}
+
+\begin{lemma}[Gronwall Inequality]
+  \label{lemma:gronwall-inequality}
+  Let $f:[0,T]\to\RR$ be continuous function such that
+  $$f(t) \le c_1 + c_2 \int_0^t f(s)\d s.$$
+  Then $f (t) \le c_1e^{c_2t}$.
+\end{lemma}
+
+% \section{General Proof of Theorem \ref{theorem:independent-expectation}}
+% \label{proof:independent-expectation}
+
+% \section{The Construction of the Itô Integral}
+% \label{appendix:ito}
+
+% \section{The Construction of the Wiener Process}
+% \label{brown}
+% Consider the set of all real-valued, square-integrable functions defined on $(0, 1)$ i.e. the set of $f(t)$ such that
+
+% $$\int\limits_0^1 f^2(t)\d t<\infty.$$
+
+% We can check effortlessly that this set is a vector space. Let us denote it by $L^2(0,1)$ and define the dot product
+
+% $$\langle f,g\rangle = \int\limits_0^1 f(t)g(t)\d t.$$
+
+% Now we wish to find an orthonormal basis for $L^2(0,1)$. Note that it is an infinite dimensional space. Let $\{\psi_n\}_{n=0}^\infty$ be an orthonormal basis. We must have that
+
+% $$\int\limits_0^1 \psi_i(t)\psi_j(t)\d t = \begin{cases}
+%     0,\,\,i\ne j\\
+%     1,\,\,i = j
+% \end{cases}.$$
+
+% If there is another function $\varphi$ such that $\varphi$ along with $\{\psi_n\}_{n=0}^\infty$ i.e
+
+
+
+% In fact, the functions in the orthogonal basis of $L^2(0,1)$ is the Haar functions define below.
+
+% \begin{definition}
+%     The family $\{h_k(.)\}_{k=0}^\infty$ of Haar functions is defined for $0\le t\le 1$ as follows:
+%     $$h_0(t) = 1,\,\,\text{ for } 0\le t\le 1,$$
+%     $$h_1(t)=\begin{cases}
+%         1 &\,\,\text{ for } 0\le t\le \dfrac{1}{2}\\
+%         -1 & \,\,\text{ for } \dfrac{1}{2}< t\le 1
+%     \end{cases}$$
+% If $2^n\le k<2^{n+1},\,n=1,2\ldots,$ we set
+% $$h_k(t)=\begin{cases}
+%         2^{n/2} &\,\,\text{ for } \dfrac{k-2^n}{2^n}\le t\le \dfrac{k-2^n+1/2}{2^n}\\
+%         -2^{n/2} & \,\,\text{ for } \dfrac{k-2^n+1/2}{2^n}< t\le \dfrac{k-2^n+1}{2^n}\\
+%         0 & \,\,\text{otherwise} 
+%     \end{cases}$$
+% \end{definition}
+
+% \begin{align*}
+
+% \end{align*}
+
+% \begin{definition}
+%     For $k=0,1,2,\ldots$, 
+%     $$s_k(t)=\int\limits_{0}^t h_k(t)\d t$$
+%     is the $k$th Schauder function.
+% \end{definition}
+
+% \section{Proof of Theorem \ref{theorem:score}}
+% We have
+
+% \begin{align} 
+%     \dfrac{1}{2}\EE_{p_{\text{data}}}[\|\nabla_\xbf\log p(\xbf,\theta)-\nabla_\xbf\log p_{\text{data}}(\xbf)\|^2_2]
+%     &=\EE_{p_{\text{data}}}\left[\dfrac{1}{2}\|\nabla_\xbf\log p_{\text{data}}(\xbf)\|^2_2+\dfrac{1}{2}\|s_\theta(\xbf)\|^2_2 - s_\theta(\xbf)^\top \nabla_\xbf\log p_{\text{data}}(\xbf)\right].  
+% \end{align}
+
+
+% The first term in the brackets is a constant and the second term can be computed. Hence we focus on the third term.
+
+% \begin{align}
+% \EE_{p_{\text{data}}}[-s_\theta(\xbf)^\top \nabla_\xbf\log p_{\text{data}}(\xbf)] 
+% &= -\int_{\xbf\in\RR^D}s_\theta(\xbf)^\top \nabla_\xbf\log p_{\text{data}}(\xbf)p_{\text{data}}(\xbf)\d \xbf\notag\\
+% &= -\int_{\xbf\in\RR^D}s_\theta(\xbf)^\top \dfrac{\nabla_\xbf p_{\text{data}}(\xbf)}{p_{\text{data}}(\xbf)}p_{\text{data}}(\xbf) \d \xbf\notag\\
+% &= -\int_{\xbf\in\RR^D}s_\theta(\xbf)^\top \nabla_\xbf 
+% p_{\text{data}}(\xbf)  \d \xbf
+% \end{align}
+
+% We can simplify this further by using integration by parts. Let 
+
+% \begin{equation}
+%     s_\theta(\xbf)^\top = 
+%     \begin{pmatrix}
+%    \varphi_1 (\xbf,\theta) & \ldots & \varphi_D (\xbf,\theta)
+%     \end{pmatrix},
+% \end{equation}
+
+% \begin{equation}
+%     \nabla_\xp_{\text{data}}(\xbf)  = 
+%     \begin{pmatrix}
+%    \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_1}\\ \vdots \\\dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_D}
+%     \end{pmatrix}.
+% \end{equation}
+% The equation becomes
+% \begin{align}
+% -\int_{\xbf\in\RR^D}s_\theta(\xbf)^\top \nabla_\xbf 
+% p_{\text{data}} \d \xbf &= -\int_{\xbf\in\RR^D}\sum\limits_{i=1}^D \varphi_i (\xbf,\theta) \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_i} \d \xbf\notag\\
+% &=\sum\limits_{i=1}^D \left[-\int_{\xbf\in\RR^D} \varphi_i (\xbf,\theta) \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_i} \d \xbf\right]
+% \end{align}
+% We have 
+
+% \begin{align}
+%     \dfrac{\partial \varphi_1 (\xbf,\theta) p_{\text{data}}(\xbf)}{\partial x_1} = \varphi_1 (\xbf,\theta) \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_1} +  p_{\text{data}}(\xbf)\dfrac{\partial \varphi_1 (\xbf,\theta)}{\partial x_1}.
+% \end{align}
+
+% So integrating by $x_1$ over $\RR$ gives
+
+% \begin{equation}
+% \label{equation:10}
+%     \lim\limits_{x_1\to\infty} \varphi_1 (\xbf,\theta) p_{\text{data}}(\xbf) - \lim\limits_{x_1\to-\infty} \varphi_1 (\xbf,\theta) p_{\text{data}}(\xbf) = \int\limits_{-\infty}^{\infty} \varphi_1 (\xbf,\theta) \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_1}\d x_1+ \int\limits_{-\infty}^{\infty} p_{\text{data}}(\xbf)\dfrac{\partial \varphi_1 (\xbf,\theta)}{\partial x_1}\d x_1.
+% \end{equation}
+
+% Due to the assumed regularity conditions, we have
+
+% \begin{equation}
+%     \lim\limits_{x_1\to\infty} \varphi_1 (\xbf,\theta) p_{\text{data}}(\xbf)=\lim\limits_{x_1\to-\infty} \varphi_1 (\xbf,\theta) p_{\text{data}}(\xbf)=0.
+% \end{equation}
+
+% Hence (\ref{equation:10}) implies that 
+% \begin{equation}
+%     -\int\limits_{-\infty}^{\infty} \varphi_1 (\xbf,\theta) \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_1}\d x_1=\int\limits_{-\infty}^{\infty} p_{\text{data}}(\xbf)\dfrac{\partial \varphi_1 (\xbf,\theta)}{\partial x_1}\d x_1.
+% \end{equation}
+
+% Taking integral over $x_2,\ldots,x_D$ yields
+
+% \begin{equation}
+%     -\int_{\xbf\in\RR^D} \varphi_1 (\xbf,\theta) \dfrac{\partial p_{\text{data}}(\xbf)}{\partial x_1}\d \xbf=\int_{\xbf\in\RR^D}  p_{\text{data}}(\xbf)\dfrac{\partial \varphi_1 (\xbf,\theta)}{\partial x_1}\d \xbf.
+% \end{equation}
+
+% The calculation is similar for $i=2,\ldots,D$. Therefore, 
+
+% \begin{align}
+%     \EE_{p_{\text{data}}}[-s_\theta(\xbf)^\top \nabla_\xbf\log p_{\text{data}}(\xbf)] 
+%     &= \int_{\xbf\in\RR^D}  p_{\text{data}}(\xbf)\left[\sum\limits_{i=1}^D \dfrac{\partial \varphi_i (\xbf,\theta)}{\partial x_i}\right]\d \xbf\notag\\
+%     &=\EE_{p_{\text{data}}}[\mathrm{tr}(\nabla_\xs_\theta(\xbf))].
+% \end{align}
+
+% Thus we can define the loss function based on the approximating function only
+% \begin{align}
+%     \L(\theta) = \EE_{p_{\text{data}}}\left[\mathrm{tr}(\nabla_\xs_\theta(\xbf))+\dfrac{1}{2}\|s_\theta(\xbf)\|^2_2\right].
+% \end{align}

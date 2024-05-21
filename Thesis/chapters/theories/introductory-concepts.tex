@@ -1,0 +1,101 @@
+\section{Mathematical Spaces}
+\subsection{Motivations}
+
+When working with the set of real numbers $\RR$, we are familiar with the absolute value defined $x\in\RR$
+\begin{equation}
+ \label{equation:number-absolute-value}
+ |x| = \begin{cases}
+  x, \text{ if } x\ge0 \\
+  -x, \text{ if } x < 0.
+ \end{cases}
+\end{equation}
+The distance between two real numbers $x$ and $y$ is $|x-y|$. We also concern about sequences of real numbers with properties such as boundedness and convergence. A sequence $(x_n)_{n\in\NN}\subset\RR$ is bounded if
+$$\exists M\in\RR, \forall n\in \NN, |x_n|\le M.$$
+The sequence $(x_n)_{n\in\NN}\subset\RR$ converges to a limit $x$ if
+$$\forall \epsilon > 0, \exists N\in\NN, \forall n>N, |x_n-x|<\epsilon.$$
+
+These concepts have been generalized to $\RR^d$. For each vector $\xbf=(x_1,\ldots,x_d)\in\RR^d$, the absolute value becomes the norm
+\begin{equation}
+ \label{equation:vector-norm}
+ \|\xbf\| = \sqrt{x_1^2+\ldots+x_2^d}.
+\end{equation}
+The distance between two vectors $\xbf$ and $y$ is $|\xbf-\ybf|$. The norm is a real number, and it lets us define properties of sequence as in $\RR$. This is actually the evolution of mathematics: mathematicians first work with real-life objects, such as arithmetic numbers or Euclidean geometry shapes, then discover the same pattern with another objects, such as the vectors. Then, they developed an abstract structure covering these objects, ignoring the very details, such as the vector space. The abstraction progress really fulfills the picture of mathematics, and extends mathematics applications. In forthcoming sections, we will see the benefits of following introductory concepts. For example, we can regard a specific class of random variables (see Definition \ref{definition:random-variable}) and stochastic processes (see Definition \ref{definition:stochastic-process}) akin to the real numbers. Such abstractions graciously facilitate to further developments relating to the studied objects.
+
+Motivated enough, we are going to generalize these concepts of norm, distance and convergence in following discussions by three spaces, namely metric space, normed space and Banach space.
+
+\subsection{Metric Space}
+
+\begin{definition}
+ Given a set $\Omega$. A function $d:\Omega\times\Omega\to\RR$ is called a \textbf{metric} if it satisfies
+ \begin{enumerate}
+  \item Non-negativity: $d(x,y)\ge 0,\forall x,y\in\Omega$. The equality holds if and only if $x=y$.
+  \item Symmetry: $d(x,y)=d(y,x)$.
+  \item Triangle inequality: $d(x,y)+d(y,z)\ge d(x,z)$.
+ \end{enumerate}
+ The tuple $(\Omega,d)$ is called a \textbf{metric space}\index{metric space}.
+\end{definition}
+
+\begin{example}
+ \begin{enumerate}
+  \item []
+  \item Given a set $\Omega$ and a function $d:\Omega\times\Omega\to\RR$ defined by
+        $$d(x,y)=\begin{cases}
+          1, & \text{ if } x=y     \\
+          0, & \text{ if } x\ne y.
+         \end{cases}$$
+        Then $d$ is a metric
+  \item Let $(\Omega, \|\cdot\|)$ be a normed space. Define $$d(x,y) = \|x-y\|, \forall x,y\in\Omega.$$
+        Then $d$ is a metric.
+ \end{enumerate}
+\end{example}
+
+\begin{definition}
+ Let $(\Omega, d)$ be a metric space. A subset $A$ of $\Omega$ is said to be \textbf{open}\index{open} if for any $x\in A$, there exists $\epsilon > 0$ such that if a point $y$ having $d(x, y)<\epsilon$, then $y\in A$.
+\end{definition}
+
+\begin{definition}
+ Let $(\Omega, d)$ be a metric space. A sequence $(x_n)_{n=1}^\infty\subset\Omega$ is said to \textbf{converge}\index{convergence} to $x\in\Omega$ if
+ $$\forall \epsilon>0, \exists N>0,\forall n> N, x_n\in B_\epsilon(x).$$
+\end{definition}
+
+\begin{definition}
+ A metric space $\Omega$ is said to be \textbf{complete} if every convergent sequence in $\Omega$ has the limit in $\Omega$.
+\end{definition}
+
+\subsection{Normed Space}
+
+\begin{definition}
+ Let $K$ be a filed and $V$ be a vector space over $\mathbb{K}$. A function $\|\cdot\|: V\to \RR$ is called a \textbf{norm}\index{norm} if it satisfies
+ \begin{enumerate}
+  \item Non-negativity: $\|x\|\ge0,\forall x\in V$. The equality holds if and only if $x=0$.
+  \item Absolute homogeneity: $\|\lambda x\| = |k|\cdot\|x\|,\forall x\in V, \lambda\in\mathbb{K}$.
+  \item Triangle inequality: $\|x\|+\|y\|\ge \|x+y\|,\forall x,y\in V$.
+ \end{enumerate}
+ The tuple $(V,\|\cdot\|)$ is called a \textbf{normed space}\index{normed space}.
+\end{definition}
+
+\begin{example}
+ \begin{enumerate}
+  \item []
+  \item Regard $\RR^d$ as a real vector space. For each $p\in[1,\infty]$, defined the function $\|\cdot\|_p:\RR^d\to\RR$ for each $\|\xbf\|_p = (x_1,\ldots, x_n)$ by
+        \begin{equation}
+         \|\xbf\|_p = \begin{cases}
+          \left(\sum\limits_{i=1}^d |x_i|^p\right)^{1/p}, & \text{ if } p <\infty \\
+          \sup\{x_i, \,\,1\le i \le d\}.,                 & \text{ if } p =\infty
+         \end{cases}
+        \end{equation}
+        Then $\|\cdot\|_p$ is a norm, called the $p$-norm of $\RR^d$.
+  \item Regard $\RR^{d\times r}$ as a real vector space. Let function $\|\cdot\|_F: \RR^{d\times r}\to\RR$ be defined for each $\Abf = (a_{ij})\in\RR^{m\times n} $ as
+        $$\|A\|_F = \sqrt{\sum\limits_{i=1}^m\sum\limits_{j=1}^na_{ij}^2}.$$
+        Then $\|\cdot\|_F$ is a norm, called the Frobenius norm.
+ \end{enumerate}
+\end{example}
+
+% \begin{theorem}[Cauchy-Schwartz inequality]
+%   \label{cauchy-schwartz-inequality}
+% \end{theorem}
+
+\subsection{Banach Space}
+\begin{definition}
+ A \textbf{Banach space}\index{Banach space} is a normed space that is complete with respect to the metric induced by the norm.
+\end{definition}

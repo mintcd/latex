@@ -1,0 +1,177 @@
+\documentclass[a4paper]{report}
+% \title{Capstone Project}
+% \author{Minh Huy}
+
+\input{packages}
+\usepackage[utf8]{inputenc}
+\usepackage{styles}
+\usepackage{commands}
+\usepackage{times}
+\usepackage[final]{pdfpages}
+
+\hypersetup{colorlinks=true,urlcolor=blue,linkbordercolor=red,citecolor=green}
+% \captionsetup[table]{name=Table}
+\makeindex[columns=3, title=Index, intoc]
+
+\def\thesislayout{
+	\geometry{
+		a4paper,
+		total={160mm,240mm}, 
+		left=30mm,
+		top=30mm,
+	}
+}
+\thesislayout
+
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+
+\fancyhead[L]{}
+\fancyhead[R]{\nouppercase{\textbf{\Roman{chapter}.\rightmark}}}
+
+\renewcommand{\headrulewidth}{0.3pt}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+% \newcounter {subsubsubsection}[subsubsection]
+% \renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+% \newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+%                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
+%                                      {1.5ex \@plus .2ex}%
+%                                      {\normalfont\normalsize\bfseries}}
+% \newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+% \newcommand*{\subsubsubsectionmark}[1]{}
+% \makeatother
+
+\everymath{\color{blue}}%make in-line maths symbols blue to read/check easily
+
+\sloppy
+\captionsetup[figure]{labelfont={small,bf},textfont={small},belowskip=-1pt,aboveskip=9pt}
+%space remove between caption, figure, and text
+\captionsetup[table]{labelfont={small,bf},textfont={small},belowskip=-1pt,aboveskip=7pt}
+
+\setlength{\floatsep}{5pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
+\setlength{\intextsep}{10pt plus 2pt minus 2pt}
+\thesislayout
+
+
+%%%%%%%% LSTLISTING SETUP %%%%%%%%
+\lstset{frame=tb,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{dkgreen},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  backgroundcolor=\color{backcolour}
+}
+
+\everymath{\color{black}}
+\newcommand{\marking}[2]{$\color{blue}M_{#1} = [#2]$}
+%%%%%%%% DATE %%%%%%%%
+% \cttime{4/2022}
+%%%%%%%% THESIS %%%%%%%%
+\thesislayout
+\addbibresource{refs.bib}
+
+
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}
+
+
+\begin{document}
+
+\begin{titlepage}
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[line width = 4pt] ($(current page.north west) + (2.5cm,-2cm)$) rectangle ($(current page.south east) + (-1.5cm,2cm)$);
+  \end{tikzpicture}
+  \begin{center}
+    VIETNAM NATIONAL UNIVERSITY, HO CHI MINH CITY\\
+    UNIVERSITY OF TECHNOLOGY\\
+    FACULTY OF COMPUTER SCIENCE AND ENGINEERING
+  \end{center}
+
+  \vspace{1cm}
+
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=3cm]{hcmut.png}
+  \end{figure}
+
+  \vspace{1cm}
+
+  \begin{center}
+    \begin{tabular}{c}
+      \multicolumn{1}{c}{\textbf{{\Large  CAPSTONE PROJECT}}}        \\ \\
+      ~~                                                                         \\
+      \hline
+      \\
+
+      \textcolor{black}{\textbf{{\Large RESEARCH AND DEVELOP}}}                  \\\\
+      \textcolor{black}{\textbf{{\Large DIFFUSION-BASED ATTACKS ON WATERMARKS}}} \\
+      ~~                                                                         \\
+      \hline
+      \\
+                \textbf{{\fontsize{12pt}{1.5pt} \selectfont Major: Computer Science}}\\[2mm]
+      \\
+    \end{tabular}
+  \end{center}
+
+  \vspace{2cm}
+
+  \begin{table}[h]
+    \begin{tabular}{rrll}
+
+      \hspace{5 cm}
+       & Committee:           & Computer Science                      \\
+                        \\
+       &                      &                                       \\
+       & Supervisors:         & Dr. Nguyen An Khuong                  \\
+       &                      & Assoc. Prof. Le Xuan Truong & UEH     \\
+       &                      & Mr. Le Thanh Son            & KTH     \\
+       &                      & Mr. Tran Dinh Vinh Thuy     & EC Lyon \\
+       &                      &                                       \\
+       & Reviewer: &........................................ &  \\
+       & & \multicolumn{2}{@{}l}{---o0o---}\\[.5mm]
+       & Students:            & Chau Dang Minh - 2013748              \\
+       &                      & Le Xuan Huy - 2011266
+    \end{tabular}
+  \end{table}
+  \vspace{2cm}
+  \begin{center}
+    {\footnotesize Ho Chi Minh City, May 2024}
+  \end{center}
+\end{titlepage}
+\includepdf{img/PhieunhiemvuLVTN-DATN.docx.pdf}
+
+\include{chapters/declaration}
+\include{chapters/acknowledgements}
+\include{chapters/abstract}
+\include{chapters/notations}
+\pagestyle{empty}
+\tableofcontents
+\newpage
+% \addcontentsline{toc}{chapter}{List of Figures}
+
+\listoffigures
+\listoftables
+\pagestyle{fancy}
+\include{chapters/introduction}
+\include{chapters/theories}
+\include{chapters/backgrounds}
+\include{chapters/related-works}
+% \include{chapters/methods}
+\include{chapters/experiments}
+\include{chapters/conclusion}
+\include{chapters/appendix}
+\printindex
+\printbibliography
+\end{document}

@@ -1,0 +1,259 @@
+\subsection*{Problem 1.} Let $(X_n)_{n\in\NN}$ be a sequence of independent random variables and let $(p_n)_{n\in\NN}\subset (0,1]$ be a sequence of real numbers such that $\sum\limits_{n=1}^\infty p_n < \infty$. Assume that, for each $n\in\NN$, $X_n$ takes the value $1$ with probability $p_n$, and $X_n$ takes the value $0$ with probability $1-p_n$.
+
+\begin{enumerate}
+    \item Show that $X_n\xrightarrow{a.s.} 1$.
+    \item Show that $\dfrac{\sum\limits_{i=1}^n}{n}\xrightarrow{a.s.} 0$.
+    \item Does the previous question contradict the strong law of large numbers?
+\end{enumerate}
+
+\textit{Solution.}
+
+\subsubsection*{1.} Denote the probability space $(\Omega, \mathcal{F}, \PP)$ as usual. For each $n\in\NN$, let the event
+$$E_n=\{\omega\in\Omega : X_n(\omega) = 1\}.$$
+We have $\PP(E_n) = p_n$. Hence $\sum\limits_{n=1}^\infty \PP(E_n) < \infty$. Borel-Cantelli lemma tells us that
+$$\PP\left(\bigcap\limits_{n=1}^\infty\bigcup\limits_{k=n}^\infty E_k\right) = 0.$$
+
+Thus,
+
+$$P\left(\lim\limits_{n\to\infty} E_n\right) = 1 - \PP\left(\bigcap\limits_{n=1}^\infty\bigcup\limits_{k=n}^\infty E_k\right) = 1.$$
+
+We conclude that $X_n\xrightarrow{a.s.} 1$.
+
+\subsubsection*{2.} For any $\epsilon>0$, for each $n\in\NN$, define the event
+$$A_n = \{\omega\in\Omega : \dfrac{1}{n}\sum\limits_{i=1}^n X_n > \varepsilon\}.$$
+By Chebyshev inequality,
+\begin{align*}
+    \PP(A_n) \le \dfrac{\EE\left[\dfrac{1}{n}X_n\right]}{\varepsilon} = \dfrac{\sum\limits_{i=1}^np_i}{n\epsilon} \xrightarrow{n\to\infty} 0.
+\end{align*}
+
+Thus, $\PP\left(\lim\limits_{n\to\infty} A_n\right)$ = 0. We conclude that $\dfrac{\sum\limits_{i=1}^n}{n}\xrightarrow{a.s.} 0$.
+
+\subsubsection*{3.} The previous result does not contradict the Strong law of large numbers, because the given random variables are not i.i.d.
+
+\subsection*{Problem 2.} The aim of this exercise is to provide a probabilistic proof of the fact that any
+real-valued continuous function in $[0, 1]$ can be approximated uniformly by polynomials (Weierstrass theorem). Fix $x \in (0, 1)$ and consider a sequence $(X_n), n\in\NN$ of i.i.d. Bernoulli random variables of parameter $p = x$.
+
+\begin{enumerate}
+    \item Show that for any $f:[0,1]\to\RR$ continuous, we have
+    $$\EE\left[f\left(\dfrac{\sum_{i=1}^nX_n}{n}\right)\right]\xrightarrow{n\to\infty}f(x).$$
+    \item Deduce the existence of polynomials $f_n :[0, 1]\to\RR$ that converge pointwisely to $f$.
+\end{enumerate}
+
+\textit{Solution.}
+
+\subsubsection*{1.} For each $n\in\NN$, let $$Y_k = Y = f\left(\dfrac{\sum_{i=1}^n X_i}{n}\right), k = \overline{1,n}.$$
+We have $0\le \dfrac{\sum_{i=1}^n X_i}{n}\le 1$. Since $f$ is continuous on $[0,1]$, $Y_k$ is finite i.e. $\EE[|Y_k|] \le \infty$. Therefore
+
+\begin{align*}
+\lim\limits_{n\to\infty} \EE\left[f\left(\dfrac{\sum_{i=1}^nX_i}{n}\right)\right] =  \lim\limits_{n\to\infty} \EE\left[Y\right] 
+&= \lim\limits_{n\to\infty} \dfrac{\sum_{k=1}^n Y_k}{n}  & \text{(SLLN)}\\
+&= \lim\limits_{n\to\infty} f\left(\dfrac{\sum_{i=1}^n X_i}{n}\right) \\
+&= f\left(\lim\limits_{n\to\infty}\dfrac{\sum_{i=1}^n X_i}{n}\right) & \text{($f$ is continuous)}\\
+&= f(x) & \text{(SLLN)}.
+\end{align*}
+
+\subsubsection*{2.} For any $n\in\NN$, we have $$\PP\left(Y=f\left(\dfrac{k}{n}\right)\right) = \begin{pmatrix}
+    n\\k
+\end{pmatrix}x^k(1-x)^{n-k}, k=\overline{1,n}.$$ Therefore,
+$$\EE\left[f\left(\dfrac{\sum_{i=1}^nX_i}{n}\right)\right] = \sum\limits_{k=1}^n \begin{pmatrix}
+    n\\k
+\end{pmatrix}f\left(\dfrac{k}{n}\right)x^k(1-x)^{n-k} = f_n(x).$$
+
+That means we can approximate $f$ pointwisely by a sequence $(f_n)_{n\in\NN}$ of polynomials.
+
+\subsubsection*{3.} Since $f$ and $f_n, n\in\NN$ are continuous on $[0,1]$, the function $|f_n-f|, n\in\NN$ are also continuous and achieve their maxima on $[0,1]$. Define the sequence $$u_n = \max\{|f_n(x)-f(x)|, x\in[0,1]\} = |f(x_n^*)-f(x_n^*)|.$$ 
+We have to show that $\lim\limits_{n\to\infty} u_n = 0$. Suppose, for contradiction, that $\lim\limits_{n\to\infty} u_n = u >0$, which means
+$$\forall \epsilon>0, \exists N_0\in\NN, \forall n > N_0, |u_n - u| < \epsilon.$$
+Therefore, $u-\epsilon < |f_n(x_n^*)-f(x_n^*)|, \forall n > N_0$.
+Choose $\epsilon$ such that $u-\epsilon>0$, we have $$|f_n(x_n^*)-f(x_n^*)| > 0, \forall n > N_0.$$
+That means, there always exists a point $x=\lim\limits_{n\to\infty}x_n^*$ that contradicts the pointwise convergence. Thus, $\lim\limits_{n\to\infty} u_n = 0$, implying that our sequence $(f_n)$ of polynomials converges uniformly to $f$.
+
+\subsection*{Problem 3.} Let $X$ be a random variable. 
+\begin{enumerate}
+    \item  Use characteristic functions to recover $\EE[X]$ and $\VV[X]$ when
+    \begin{enumerate}
+        \item $X$ has a Bernoulli distribution of parameter $p\in(0, 1)$.
+        \item $X \sim B(n, p)$ with $n\in\NN$ and $p\in(0, 1)$.
+        \item $X \sim P(\lambda)$ with $\lambda > 0$.
+        \item $X \sim\mathcal{N}(\mu, \sigma^2)$.
+    \end{enumerate}
+    \item Let $Y$ be independent of $X$ and set $S = X + Y$. Use characteristic functions to show that
+    \begin{enumerate}
+        \item If $X \sim P(\lambda)$ and $X \sim P(\mu)$ then $S \sim P(\lambda+\mu)$.
+        \item If $X\sim\mathcal{N}(\mu_1, \sigma_1^2)$ and $Y\sim\mathcal{N}(\mu_2, \sigma_2^2)$, then $S\sim\mathcal{N}(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$
+    \end{enumerate}
+    \item Assume that $X\sim\mathcal{N}(\mu,\sigma_2^2)$ and let $a,b\in\RR$. Show that $aX + b\sim\mathcal{N}(a\mu + b, a^2\sigma^2)$.
+\end{enumerate}
+
+\textit{Solution.}
+\subsubsection*{1.} 
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Distribution & $\phi_X(t)$ & $\phi'_X(t)$ & $\phi''_X(t)$ & 
+\begin{tabular}{@{}c@{}}$\EE[X]$ \\ $\left(\dfrac{\phi'_X(0)}{i}\right)$\end{tabular}
+& 
+\begin{tabular}{@{}c@{}}$\VV[X]$ \\ $\left(-\phi''_X(0)-\EE^2[X]\right)$\end{tabular}
+\\
+\hline
+$B(1,p)$ & $pe^{it} + 1 - p$ & $ipe^{it}$ & $-pe^{it}$ & $p$ & $p(1-p)$\\
+\hline
+$B(n,p)$ & $(pe^{it} + 1 - p)^n$ & $nipe^{it}(pe^{it} + 1 - p)^{n-1}$ & \begin{tabular}{@{}c@{}}$-npe^{it}(pe^{it}+1-p)^{n-2}$ \\ $\times(npe^{it}+1-p)$\end{tabular} & $np$ & $np(1-p)$\\
+\hline
+$P(\lambda)$ & $e^{\lambda(e^{it}-1)}$ & $\lambda i e^{\lambda(e^{it}-1)+it}$ & $-\lambda (\lambda e^{it} + 1)e^{\lambda(e^{it}-1)+it}$ & $\lambda$ & $\lambda$\\
+\hline
+$\mathcal{N}(\mu,\sigma^2)$ & $e^{it\mu - \frac{t^2\sigma^2}{2}}$ & $(i\mu - \sigma^2t)e^{it\mu - \frac{t^2\sigma^2}{2}}$ & 
+\begin{tabular}{@{}c@{}}$[(i\mu -\sigma^2t)^2-\sigma^2$] \\ $\times e^{it\mu - \frac{t^2\sigma^2}{2}}$\end{tabular} & $\mu$ & $\sigma^2$\\
+\hline
+\end{tabular}    
+\end{center}
+
+Let us provide detailed calculation of the variances.
+
+\begin{itemize}
+    \item $B(1,p)$: $\VV[X] = p - p^2 = p(1-p)$;
+    \item $B(n,p)$: $\VV[X] = np(np+1-p)-n^2p^2 = np(1-p)$;
+    \item $P(\lambda)$: $\VV[X] = \lambda(\lambda+1)-\lambda^2 = \lambda$;
+    \item $\mathcal{N}(\mu,\sigma^2)$: $\VV[X] = (\mu^2+\sigma^2)-\mu^2 = \sigma^2$.
+\end{itemize}
+
+\subsubsection*{2.}
+
+\textbf{(a)} We have 
+\begin{align*}
+\phi_{X+Y}(t) 
+&= \phi_X(t)\phi_Y(t)\\
+&= e^{\lambda(e^{it}-1)}e^{\mu(e^{it}-1)}\\
+&=e^{(\lambda+\mu)(e^{it}-1)}e^{\mu(e^{it}-1)}
+\end{align*}
+Hence $X+Y\sim P(\lambda+\mu)$.
+
+\textbf{(b)} We have 
+\begin{align*}
+\phi_{X+Y}(t) 
+&= \phi_X(t)\phi_Y(t)\\
+&= e^{it\mu_1 - \frac{t^2\sigma_1^2}{2}}e^{it\mu_2 - \frac{t^2\sigma_2^2}{2}}\\
+&=e^{it(\mu_1+\mu_2) - \frac{t^2(\sigma_1^2+\sigma_2^2)}{2}}.
+\end{align*}
+Hence $X+Y\sim \mathcal{N}(\mu_1+\mu_2, \sigma_1^2+\sigma_2^2)$.
+
+\subsubsection*{3.} We have
+\begin{align*}
+ \phi_Y(t) 
+ &= \EE[e^{itY}] = \EE[e^{it(aX+b)}]\\
+ &= e^{itb}\EE[e^{itaX}] = e^{itb}\phi_X(at)\\
+ &= e^{itb} e^{iat\mu + \frac{a^2t^2\sigma^2}{2}}\\
+ &= e^{it(a\mu+b) + \frac{t^2(a\sigma)^2}{2}}.
+\end{align*}
+
+Hence $aX+b\sim\mathcal{N}(a\mu+b, a^2\sigma^2)$.
+
+\subsection*{Problem 4.} Let $c\in\RR$ and let $(X_n)n\in\NN$ be a sequence of random variables. Show that
+$$X_n\xrightarrow{n\to\infty}c
+ \text{ in probability } \Leftrightarrow X_n\xrightarrow{n\to\infty}c \text{ in distribution}.$$
+
+ \subsection*{Problem 5.} Let $b > 0$ and consider a sequence $(X_n),n\in\NN$ of random variables modeling the fortune of a gambler whose fortune increases in one dollar with probability $p$ and decreases in one dollar with probability $q = 1 - p$ at each game period $n$. We recall that the gambler looses the game as soon as he/she reaches a capital equal to $0$ and the gambler wins the game as soon as his/her fortune reaches the value $b$. 
+ 
+Define the mean duration of the game, when the initial capital of gambler is $x\in[0, b]$, by
+$m(x) := \EE(\tau \,|\, X_0 = x)$, where $\tau = \inf\{n \ge 0 \,|\, X_n\in\{0, b\}\}$.
+
+\begin{enumerate}
+    \item By using a first-step analysis, establish the equations
+    $$\begin{cases}
+        m(0) = m(b) = 0,\\
+        m(x) = (1+m(x+1))p +(1+m(x-1))q, x=\overline{1,b-1}.
+    \end{cases}$$
+    \item Find the closed-form representation of $m(x)$.
+\end{enumerate}
+
+\textit{Solution.}
+
+\subsubsection*{1.} Given $x$ dollars at the beginning. After the first round, the gambler either
+\begin{itemize}
+    \item increases his capital by $1$ with probability $p$, taking him to the state of having $x+1$ dollars;
+    \item decreases his capital by $1$ with probability $q=1-p$, taking him to the state of having $x-1$ dollars;
+\end{itemize}
+
+Therefore,
+
+$$m(x) = 1 + pm(x+1) + (1-p)m(x-1).$$
+
+\subsubsection*{2.} If $p\ne\dfrac{1}{2}$, we will seek the form of the recursive equation as
+$$p[m(x+1)+am(x)+b] = c[m(x)+am(x-1)+b].$$
+
+Solving for $a,b$ and $c$, we arrive at
+
+$$m(x+1)-m(x)+\dfrac{1}{2p-1} = \dfrac{1-p}{p}(m(x)-m(x-1)+\dfrac{1}{2p-1}).$$
+
+Therefore, 
+\begin{align*}
+    m(x+1)-m(x)+\dfrac{1}{2p-1} 
+    &= \dfrac{1-p}{p}\left[m(x)-m(x-1)+\dfrac{1}{2p-1}\right] \\
+    &= \cdots \\
+    &= \left(\dfrac{1-p}{p}\right)^x\left[m(1)+\dfrac{1}{2p-1}\right].
+\end{align*}
+
+Implying that
+\begin{equation}
+\label{eq:1var}
+ \begin{aligned}
+m(x+1) 
+&= m(x) + \left(\dfrac{1-p}{p}\right)^x\left[m(1)+\dfrac{1}{2p-1}\right] - \dfrac{1}{2p-1}\\
+&=\cdots\\
+&= \left[\left(\dfrac{1-p}{p}\right)^x+\cdots+1\right]\left[m(1)+\dfrac{1}{2p-1}\right]-(x+1)\dfrac{1}{2p-1}\\
+&= \dfrac{p\left[1-\left(\dfrac{1-p}{p}\right)^x\right]}{2p-1}\left[m(1)+\dfrac{1}{2p-1}\right]-\dfrac{x+1}{2p-1}.
+\end{aligned}   
+\end{equation}
+
+
+Let $x=b-1$, we have
+\begin{align*}
+\dfrac{p\left[1-\left(\dfrac{1-p}{p}\right)^{b-1}\right]}{2p-1}\left[m(1)+\dfrac{1}{2p-1}\right]-\dfrac{b}{2p-1} = m(b) = 0.
+\end{align*}
+
+Hence, $m(1)=\dfrac{b}{p\left[1-\left(\dfrac{1-p}{p}\right)^{b-1}\right]}-\dfrac{1}{2p-1}$. Taking back to (\ref{eq:1var}), we have
+
+\begin{align*}
+    m(x+1) = \dfrac{b\left[1-\left(\dfrac{1-p}{p}\right)^x\right]}{(2p-1)\left[1-\left(\dfrac{1-p}{p}\right)^{b-1}\right]}-\dfrac{x+1}{2p-1},
+\end{align*}
+or
+\begin{align*}
+    m(x) = \dfrac{b\left[1-\left(\dfrac{1-p}{p}\right)^{x-1}\right]}{(2p-1)\left[1-\left(\dfrac{1-p}{p}\right)^{b-1}\right]}-\dfrac{x}{2p-1}, x=\overline{1,b-1}.
+\end{align*}
+
+In the case $p=\dfrac{1}{2}$, we have 
+\begin{align*}
+    m(x+1)-m(x) 
+    &= m(x)-m(x-1)-2\\
+    &=\cdots\\
+    &=m(1)-m(0) - 2x\\
+    &=m(1)-2x.
+\end{align*}
+Therefore,
+\begin{align*}
+    m(x+1)
+    &= m(x)+m(1)-2x\\
+    &= \cdots\\
+    &= m(0)+(x+1)m(1)-x(x+1)\\
+    &=(x+1)m(1) - x(x+1).
+\end{align*}
+
+Taking $x=b-1$, we have $bm(x-1)-(b-1)b = m(b) = 0$. Hence $m(1) = b-1$. Thus,
+$$m(x+1) = (x+1)(b-x), x=\overline{1,b-1}.$$
+
+\subsection*{Problem 7.} Consider a one-dimensional random walk $(X_n)_{n\in\NN}$ with parameter $p\in(0, 1)$ and let $a\in\NN$. Compute the probability 
+$$\PP (\{\omega\in\Omega \,|\, \exists n\in\NN \text{ such that } X_n(\omega) = a\}|X_0 = 0).$$
+
+\textit{Solution.}
+
+Let us use a combinatorial argument. Let $R_n$ and $L_n$ be the number of right moves and left moves reach position $a$ after $n \ge |a|$ steps, we have
+$$\begin{cases}
+    R_n - L_n &= a,\\
+    R_n + L_n &= n.
+\end{cases}$$
+Hence $R_n = \dfrac{1}{2}(n+a)$ and $L_n = \dfrac{1}{2}(n-a)$. Here we also deduce that for $\PP(X_n = a\,|\, X_0 = 0)> 0$, the numbers $n$ and $a$ must have the same odd-even property. Let us consider this case. In a sequence of $n$ moves, there are $\begin{pmatrix}
+    n \\ \frac{1}{2}(n+a)
+\end{pmatrix}$ ways to choose the order of right moves. We then conclude that
+$$\PP(X_n = a\,|\, X_0 = 0) = \begin{pmatrix}
+    n \\ \frac{1}{2}(n+a)
+\end{pmatrix}p^{\frac{1}{2}(n+a)}(1-p)^{\frac{1}{2}(n-a)}.$$

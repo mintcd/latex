@@ -1,0 +1,304 @@
+\subsection*{Problem 1. [Characterization of random variables]} Let $(\Omega, \F, P)$ be a probability space and let
+$X : \Omega \to\RR$.
+\begin{enumerate}
+    \item[(i)] Show that $\D := \{A\subset\mathbb{R}\mid X^{-1}(A) \in \mathcal{F}\}$ is a $\sigma$-field.
+    \item[(ii)] Let $C\subset\mathcal{B}(\mathbb{R})$ be such that $\sigma(C) = \mathcal{B}(\mathbb{R})$. Show that $X$ is a random variable if and only if $X^{-1}(A)\in\F$ for all $A\in C$.
+    \item[(iii)] Deduce that $X$ is a random variable if and only if $X^{-1}(]a, +\infty[) \in \F$ for all $a \in \RR$.
+    \item[(iv)] Suppose that $X$ and $Y$ are random variables. Show that $X + Y$ is a random variable. 
+\end{enumerate}
+
+\textit{Solution.}
+
+\subsubsection*{(i)} Let us show that $\D$ satisfies three axioms of a $\sigma$-field.
+\begin{itemize}
+    \item Since $(\Omega, \F, P)$ is a probability space, we have $\Omega\in\F$. Therefore, $X^{-1}(\RR)\in\F$, or $\RR\in\D$. 
+    \item For $A_1,A_2,\cdots\in\D$, we have $X^{-1}(A_1), X^{-1}(A_2),\cdots\in\FF$. Therefore, $X^{-1}\left(\bigcup\limits_{i=1}^\infty A_i\right) = \bigcup\limits_{i=1}^\infty X^{-1}(A_i) \in\F$ or $\bigcup\limits_{i=1}^\infty A_i\in\D$.
+    \item If $A\in\D$, we have $X^{-1}(A)\in\F$. Hence $X^{-1}(\RR\setminus A) = X^{-1}(\RR) - X^{-1}(A) = \Omega\setminus X^{-1}(A) \in \F$ or $\RR\setminus A\in\D$.
+\end{itemize}
+
+\subsubsection*{(ii)} Assume that $X$ is a random variable. We have $A\in C \subset \sigma(C) = \B(\RR)$. Therefore, $X^{-1}(A)\in\F$. 
+
+Conversely, assume that $X^{-1}(A)\in\F,\forall A\in C$. For any $B\in\B(\RR)=\sigma(C)$, we have $B\subset C$. Hence $X^{-1}(A')\in\F, \forall A'\in B$. Therefore, $X$ is a random variable.
+
+\subsubsection*{(iii)} Let $C=\{]a,+\infty[\,|\, a\in\RR\}$, 
+we have to show that $\sigma(C)=\B(\RR)$. Indeed, for any set of the form $]a,+\infty[, a\in\RR$, consider a sequence $\{u_n\}_{n=1}^{\infty}$, where $u_n=a+n$. We have $]a,+\infty[=\bigcup\limits_{n=1}^{\infty} ]a,u_n[$. Since $]a,u_n[\in\B(\RR),\forall n\in\NN^*$, we have an equivalence
+$$]a,+\infty[\in C\Leftrightarrow ]a,+\infty[\in \B(\RR).$$
+Since any element $E\in\sigma(C)$ is a union or intersection of some elements of the form $]a,+\infty[, a\in\RR$, we must have $E\in\B(\RR)$. Therefore, $\sigma(C)\subset\B(\RR)$. 
+
+Conversely, any Borel set $]a,b[$, where $a,b\in\RR$ can be expressed as $]a,+\infty[\cap]b,+\infty[ \in \sigma(C)$, which means that $\B(\RR)\in\sigma(C)$. Using question (ii), we conclude that $X$ is a random variable.
+
+\subsubsection*{(iv)} We compute
+\begin{align*}
+    \{X+Y > z\} 
+    &= \{X > z - Y\}\\
+    &=\bigcup\limits_{q\in\QQ} \{X > q > z - Y\}\\
+    &= \bigcup\limits_{q\in\QQ} (\{X > q\} \cap \{q > z - Y\})\\
+    &= \bigcup\limits_{q\in\QQ} (\{X \le q\}^c \cap \{Y \le z-q\}^c).
+\end{align*}
+
+For any $q\in\QQ$, since $\{X \le q\}, \{Y \le z-q\}\in \F$, so are their complements. Since $\QQ$ is countable, $\bigcup\limits_{q\in\QQ} (\{X \le q\}^c \cap \{Y \le z-q\}^c)\in \F$. Using question (iii), we conclude that $X+Y$ is a random variable.
+
+\subsection*{Problem 2 [Sum of independent random variables]} 
+\begin{enumerate}
+    \item [(i)] Let $X$ and $Y$ be two independent discrete random variables and let $Z := X + Y$ . Show that
+$$\PP(Z = z) = \sum\limits_{x\in\mathrm{Im}(X)}
+\PP(Y=z-x)\PP(X = x), \forall z \in \mathrm{Im}(Z).$$
+    \item [(ii)] Show that if $X \sim P(\lambda), Y \sim P(\mu)$ and $X, Y$ are independent, then $X + Y \sim P(\lambda + \mu)$.
+    \item [(iii)]  Let $X$ and $Y$ be absolutely continuous and independent random variables. Show that
+$Z = X + Y$ is absolutely continuous and that is density is given by
+$$f_Z(z) = \int\limits_{-\infty}^{+\infty} f_Y(z-x)f_X(x)\,\mathrm{d}x.$$
+\item [(iv)] Suppose that $X$ and $Y$ are independent and distributed according to an exponential
+distribution of parameter $\lambda$. Compute the distribution of $X + Y$.
+\end{enumerate}
+
+\textit{Solution.}
+
+\textbf{(i)} For any $z\in\mathrm{Im}(Z)$, we have
+\begin{align*}
+    \PP(Z=z) &= \PP(X+Y=z) \\
+        &= \sum\limits_{x\in\mathrm{Im}(X)}\PP(Y=z-x, X=x) & \text{(law of total probability)}\\
+        &= \sum\limits_{x\in\mathrm{Im}(X)}\PP(Y=z-x) \PP(X=x) & \text{($X$ and $Y$ are independent)}
+\end{align*}
+
+\textbf{(ii)} Let $Z=X+Y$. For any $z\in\NN$, we have
+
+\begin{align*}
+    \PP(Z=z) &= \sum\limits_{x=0}^z \PP(Y=z-x)\PP(x)\\
+    &= \sum\limits_{x=0}^z \dfrac{\mu^{z-x}}{(z-x)!}e^{-\mu} \dfrac{\lambda^{x}}{x!}e^{-\lambda}\\
+    &=\left[\sum\limits_{x=0}^z \dfrac{\mu^{z-x}\lambda^{x}}{(z-x)!x!}\right]e^{-(\lambda+\mu)}
+\end{align*}
+
+Let us recall the binomial theorem
+\begin{align*}
+ (\lambda+\mu)^z 
+ &= \sum\limits_{x=0}^z \begin{pmatrix}
+    z \\ x
+\end{pmatrix} \mu^{z-x}\lambda^x\\ 
+&= \sum\limits_{x=0}^z \dfrac{z!}{(z-x)!x!} \mu^{z-x}\lambda^x\\
+&=z!\sum\limits_{x=0}^z \dfrac{\mu^{z-x}\lambda^x}{(z-x)!x!}. 
+\end{align*}
+
+Hence 
+$$\PP(Z=z)=\dfrac{(\lambda+\mu)^z}{z!}e^{-(\lambda+\mu)}\sim P(\lambda+\mu).$$
+
+\textbf{(iii)} For any $z\in\RR$, we have
+\begin{align*}
+    F_Z(z) 
+    &= \PP(Z\le z) = \PP(X+Y\le z)\\ 
+    &= \iint_{{(x,y):x+y\le z}} f_{XY}(x,y)\,\mathrm{d}x\,\mathrm{d}y & (\text{$X$ and $Y$ are absolutely continuous})\\
+    &= \iint_{{(x,y):x+y\le z}} f_{X}(x) f_{Y}(y)\,\mathrm{d}x\,\mathrm{d}y & (\text{$X$ and $Y$ are independent})\\
+    &= \int\limits_{-\infty}^{\infty} \int\limits_{-\infty}^{z-x} f_X(x) f_Y(y) \,\mathrm{d}y  \,\mathrm{d}x \\
+    &= \int\limits_{-\infty}^{\infty} f_X(x) F_Y(z-x) \,\mathrm{d}x.
+\end{align*}
+
+The CDF $F_Z(z)$ is differentiable. Indeed,
+\begin{align*}
+    \dfrac{\mathrm{d}}{\mathrm{d}z} F_Z(z) 
+    &= \dfrac{\mathrm{d}}{\mathrm{d}z}\left[\int\limits_{-\infty}^{\infty} f_X(x) F_Y(z-x) \,\mathrm{d}x\right]\\
+    &= \int\limits_{-\infty}^{\infty} \dfrac{\mathrm{d}}{\mathrm{d}z} f_X(x) F_Y(z-x) \,\mathrm{d}x & (\text{Leibniz's theorem})\\
+    &= \int\limits_{-\infty}^{\infty}  f_X(x) \dfrac{\mathrm{d}}{\mathrm{d}z} F_Y(z-x) \,\mathrm{d}x\\
+    &= \int\limits_{-\infty}^{\infty}  f_X(x) f_Y(z-x) \,\mathrm{d}x.
+\end{align*}
+
+Thus, $Z$ is absolutely continuous with PDF $f_Z(z)=\int\limits_{-\infty}^{\infty}  f_X(x) f_Y(z-x) \,\mathrm{d}x$.
+
+\textbf{(iv)} We have $$f_X(t) = f_Y(t) = \begin{cases}
+    \lambda e^{-\lambda t}, &\text{ if } t\in[0,\infty)\\
+    0,&\text{ otherwise.}
+\end{cases}$$ 
+
+Let $Z=X+Y$. The density $f_Z(z) =\int\limits_{-\infty}^{\infty}  f_X(x) f_Y(z-x) \,\mathrm{d}x$ is not equal to zero if and only if $z\ge x\ge 0$. For $z\ge0$, we have
+\begin{align*}
+    f_Z(z)
+    &=\int\limits_{-\infty}^{\infty}  f_X(x) f_Y(z-x) \,\mathrm{d}x\\
+    &=\int\limits_{0}^{z} \lambda e^{-\lambda x} \lambda e^{-\lambda (z-x)} \,\mathrm{d}x & (\text{$f_Y(z-x) = 0$ for $x > z$})\\
+    &= \int\limits_{0}^{z} \lambda^2 e^{-\lambda z} \,\mathrm{d}x\\
+    &= \lambda^2e^{-\lambda z}z.
+\end{align*}
+Thus, $f_Z(z)=\begin{cases}
+    \lambda^2e^{-\lambda z}z, &\text{ if } z\in[0,\infty]\\
+    0 & \text{ otherwise.}
+\end{cases}$
+
+\subsection*{Problem 3.} Let $X$ and $Y$ be two independent discrete random variables. Assume that $X\sim B(n, p)$ and $Y\sim B(m, p)$.
+\begin{enumerate}
+    \item [(i)] Show that $X+Y\sim B(n+m,p)$ by proving and using the formula $\begin{pmatrix}
+        n+m\\j
+\end{pmatrix}=\sum\limits_{\ell=0}^{j} \begin{pmatrix}
+        n\\\ell
+\end{pmatrix}\begin{pmatrix}
+        m\\j-\ell
+\end{pmatrix}.$
+    \item [(ii)] Compute
+$$\PP(X = i\,|\,X + Y = j) \text{ for } i = 0,\cdots,n \text{ and } j = 0,\cdots,m + n.$$
+\end{enumerate}
+
+\textit{Solution.}
+
+\textbf{(i)} The formula is completely proved by two-way counting: choosing $j$ candies from $n+m$ candies is exactly the same as dividing $n+m$ candies into two parts of $n$ and $m$, then choosing $\ell$ from the first part and $j-\ell$ from the same part, where each $\ell\in\{0,\cdots,j\}$ is a possible solution.
+
+Using the formula and note that $0\le X+Y\le m+n$, for each $0\le z\le m+n$, we have
+\begin{align*}
+\PP(X+Y=z) 
+&= \sum\limits_{x=0}^z \PP(Y=z-x)\PP(X=x) & \text{(if $x>z$ then $\PP(Y=z-x)=0$)}\\
+&= \sum\limits_{x=0}^z\begin{pmatrix}
+    m\\z-x
+\end{pmatrix}p^{z-x}(1-p)^{m-z+x}\begin{pmatrix}
+    n\\ x
+\end{pmatrix}  p^{x}(1-p)^{n-x}\\
+&=\sum\limits_{x=0}^z\begin{pmatrix}
+    m\\z-x
+\end{pmatrix} \begin{pmatrix}
+    n\\ x
+\end{pmatrix} p^z(1-p)^{n+m-z}\\
+&=\begin{pmatrix}
+    n+m\\z
+\end{pmatrix} p^{z}(1-p)^{n+m-z}.
+\end{align*}
+Thus, $X+Y\sim B(n+m,p)$.
+
+\textbf{(ii)} If $j< i$, then $\PP(X=i\,|\,X+Y=j) = 0$. Otherwise, for each $i\in\{0,\cdots, n\}$ and $j\in\{i,\cdots,n+m\}$, we have
+\begin{align*}
+    \PP(X=i\,|\, X+Y=j) 
+    &= \dfrac{\PP(X=i\,,\, X+Y=j)}{\PP(X+Y=j)}\\
+    &= \dfrac{\PP(X=i, Y=j-i)}{\PP(X+Y=j)}\\
+    &=\dfrac{\PP(X=i)\PP(Y=j-i)}{\PP(X+Y=j)} & \text{($X$ and $Y$ are independent)}\\
+    &= \dfrac{\begin{pmatrix}
+        n\\i
+    \end{pmatrix}p^i(1-p)^{n-i}\begin{pmatrix}
+        m\\j-i
+    \end{pmatrix}p^{j-i}(1-p)^{m-j+i}}{\begin{pmatrix}
+        n+m\\j
+    \end{pmatrix} p^{j}p^{m+n-j}}\\
+    &=\dfrac{\begin{pmatrix}
+        n\\i
+    \end{pmatrix}\begin{pmatrix}
+        m\\j-i
+    \end{pmatrix}}{\begin{pmatrix}
+        n+m\\j
+    \end{pmatrix}}.
+\end{align*}
+
+\subsection*{Problem 4.} Let $X$ and $Y$ be independent random variables, each uniformly distributed on $[0, 1]$.
+Set $Z = X + Y$ and $W = X - Y$.
+\begin{enumerate}
+    \item [(i)] Compute the joint density $f_{(Z,W)}$ of the couple $(Z, W)$.
+    \item [(ii)] Compute the conditional expectation of $Z^2$ given $W$.
+\end{enumerate}
+
+\textit{Solution.}
+
+\textbf{(i)} We firstly compute $f_Z$. For each $0\le z\le 2$, we have
+\begin{align*}
+    f_Z(z) 
+    &= \int\limits_{-\infty}^{\infty} f_X(x)f_Y(z-x)\,\mathrm{d}x.
+\end{align*}
+The conditions for both densities in the integral not to be zero are $0\le x\le 1$ and $z-1\le x\le z$. We consider following cases
+\begin{itemize}
+    \item If $0\le z < 1$, then $z-1 < 0 \le x \le z < 1$. We have
+    $$f_Z(z) 
+    = \int\limits_{0}^{z} f_X(x)f_Y(z-x)\,\mathrm{d}x = z.$$
+    \item If $1 \le z < 2$, then $0 \le z-1 \le x \le 1 \le z$. We have
+    $$f_Z(z) 
+    = \int\limits_{z-1}^{1} f_X(x)f_Y(z-x)\,\mathrm{d}x = 2-z.$$
+    \item Otherwise, $f_Z(z)=0$.
+\end{itemize}
+
+Therefore, $f_Z(z)=\begin{cases}
+    z, & \text{ if } 0\le z< 1,\\
+    2-z, & \text{ if } 1\le z< 2,\\
+    0, & \text{ otherwise.}
+\end{cases}$
+
+Since $-Y$ distributes uniformly on $[-1,0]$, we have
+$$f_W(w) = \int\limits_{-\infty}^{\infty} f_X(x)f_{-Y}(w-x)\,\mathrm{d}x.$$
+
+For both densities not to be zero, we have $0\le x\le 1$ and $w\le x\le w+1$.
+
+\begin{itemize}
+    \item If $-1\le w < 0$, then $w<0\le x \le w+1 < 1$. We have
+    $$f_W(w) 
+    = \int\limits_{0}^{w+1} f_X(x)f_Y(w-x)\,\mathrm{d}x = w.$$
+    \item If $0\le w < 1$, then $0\le w\le x \le 1 \le w+1$. We have
+    $$f_W(w) 
+    = \int\limits_{w}^{1} f_X(x)f_Y(w-x)\,\mathrm{d}x = 1-w.$$
+    \item Otherwise, $f_W(w)= 0$.
+\end{itemize}
+
+Therefore, $f_W(w)=\begin{cases}
+    w, & \text{ if } -1\le w< 0,\\
+    1-w, & \text{ if } 0\le w< 1,\\
+    0, & \text{ otherwise.}
+\end{cases}$
+
+Thus, $f_{(Z,W)}(z,w)=\begin{cases}
+    zw, & \text{if } 0\le z< 1 \text{ and } -1\le w< 0,\\
+    z(1-w), & \text{if } 0\le z< 1 \text{ and } 0\le w< 1,\\
+    (2-z)w, & \text{if } 1\le z< 2 \text{ and } -1\le w< 0,\\
+    (2-z)(1-w), & \text{if } 1\le z< 2 \text{ and } 0\le w< 1,\\
+    0, & \text{otherwise.}
+\end{cases}$
+
+\textbf{(ii)} We have
+$$F_{Z^2}(z)=\begin{cases}
+    \PP(0\le Z\le\sqrt{z}) = \int\limits_{0}^{\sqrt{z}}t\,\mathrm{d}t = \dfrac{1}{2}z, &\text{ if } 0\le z <1\\
+    \PP(1\le Z\le\sqrt{z}) = \int\limits_{0}^{1}t\,\mathrm{d}t + \int\limits_{1}^{\sqrt{z}}(2-t)\,\mathrm{d}t = 2\sqrt{z}-\dfrac{1}{2}z-\dfrac{3}{2} , &\text{ if } 1\le z <4\\
+    1, &\text{ otherwise.}
+\end{cases}$$
+
+Taking the derivative yields $f_{Z^2}(z)=\begin{cases}
+    \dfrac{1}{2} &\text{ if } 0\le z <1\\
+    \dfrac{1}{\sqrt{z}} , &\text{ if } 1\le z <4\\
+    0, &\text{ otherwise.}
+\end{cases}$
+
+
+Consider $f_X(x)>0$, we have
+\begin{align*}
+    \EE[Z^2\,|\,W] 
+    &= \int\limits_{-\infty}^{\infty} yf_{Z^2|W}(y|x)\,\mathrm{d}y\\
+    &= \int\limits_{-\infty}^{\infty} y\dfrac{}{}\,\mathrm{d}y
+\end{align*}
+
+\subsection*{Problem 5 [Almost sure convergence to a constant]} Let $(X_n)_{n\in\NN}$ be a sequence of discrete or absolutely continuous independent random variables and let $c\in\RR$.
+\begin{enumerate}
+    \item [(i)] Show that $X_n \to c$ almost surely iff for every $\epsilon > 0,\sum\limits_{n=1}^{\infty}\PP(|X_n-c|\ge\epsilon)<\infty$.
+    \item [(ii)] Show that if $(X_n)$ does not converge to $c$ almost surely, then $\PP\left(\lim\limits_{n\to\infty} X_n = c\right) = 0$.
+\end{enumerate}
+
+\textit{Solution.}
+
+\textbf{(i)} Let events $A_n$ be that $|X_n-c|\ge\epsilon$, for each $n\in\NN^*$. Given that $X_n \xrightarrow{a.s.} c$. Suppose, for contradiction that there exists $\epsilon>0$ such that $\epsilon > 0,\sum\limits_{n=1}^{\infty}\PP(|X_n-c|\ge\epsilon)=\infty$. By Borel-Cantelli lemma, we have $\PP\left(\bigcap\limits_{n=1}^{\infty}\bigcup\limits_{k=n}^{\infty}A_k\right) = 1$, which means that means that for infinitely many $n$, the event $A_n$ occurs, i.e., for infinitely many $n$, we have $|X_n-c|\geq\epsilon$. Since $X_n \xrightarrow{a.s.} c$, there exists $n_0$ such that $|X_n - c| < \epsilon, \forall n > n_0$, a contradiction. Thus, for every $\epsilon > 0,\sum\limits_{n=1}^{\infty}\PP(|X_n-c|\ge\epsilon)<\infty$.
+
+\subsection*{Problem 6.} Let $(X_n)_{n\in \NN}$ be a sequence of discrete or absolutely continuous independent random variables. Assume that $\EE(X_n) = 0$, for all $n\in\NN$, and that there exists $C > 0$ such that $\VV(X_n)\le C/n$ for all $n\in\NN$. Show that $\dfrac{\sum_{i=1}^n X_i}{n}\xrightarrow{n\to\infty} 0$ almost surely.
+
+\textit{Solution.}
+
+\subsection*{Problem 7 [Convergence in probability does not imply almost sure convergence]} Consider a sequence of independent Bernoulli random variables $(X_n)_{n\in\NN}$ such that $X_n = $1 with probability $1/n$.
+\begin{enumerate}
+    \item [(i)] Check that $X_n \to 0$ in probability and in $L^1$ but $X_n$ does not converge to $0$ almost surely.
+    \item [(ii)] Consider the subsequence $Y_n := X_{n^2}$ . Show that $Y_n \to 0$ almost surely.
+\end{enumerate}
+
+\textit{Solution.} 
+
+\textbf{(i)} For any $\epsilon>0$, we have $\PP(|X_n|\ge \varepsilon) = P(X_n = 1) = \dfrac{1}{n}$. Hence $\lim\limits_{n\to\infty} \PP(|X_n|\ge \varepsilon) = 0$, informing probability convergence. On the other hand
+$$\EE[|X_n|] = \PP(X_n=1) \cdot 1 + \PP(X_n=0)\cdot 0 = \dfrac{1}{n}.$$ 
+Taking the limit also yields $L^1$ convergence. 
+
+To show that the sequence does not converge to $0$ almost surely, we consider a sequence of events $A_n$ that $X_n=1$. We then have $\PP(A_n) = \dfrac{1}{n}$. We know that the harmonic series
+$$\sum\limits_{n=1}^\infty \PP(A_n) = \sum\limits_{n=1}^\infty \dfrac{1}{n} \to \infty.$$
+By Borel-Cantelli lemma, the probability of infinitely many $(X_n)$ to be 1 is 1. Therefore, the probability that all but finitely many terms are 0 is 0, which means that the sequence does not converge to $0$ almost surely.
+
+\textbf{(ii)} For the subsequence $Y_n=X_{n^2}$, the sum
+$$\sum\limits_{n=1}^\infty \PP(A_{n^2}) = \sum\limits_{n=1}^\infty \dfrac{1}{n^2} < 1 + \sum\limits_{n=2}^\infty\dfrac{1}{n(n+1)} < \dfrac{3}{2}$$
+
+converges. By Borel-Cantelli lemma, the probability of infinitely many $Y_n$ to be $1$ is $0$, indicating that $Y_n$ converges to $0$ almost surely.
+
+\subsection*{Problem 8.} Consider a sequence of independent Bernoulli random variables $(X_n)_{n\in\NN}$ such that $X_n = 1$ with probability $p_n$.
+\begin{enumerate}
+    \item [(i)] Provide a necessary and sufficient condition on $p_n$ in order to have $X_n \to 0$ in probability.
+    \item [(ii)] Provide a necessary and sufficient condition on $p_n$ in order to have $X_n \to 0$ almost surely. Compare with the result in (i).
+\end{enumerate}
+
+

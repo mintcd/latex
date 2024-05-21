@@ -1,0 +1,55 @@
+\chapter{Introduction}
+\label{chapter:intro}
+A watermark is an additional message embedded in the original work. Initially, watermark embedding techniques were developed to mark the manufacturing process. Over time, watermarks have been widely adopted to protect the integrity and authenticity of content, ensuring that products are not stolen by others. Digital watermarking techniques have been proposed and developed for various types of media, including images, audio, video, and text \cite{cox2007digital}. These techniques often employ advanced methods such as deep neural networks \cite{luo2023dvmark}, wavelet transforms, singular value decomposition \cite{ernawan2020block}, and edge detection \cite{kadian2021robust} to ensure high imperceptibility, robustness, capacity, and security. Additionally, some techniques consider human perception and application scenarios to optimize performance. However, authorized users often wish to remove watermarks from their images as these marks can be distracting or obscure essential details. Using image-editing software such as Photoshop for this task typically requires significant time and expertise. An automated solution for watermark removal, especially in videos, would be a valuable asset. Conversely, the problem of watermark removal has become a promising research topic as it counteracts watermark embedding. As solutions for removal become more efficient, both embedding and removal problems have evolved into subbranches of security and steganography, each advancing the other. 
+
+Recently, several methods have been proposed to tackle this problem using various approaches, many of which utilize deep neural networks (DNNs). AdvancedUnet \cite{wei2023visual} employs the strong image translation performance of the U-structure network (U-net) to simultaneously extract and remove watermarks. Generative Adversarial Networks (GANs) such as cGAN \cite{liu2021wdnet, sun2021detect} are also used to detect and reverse watermarks within the DNNs. Other approaches leverage attention mechanisms to identify and remove watermark regions, such as the Attention-based DNN \cite{zhang2021blind}. Diffusion models have demonstrated remarkable results in generating high-quality images, surpassing GANs in some cases \cite{dhariwal2021diffusion} and thus have found their applications in watermark removal \cite{li2023diffwa}.
+
+
+% Another approach involves image-to-image translation to learn the mapping between watermarked and clean images, such as with cGAN \cite{liu2021wdnet}. Some methods leverage attention mechanisms to identify and remove watermark regions, such as the Attention-based DNN \cite{zhang2021blind}.
+
+% The advancements of computational performance and ongoing theoretical research have led to significant progress in the functionality of Machine Learning on large datasets. Beyond making decisions and deriving insights, recent models can generate new samples that resemble their training datasets. These models are known as Generative Models. For images and sounds, the generated samples are not only perceptible but often highly aesthetic. \textcolor{red}{Notable examples include Generative Adversarial Networks (GANs) \cite{goodfellow2014generative}, Variational Auto-Encoders (VAEs) \cite{hinton2006reducing}, and Diffusion Models \cite{sohl2015deep}}. 
+
+
+% Additionally, the breakthrough Transformer architecture \cite{vaswani2017attention} has inspired the application of Natural Language Processing solutions to Computer Vision, resulting in state-of-the-art performance that outstrips traditional Convolutional Neural Network (CNN) methods.
+
+
+These developments paved the way for our capstone project. We utilize a diffusion-based inpainting model, the Image-to-Image Schrödinger Bridge (I$^2$SB) \cite{liu2023i2sb}, along with a zero-shot segmentation model, Segment Anything Model (SAM) \cite{kirillov2023segment}, to address the intriguing problem of removing watermarks from media data.
+
+
+\section{Introduction to the Problem}
+In this project, we apply the Image-to-Image Schrödinger Bridge (I$^2$SB) and Segment Anything Model (SAM) to remove watermarks from images. In machine learning terms, this involves transforming a sample from the distribution of watermarked images to a sample from the distribution of clean images, while preserving the overall content and information of the images. The proposed approach can serve as a benchmark for further research in the field of watermark generation and removal. The state-of-the-art performance of these models, combined with our desire to understand their mechanisms, motivates us to undertake this project. Therefore, we also delved into the relevant mathematical and neural network concepts to gain a thorough understanding of the mechanisms underlying these models. Despite the theoretical and technical challenges, our work is structured around the following objectives:
+
+\begin{enumerate}
+    \item Study in-depth the principles of mathematical analysis, including measure theory and probability theory, which contribute to the theory of stochastic processes and stochastic differential equations. Our goal is to achieve a clear understanding of the main theoretical result, the principal theorem of reverse-time diffusion models.
+    \item Study the theory of Artificial Neural Networks, with a focus on understanding the Transformer architecture.
+    \item Using the acquired knowledge, examine predominant diffusion models such as Denoising Score Matching (DSM), Denoising Diffusion Probabilistic Models (DDPM) and Score-based Generative Models (SGM) through stochastic differential equations. We will also study the closely related result for our problem, the Image-to-Image Schrödinger Bridge (I$^2$SB). Additionally, we delve into the architecture of transformer-based models for image segmentation, including Vision Transformer, SegFormer, and the Segment Anything Model.
+    \item Test SAM and Image-to-Image Schrödinger Bridge on a lightweight image dataset embedded with a watermark dataset. 
+\end{enumerate}
+
+\section{Scope of the Project}
+We have selected a lightweight version of the ImageNet dataset for our project due to its widespread use and its comprehensive coverage of common objects and scenarios. To incorporate watermarks, we have chosen images from the Pokémon dataset, reflecting our interest in cartoons.
+
+\section{Report Structure}
+The main structure of our project is as follows:
+
+\textbf{Chapter I. Introduction.} This chapter provides an overview of generative models and segmentation models, as well as watermark embedding and removal techniques. It outlines our research problem and the objectives we aim to achieve in the project.
+
+\textbf{Chapter II. Mathematical Preliminaries.} We discuss the essential building blocks for diffusion models, including measure theory, probability theory, stochastic processes, and stochastic differential equations.
+
+\textbf{Chapter III. Machine Learning Foundation.} This chapter delves into several key diffusion models, encompassing the unconditional diffusion model and the Denoising Diffusion Probabilistic Models (DDPM) \cite{ho2020denoising}. Along the way, we highlight the use of Stochastic Differential Equations (SDEs) to simply train the score function. We also explore the Schrödinger Bridge problem \cite{schrodinger1932theorie} as an example of conditional models.  Additionally, we examine the widely adopted Transformer architecture \cite{vaswani2017attention}, with an application to Computer Vision \cite{liu2018image}.
+
+\textbf{Chapter IV. Related Works.} Here, we review previous research on watermark embedding and removal models, as well as other models related to our removal pipeline, including SegFormer, SAM, and I$^2$SB.
+
+\textbf{Chapter V. Proposed Method and Experiments.} In this chapter, we propose our detailed two-stage pipeline for solving the watermark removal problem, applying related works SAM and I$^2$SB. We then present the results of SAM and I$^2$SB in watermark removal against several other models on a lightweight version of the ImageNet dataset, with watermarks sourced from the Pokémon dataset.
+
+\textbf{Chapter VI. Conclusion.} This chapter summarizes the work done in the project, identifies limitations, and discusses plans for future improvements.
+
+\textbf{Appendix.} This section contains relevant extended inferences and supplementary information.
+
+
+
+
+
+
+
+

@@ -1,0 +1,227 @@
+\textbf{Exercise 4.} 
+
+\begin{center}
+    \textbf{Part I}
+\end{center}
+
+\begin{enumerate}
+    \item Recall why the columns of an orthogonal matrix form an orthonormal basis of $\mathbb{R}^n$
+    \item Determine all matrices which are both orthogonal and upper triangular. 
+    \item Assuming that $A$ admits a $QR$ decomposition, show that there are $2^n$ possible $QR$ decompositions for $A$.
+\end{enumerate}
+
+\textit{Solutions}\\
+
+\textbf{1. } Let $Q=\begin{pmatrix}
+    q_1 & ... & q_n
+\end{pmatrix}\in\mathbb{R}^{n\times n}$ be an orthogonal matrix. Let $I_n=(\delta_{ij}),1\le i,j\le n$, where 
+$$\begin{cases}
+    \delta_{ij}=1,\,\,i=j\\
+    \delta_{ij}=0,\,\,\text{otherwise}
+\end{cases}.$$ Since $Q^\top Q=I_n$, we have 
+$$\begin{cases}
+    \delta_{ii}=q_i^\top q_i = 1\\
+    \delta_{ij}=q_i^\top q_j = 0,\,\,i\ne j
+\end{cases}.$$
+Therefore, $q_1,...,q_n$ form an orthogonal basis of $\mathbb{R}^n$.\\
+
+\textbf{2.} Let $U=(u_{ij}),1\le i,j\le n$ be an upper triangular matrix, then $U$ is also orthognal if $U^\top U = I_n$, or explicitly
+
+$$\begin{pmatrix}
+    u_{11} & 0  & \cdots & 0\\
+    u_{12} & u_{22} & \cdots & \\
+    \vdots & \vdots & \ddots & \vdots\\
+    u_{1n} &  u_{2n} &   \cdots    & u_{nn}
+\end{pmatrix}
+\begin{pmatrix}
+    u_{11} & u_{12} & \cdots & u_{1n}\\
+    0      & u_{22} & \cdots & u_{2n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0      &  0     & \cdots & u_{nn}
+\end{pmatrix}=I_n$$
+
+Multiplying the first row of $U^\top$ with columns of $U$ gives
+
+\begin{itemize}
+ \renewcommand{\labelitemi}{\scriptsize$\blacksquare$}
+ \item $u^2_{11}=1$, implying $u_{11}=\pm 1$
+ \item $u_{11}u_{1i}=0,\,\, 2\le i\le n$. Since $u_{11}\ne 0$, we have $u_{1i}=0,\,\, 2\le i\le n$.
+\end{itemize}
+
+After this step, the problem reduces into finding the other elements such that
+
+$$\begin{pmatrix}
+    u_{22} & 0  & \cdots & 0\\
+    u_{23} & u_{33} & \cdots & \\
+    \vdots & \vdots & \ddots & \vdots\\
+    u_{2n} &  u_{3n} &   \cdots    & u_{nn}
+\end{pmatrix}
+\begin{pmatrix}
+    u_{22} & u_{23} & \cdots & u_{2n}\\
+    0      & u_{33} & \cdots & u_{3n}\\
+    \vdots & \vdots & \ddots & \vdots\\
+    0      &  0     & \cdots & u_{nn}
+\end{pmatrix}=I_{n-1}.$$
+
+Hence we can conclude similarly that $u_{22}=\pm 1$ and $u_{2i}=0,\,\, 3\le i\le n$. \\
+
+By continuing the process, it turns out that $U$ is a diagonal matrix whose diagonal entries are $\pm 1$.\\
+
+\textbf{3. } Firstly we observe that if $A=QR$ is a $QR$ decomposition of $A$, then so is $A=(-Q)(-R)$, or there are at least two $QR$ decompositions of $A$. Let
+
+$$A=Q_1R_1=Q_2R_2.$$
+
+Similarly to Question 2 of Exercise 1, $Q_1,R_1,Q_2,R_2$ are invertible and
+
+$$Q_1^{-1}Q_2=R_2^{-1}R_1.$$
+
+According to Lemma 1, $R_2^{-1}$ is upper triangular. Hence according to Lemma 2, $R_2^{-1}R_1$ is upper triangular. Since $Q_1$ is orthogonal, $Q_1^{-1}=Q_1^\top$. Therefore
+\begin{align*}
+    (Q_1^{-1}Q_2)^\top(Q_1^{-1}Q_2)
+    &=(Q_1^\top Q_2)^\top(Q_1^{-1}Q_2)\\
+    &=Q_2^\top Q_1Q_1^{-1} Q_2 \\
+    &= Q_2^\top Q_2= I.
+\end{align*}
+
+Hence $Q_1^{-1}Q_2$ is orthogonal while also upper triangular. By Question 1, we have $$Q_1^{-1}Q_2=D,$$
+where $D$ is a diagonal matrix whose diagonal entries are $\pm 1$. There are $2^n$ values of $D$ and one of them is the identity. That is, for a matrix $Q_1$, there are $2^n$ matrices $Q_2=Q_1D$, in which one of them is $Q_1$ itself. Thus if $A$ admits a $QR$ decomposition, there are $2^n$ possible $QR$ decomposition for $A$.
+
+\begin{center}
+    \textbf{Part II}
+\end{center}
+
+\begin{enumerate}
+    \item Let $h_u$ denote the reflection through the hyperplane $\{x\in\mathbb{R}^n\,:\, \langle x,u\rangle = 0\}$ and $H_u$ be its matrix in the standard basis. Show that
+    $$h_u(x)=x-2\langle x,u\rangle u.$$
+    holds for all $x\in\mathbb{R}^n$, then deduce that
+    $$H_U=I_n-2UU^\top.$$
+    The matrix $H_U$ is called a Householder matrix. Why $H_U$ is an orthogonal matrix ?
+    \item  Let $a$ and $b$ be two linearly independent vectors in $\mathbb{R}^n$ with $b$ unitary. Show that there exists a nonzero real number $\alpha$ and a unitary vector $u$ such that : $h_u(a) = \alpha b$.
+    \item Determine $H_U$ in the case $n = 3, a = (-1, 2, 2)$ and $b = (1, 0, 0)$.
+\end{enumerate}
+
+\textbf{1.} Let $\mathcal{H}_u=\{x\in\mathbb{R}^n\,:\, \langle x,u\rangle = 0\}$. For any $x,y\in\mathcal{H}_u$ and $\alpha\in\mathbb{R}$, we have
+\begin{align*}
+    \langle \alpha x+y, u\rangle = \alpha\langle x, u\rangle + \langle y, u\rangle = 0.
+\end{align*}
+Hence $\mathcal{H}_u$ is a subspace of $\mathbb{R}^n$. The dimension of $\mathcal{H}_u$ is equal to the nullity of $u^\top x$, where $u^\top$ is now consider as an $1\times n$ matrix. Since  $u$ is unitary, we have $u\ne 0$, leading to $\mathrm{rank}\,u^\top=1$, so 
+$$\dim\mathcal{H}_u=\mathrm{nullity}\,u^\top = \dim\mathbb{R}^n - \mathrm{rank}\,u^\top = n - 1.$$
+That is, $\dim\mathcal{H}^\top_u=1$.  Also, $\langle u,x\rangle =0,\forall x\in\mathcal{H}_u$, so $u\in\mathcal{H}^\top_u$. Hence 
+$$\mathcal{H}^\top_u=\{au,\,\,a\in\mathbb{R}\}.$$
+Therefore, any vector $x\in\mathbb{R}^n$ can be written as
+$$x=y+au,\,\,y\in\mathcal{H},a\in\mathbb{R},$$
+where $y$ is the projection of $x$ onto $\mathcal{H}$. The equation also implies
+$$\langle x,u\rangle = \langle y,u\rangle + a\langle u,u\rangle = a.$$
+Hence $x=y+\langle x,u\rangle u$ or $y= x - \langle x,u\rangle$.
+Thus $$h_u(x)=2y-x=x-2\langle x,u\rangle.$$
+\textbf{2. } We need to show that there exists a nonzero real number $\alpha$ and a unitary vector $u$ such that
+$$a-2\langle a,u\rangle u = \alpha b.$$
+
+\subsection*{Exercise 3}
+Two matrices $A,B\in\mathcal{M}_n(\mathbb{C})$ are unitarily equivalent $A=QBQ^*$ for some unitary matrix $Q\in\mathcal\mathcal{M}_n(\mathbb{C})$. Is it true or false that $A$ and $B$ are unitarily equivalent if and only of they have the same eigenvalues.\\
+
+
+Suppose that $A = PBP^*$. Using SVD on $B$ gives $B = U\Sigma V^*$, in which elements on the diagonal of $\Sigma$ are singular values of $B$. Plugging back to  $A = PBP^*$ gives
+
+\begin{equation}
+\label{eq:3}
+    A = (PU)\Sigma(P^*V^*)
+\end{equation}
+
+It is clear that if $X$ and $Y$ are unitary, then so is $XY$, since 
+$$(XY)^*XY = Y^*X^*XY = Y^*Y = I.$$
+
+Hence $PU$ and $P^*V^*$ are unitary and (\ref{eq:3}) is an SVD of $A$. Therefore, elements on the diagonal of $\Sigma$ are singular values of $A$. \\
+
+Now suppose that $A$ and $B$ have the same singular values, meaning that we can write their SVD as $A = U_1\Sigma V_1^*$ and $B = U_2\Sigma V_2^*$. Then
+
+$$A = U_1\Sigma V_1^* = U_2^*U_1BV_1^*V_2.$$
+It is not necessary that $U_2^*U_1 = V_1^*V_2$, so the conversion is not true. \\
+
+Thus, one can only imply that two matrices have the same singular values given that they are unitarily equivalent but not the conversion. So the given statement is false.
+
+\subsection*{Exercise 4}
+\begin{enumerate}
+    \item Show that the singular values of a normal matrix are the absolute values of its eigenvalues.
+    \item  Show that the singular values of a symmetric positive semidefinite matrix $A$ are its eigenvalues and
+that the singular vectors are eigenvectors of $A$.
+\end{enumerate}
+
+\textbf{1.} Let $A\in\mathcal{M}_n(\mathbb{C})$ be a normal matrix. Note that $A$ has been claimed to be square since $A^*A=AA^*$. Then $A$ has a spectral decomposition 
+\begin{equation*}
+    A = Q\,\mathrm{diag}(\lambda_1,...,\lambda_n)\,Q^*
+\end{equation*} 
+That is, $\sigma_1,...,\sigma_n$ are eigenvalues of $A$.\\
+
+On the other hand, 
+\begin{align*}
+    A^*A &= Q\,\mathrm{diag}(\lambda_1^*,...,\lambda^*_n)\,Q^*Q\,\mathrm{diag}(\lambda_1,...,\lambda_n)\,Q^*\\
+    &= Q\,\mathrm{diag}(\lambda_1^*,...,\lambda^*_n)\,\mathrm{diag}(\lambda_1,...,\lambda_n)\,Q^* \\
+     &= Q\,\mathrm{diag}(|\lambda_1|^2,...,|\lambda_n|^2)\,Q^*
+\end{align*}
+So $|\lambda_1|^2,...,|\lambda_n|^2$ are eigenvalues of $A^*A$, leading to that $|\lambda_1|,...,|\lambda_n|$ are singular values of $A$.
+We come to a conclusion that the singular values of a normal matrix are absolute values (or norms) of its eigenvalues.\\
+
+\textbf{2.} Let $A\in\mathcal{M}_n(\mathbb{C})$ be symmetric positive semidefinite matrix. Firstly we show that all eigenvalues of $A$ are positive real numbers. This is indeed true because each eigenvalue $\lambda$ of $A$ satisfies the equation $$Ax=\lambda x.$$
+Pre-multiplying both sides by $x^*$, yields
+\begin{align*}
+    \lambda x^*x = x^*Ax &\ge 0\\
+    \lambda ||x|| &\ge 0\\
+    \lambda &\ge 0.
+\end{align*}
+
+(The problem seems to become proving that $A$ is unitarily diagonalizable, but has not been done...)
+
+% \subsection*{Exercise 5}
+
+% \subsection*{Exercise 6}
+
+\subsection*{Exercise 7} \textit{(Polar decomposition)} The polar decomposition of a square real or complex matrix $A$ is a factorization of the form $A = UP$ , where $U$ is a unitary matrix and $P$ is a positive-semidefinite Hermitian
+matrix, both square and of the same size. Show how to find the polar decomposition of a matrix from its
+SVD.\\
+
+Using the SVD of $A$, we have $$A = U\Sigma V^* = (UV^*)(V \Sigma V^*)$$
+
+Now we need to prove that $UV^*$ is a unitary matrix and $V \Sigma V^*$ is a positive-semidefinite Hermitian matrix. Indeed, $UV^*$ is a unitary matrix since 
+$$(UV^*)^*UV^* = VU^*UV^* = VV^* = I.$$
+
+And as $\Sigma$ is a real diagonal matrix, we must have that $\Sigma^* = \Sigma$, so
+
+$$(V\Sigma V^*)^* = V\Sigma^* V^* = V\Sigma V^*,$$
+meaning that $V \Sigma V^*$ is Hermitian. Also, suppose $A$ is an $n\times n$ matrix, then so is $V \Sigma V^*$. Then for any vector $\mathbf{x}\in\mathbf{C}^n$, let $y = V^*x$, we have
+
+$$x^*(V \Sigma V^*)x = (x^*V)\Sigma(V^*x) = (V^*x)^*\Sigma (V^*x) = y^*\Sigma y.$$
+
+Write $\Sigma$ explitly as $\Sigma = \mathrm{diag}\,(\sigma_1,...,\sigma_n)$, where $\sigma_1\ge...\ge\sigma_n\ge 0$ and let $y = 
+\begin{pmatrix}
+    y_1 \\ \vdots \\ y_n
+\end{pmatrix}$, then 
+
+\begin{align*}
+   y^*\Sigma y &= 
+\begin{pmatrix}
+    \overline{y}_1 & ... & \overline{y}_n
+\end{pmatrix}
+\mathrm{diag}\,(\sigma_1,...,\sigma_n)
+\begin{pmatrix}
+    y_1 \\ \vdots \\ y_n
+\end{pmatrix}\\
+=& \begin{pmatrix}
+    \sigma_1 \overline{y}_1 & ... & \sigma_n \overline{y}_n
+\end{pmatrix}
+\begin{pmatrix}
+    y_1 \\ \vdots \\ y_n
+\end{pmatrix}\\
+&= \sigma_1|y_1|^2+...+\sigma|y_n|^2 \ge 0.
+\end{align*}
+
+Therefore, $V\Sigma V^*$ is positive semidefinite. Thus $A = (UV^*)(V \Sigma V^*)$ is a polar decomposition of $A$.
+
+
+
+
+
+
+
+
+

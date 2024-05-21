@@ -1,0 +1,488 @@
+\section{Stochastic Differential Equations}
+Stochastic differential equations (SDEs) plays a major role in continuous-time diffusion models beginning from Anderson's theorem on reverse-time diffusion \cite{anderson1982reverse}. This section develops related backgrounds to prove this theorem.
+
+\subsection{Introduction and Definition of an SDE}
+
+In Section \ref{subsection:stochastic-integrals}, we see that without  a stochastic term $\int\limits_0^t \sigma(X_s,s)\d W_s$, our model become an ordinary deterministic integral
+\begin{equation}
+  \label{equation:ordinary-integral}
+  \begin{cases}
+    X_t - X_0 = \int\limits_0^t b(X_s,s)\d s \\
+    X_0 = p_0.
+  \end{cases}
+\end{equation}
+
+We know that such integral is associated with an ordinary differential equation (ODE)
+\begin{equation}
+  \label{equation:ode}
+  \begin{cases}
+    \d X_t = b(X_t,t) \\
+    X_0 = p_0.
+  \end{cases}
+\end{equation}
+
+The ODE \ref{equation:ode}, in which $b(X_t,t)$ depends on the time $t$, is called non-autonomous. We can convert this ODE into an autonomous form.
+
+\begin{equation}
+  \label{equation:autonomous-ode}
+  \begin{cases}
+    \d \begin{bmatrix}
+         X_t \\ y_t
+       \end{bmatrix} = \begin{bmatrix}
+                         b(X_t,y_t) \\ 1
+                       \end{bmatrix} \\
+    \begin{bmatrix}\d t
+      X_0 \\ y_0
+    \end{bmatrix} = \begin{bmatrix}
+                      p_0 \\ 0
+                    \end{bmatrix}
+  \end{cases}
+\end{equation}
+
+In the same sense, a stochastic differential equation presents a differential form of a stochastic integral, given in the following definition.
+
+\begin{definition}
+  Let $\{X(t)\}_{t\in[0,T]}$ be a $d_X$-dimensional stochastic process. Suppose that there is a function $b:\RR^{d_X}\times [0,T]\to\RR^{d_X}$ that is $(\B(\RR^{d_X})\otimes \B([0,T)),\B(\RR^{d_X}))$-measurable, and there is a function $\sigma:\RR^{d_X}\times [0,T]\to\RR^{d_X\times d_W}$ that is $(\B(\RR^{d_X})\otimes \B([0,T)), \B(\RR^{d_X\times d_W}))$-measurable, such that
+  $$X(s) = X(0)+\int\limits_{0}^s b(X_t,t)\d t + \int\limits_{0}^s \sigma(X_t,t)\d W, \forall 0\le s \le T,$$
+  where $W = W(t)$ is a $d_W$-dimensional Wiener process. We say that $\{X(t)\}_{t\in[0,T]}$ is a solution to the non-autonomous stochastic differential equation
+  \begin{equation}
+    \label{definition:sde}
+    \begin{cases}
+      \d X_t & = b(X_t,t)\d t+\sigma(X_t,t)\d W \\
+      X_{0}  & = Z.
+    \end{cases}
+  \end{equation}
+\end{definition}
+
+Similarly to ODEs, we can convert \ref{definition:sde} into an autonomous form
+\begin{equation}
+  \label{equation:autonomous-sde-convert}
+  \begin{cases}
+    \d \begin{bmatrix}
+         X_t \\ y_t
+       \end{bmatrix} & =
+    \begin{bmatrix}
+      b(X_t,y_t) \\ 1
+    \end{bmatrix}
+    \d t + \begin{bmatrix}
+             \sigma(X_n,t) \\ 0
+           \end{bmatrix}\d W            \\
+    \begin{bmatrix}
+      X_{0} \\ y_{0}
+    \end{bmatrix}    & = \begin{bmatrix}
+                           Z \\ 0
+                         \end{bmatrix}.
+  \end{cases}
+\end{equation}
+Therefore, we will later study autonomous SDEs of the form
+\begin{equation}
+  \label{definition:autonomous-sde}
+  \begin{cases}
+    \d X_t & = b(X_t)\d t+\sigma(X_t)\d W \\
+    X_{0}  & = Z.
+  \end{cases}
+\end{equation}
+
+\begin{example}
+  \begin{enumerate}
+    \item []
+    \item The \textit{geometric Brownian motion}
+          $$\d X_t = b_0X_t\d t +  \sigma_0 X_t\d W_t$$
+          is used in financial mathematics as an equation for the dynamics of a stock price \cite{reddy2016simulating}.
+    \item The equation
+          $$\d X_t=\sqrt{\beta(t)}\d W$$
+          is used in the continuous-time setting of Denoising Diffusion Probabilistic Models \cite{ho2020denoising}.
+  \end{enumerate}
+\end{example}
+
+Given an SDE \ref{definition:sde}, we can sample some $X_t$, where $t\in[0,T]$ using discretization. Let $\Delta t$ be the time step. For $0<t<T$, set $N=\dfrac{T}{\Delta t}$ and compute
+$$X_{n+1} = X_n + b(X_n, n\Delta t)\Delta t + \sigma(X_n, n\Delta t)\sqrt{\Delta t} Z_n, n = 1,2 \ldots, N-1,$$
+where $Z_1,Z_2,\ldots, Z_n\sim\N(0,I)$.
+
+\subsection{Solutions to an SDE}
+
+
+\begin{definition}[Maximum process]
+  Let $\{X_t\}_{t\in[0,T]}$ be a real-valued stochastic process. The maximum process $\{X^*_t\}_{t\in[0,T]}$ is defined as
+  $$X^*_t = \sup\limits_{0\le s\le t} |X_s|$$
+\end{definition}
+
+\begin{definition}[The Space $\Q\M(T)$]
+  Let $\Q\M(T)$, where $T>0$ be the space of all non-anticipating, real-valued and square-integrable processes $\{X_t\}_{t\in[0,T]}$.
+\end{definition}
+
+\begin{proposition}
+  The function $\|\cdot\|_{\Q\M(T)}:\Q\M(T)\to\RR$ defined by
+  $$\|X\|_{\Q\M(T)} = \|X^*_T\|_{L^2(\Omega)},\forall X\in \Q\M(T)$$
+  is a norm on $\Q\M(T)$. Moreover, the normed space $\left(\Q\M(T),\|\cdot\|_{\Q\M(T)}\right)$ is Banach.
+\end{proposition}
+
+\begin{definition}[Picard operator]
+  Consider the SDE \ref{definition:autonomous-sde}. The corresponding integral operator $P_{X_0,b,\sigma}$ for an Itô process $Y:=\{Y_t\}_{t\in[0,T]}$ is defined as
+  \begin{equation}
+    \label{equation:picard-operator}
+    P_{X_0,b,\sigma} Y_t = X_0 + \int\limits_0^t b(Y_s)\d s + \int\limits_0^t \sigma(Y_s)\d W.
+  \end{equation}
+  We also define $P_{X_0,b,\sigma} Y := \{P_{X_0,b,\sigma} Y_t\}_{t\in[0,T]}$.
+\end{definition}
+
+\begin{lemma}
+  \label{lemma:inequality-for-Piscard-operator-and-QM-norm}
+  Let $b:\RR\to\RR$ and $\sigma:\RR\to\RR$ be uniformly Lipschitz continuous functions, and abbreviate $P_{X_0,b,\sigma}$ by $P$. Let $X$ and $Y$ be one-dimensional Itô processes defined by $b$ and $\sigma$. Then there exists a constant $D\in\RR$ such that
+  \begin{equation}
+    \|PX - PY\|_{\Q\M(t)}^2 \le D\int\limits_0^t\|X-Y\|_{\Q\M(s)}^2\d s, t\in[0,T]
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  For each $t\in[0,T]$ and $\omega\in\Omega$, we have
+  \begin{align*}
+    \left|PX_t(\omega)-PY_t(\omega)\right|
+     & = \left|\int\limits_0^t (b(X_s(\omega))-b(Y_s(\omega)))\d s + \int\limits_0^t (\sigma(X_s(\omega))-\sigma(Y_s(\omega)))\d W\right|                                                 \\
+     & \le \left|\int\limits_0^t (b(X_s(\omega))-b(Y_s(\omega)))\d s\right| + \left|\int\limits_0^t (\sigma(X_s(\omega))-\sigma(Y_s(\omega)))\d W\right|                                  \\
+     & \le \int\limits_0^t K_b|X_s(\omega)-Y_s(\omega)|\d s + \int\limits_0^t K_\sigma|X_s(\omega)-Y_s(\omega)|\d W                                      & \text{ (Lipschitz continuity)} \\
+  \end{align*}
+  Hence
+  \begin{align*}
+    \sup\limits_{0\le r\le t}\left|PX_t(\omega)-PY_t(\omega)\right|
+     & \le \sup\limits_{0\le r\le t}\left(\int\limits_0^r K_b|X_s(\omega)-Y_s(\omega)|\d s + \int\limits_0^r K_\sigma|X_s(\omega)-Y_s(\omega)|\d W\right) \\
+     & \le \int\limits_0^t K_b|X_s(\omega)-Y_s(\omega)|\d s + \int\limits_0^t K_\sigma|X_s(\omega)-Y_s(\omega)|\d W
+  \end{align*}
+  Therefore,
+  \begin{align*}
+    \left\|PX-PY\right\|_{\Q\M(t)}^2
+     & \le \EE\left[\left(\sup\limits_{0\le r\le t}\left(PX_t-PY_t\right)^2\right)\right]                                                                           \\
+     & \le  \EE\left[\left(\int\limits_0^t K_b|X_s-Y_s|\d s + \int\limits_0^t K_\sigma|X_s-Y_s|\d W\right)^2\right]                                                 \\
+     & \le \dfrac{1}{2}\EE\left[\left(\int\limits_0^t K_b|X_s-Y_s|\d s\right)^2+\left(\int\limits_0^t K_\sigma|X_s-Y_s|\d W\right)^2\right]                         \\
+     & \le \dfrac{1}{2}\EE\left[K_b t\int\limits_0^t (X_s-Y_s)^2\d s+K_\sigma\left(\int\limits_0^t |X_s-Y_s|\d W\right)^2\right]
+     & \text{(Jensen inequality)}                                                                                                                                   \\
+     & \le 2\EE\left[K_b^2 t\int\limits_0^t (X_s-Y_s)^2\d s+K_\sigma^2\int\limits_0^t (X_s-Y_s)^2\d s\right]                                & \text{(Itô isometry)} \\
+     & = 2(K_b^2 t+K_\sigma^2)\EE\left[\int\limits_0^t (X_s-Y_s)^2\d s\right]                                                                                       \\
+     & \le 2t(K_b^2 t+K_\sigma^2)\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s                                                                                        \\
+     & \le 2T(K_b^2 T+K_\sigma^2)\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s                                                                                        \\
+     & = D\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s.
+  \end{align*}
+  The proof is completed.
+\end{proof}
+
+\begin{theorem}[Existence and uniquness of solutions to SDEs in one dimension]
+  \label{theorem:existence-and-uniqueness-solution-to-sdes-in-one-dimension}
+  Let there be the autonomous one-dimensional SDE
+  \begin{equation}
+  \label{equation:autonomous-one-dimensional-sde}
+    \begin{cases}
+      \d X_t = b(X_t)\d t+\sigma(X_t)\d W \\
+      X_{0} = Z.
+    \end{cases}
+  \end{equation}
+  If $b:\RR\to\RR$ and $\sigma:\RR\to\RR$ are uniformly Lipschitz continuous, then there exists a square-integrable, real-valued Itô process $\{X_t\}_{t\in[0,T]}$ that solves Equation \ref{equation:autonomous-one-dimensional-sde}. Moreover, this solution is unique almost surely.
+\end{theorem}
+
+\begin{proof}
+  We begin by proving the existence of $X$, along with that $X\in\L^2$. Let us abbreviate the Picard operator $P_{X_0,b,\sigma}$ by $P$. For each $t\in[0,T]$, set
+  \begin{align*}
+    X_0(t)  & = X_0   \\
+    X_{n+1} & = PX_n.
+  \end{align*}
+  We will show that $\{X_n\}$ is Cauchy in $\Q\M(T)$. For $n\in\NN_0$, let
+  \begin{equation}
+    \phi_n(t) := \|X_{n+1}-X_n\|^2_{\Q\M(T)}.
+  \end{equation}
+  Because of the supremum embedded in the $\Q\M(T)$-norm, $\phi_n$ is non-decreasing for each $n\in\NN$. Using Lemma \ref{lemma:inequality-for-Piscard-operator-and-QM-norm}, for each $n\in\NN$, we have
+  \begin{align*}
+    \phi_n(t)
+     & = \|PX_{n}-PX_{n-1}\|^2_{\Q\M(T)}                     \\
+     & \le D\int\limits_0^t\|X_{n}-X_{n-1}\|_{\Q\M(s)}^2\d s \\
+     & = D\int\limits_0^t\phi_{n-1}(s)\d s                   \\
+  \end{align*}
+  On the other hand, note that $b(X_0) \le \sup\limits_{\omega\in\Omega}|X_0| + b(0) := A$, and similarly, $\sigma(X_0)\le B$, for some constant $B$, since $X_0\in L^2$, we have
+  \begin{align*}
+    \phi_0(t)
+     & = \|X_1-X_0\|^2_{\Q\M(T)}                                                                   \\
+     & \le \EE\left[\left(\int_0^tb(X_0)\d s + \int_0^t\sigma(X_0)\d W\right)^2\right]             \\
+     & \le \EE\left[\left(\int_0^tA\d s + \int_0^tB\d W\right)^2\right]                            \\
+     & \le 2\left[\EE\left[\left(\int_0^tA\d s\right)^2+\left(\int_0^tB\d W\right)^2\right]\right] \\
+     & = 2\left[\EE\left[A^2t^2+\int_0^tB^2\d s\right]\right]                                      \\
+     & = 2(A^2t^2+B^2t)                                                                            \\
+     & \le 2(A^2T+B^2)t                                                                            \\
+     & = Ct.
+  \end{align*}
+  Using induction, there exists a constant $C_1$ such that
+  $$  \phi_n(t) \le \dfrac{C_1t^{n+1}}{(n+1)!}\xrightarrow{n\to\infty}0 \text{ in } \Q\M(t).$$
+  Therefore, there exists the limit
+  $$X(t)=\lim\limits_{n\to\infty}X_n(t)\in\Q\M(t).$$
+  To show that $X$ is a solution to \ref{equation:autonomous-one-dimensional-sde}, we have to point out that $PX=X$. This is true because $PX$ is also the limit of $(X_n)$
+  \begin{align*}
+    \|PX-X_{n+1}\|_{\Q\M(t)}
+     & =  \|PX-PX_{n}\|_{\Q\M(t)}                      \\
+     & = DT \|X-X_n\|_{\Q\M(t)}                        \\
+     & \xrightarrow{n\to\infty} 0 \text{ in } \Q\M(t).
+  \end{align*}
+
+  To prove uniqueness, suppose that there is another solution $Y$, then $PY=Y$. We have
+  \begin{align*}
+    \|X-Y\|_{\Q\M(t)}^2
+     & \le \|PX-PY\|_{\Q\M(t)}^2            \\
+     & \le D\int_0^t\|X-Y\|_{\Q\M(s)}^2\d s \\
+  \end{align*}
+  By Lemma \ref{lemma:gronwall-inequality}, we have $\|X-Y\|_{\Q\M(t)}^2\le0$, implying that $X_t = Y_T a.s.$
+\end{proof}
+
+\begin{theorem}[Existence and uniquness of solutions to SDEs in multidimension]
+  \label{theorem:existence-and-uniqueness-solution-to-sdes-in-multidimension}
+  Let there be the autonomous one-dimensional SDE \label{equation:autonomous-multidimensional-sde}
+  $$\begin{cases}
+      \d X_t = b(X_t)\d t+\sigma(X_t)\d W \\
+      X_{0} = Z
+    \end{cases}.$$
+  If $b$ and $\sigma$ are uniformly Lipschitz continuous in the norm $\|\cdot\|_2$. Then there exists a square-integrable, non-anticipating real-valued stochastic process $X := \{X_t\}_{t\in[0,T]}$ that solves Equation \ref{equation:autonomous-multidimensional-sde}. Moreover, this solution is unique almost surely.
+\end{theorem}
+
+\begin{proof}
+  Each element $X_t^{(k)}$ of $X_t=\left(X_t^{(1)}, \ldots, X_t^{(d_X)}\right)$ always solves the corresponding elemental SDE
+  \begin{align*}
+    \d X_t^{(k)} = b^{(k)}(X_t)\d t + \left(\sum\limits_{j=1}^{d_W} \sigma^{(kj)}(X_t)\right)\d W^{(k)},
+  \end{align*}
+  for any other $X_\ell, \ell\ne k$. Hence, there exists a solution $X$. The argument for uniqueness is similar to the case of one-dimensional SDEs.
+\end{proof}
+
+% \begin{theorem}[Solution to an SDE is Strongly Markov]
+%   \label{theorem:solution-to-an-sde-is-strongly-markov}
+
+% \end{theorem}
+
+\subsection{Kolmogorov's Equations}
+% Since a solution $\{X_t\}_{[t_0,T]}$ to Equation \ref{definition:sde} is a stochastic process, it is possible to define the transition probability
+% $$\PP(X_t\in A | X_s = y) = \int\limits_{A} p(x,t | y,s)\d x,$$
+% where $p(x,t | y,s)\d x := \PP(X_t\in [x,x+\d x) | X_s = y)$. Specifically, $p(x,t | y,t) = \delta_0(\{x-y\})$.
+
+\begin{definition}
+  Let $\{X_t\}$ be a time-homogeneous Itô diffusion in $\RR^d$. Denote $\EE^x[X_t] := \EE[X_t|X_0=x]$ and define
+  \begin{equation}
+    \label{equation:generator}
+    Gf(x) = \lim\limits_{t\downarrow 0}\dfrac{\EE^x[f(X_t)]- f(x)}{t}, x\in\RR^d,
+  \end{equation}
+  If the limit in Equation \ref{equation:generator} exists, then $G$ is called the generator of the process $\{X_t\}$ with respect to the function $f:\RR^d\to \RR$. The set of all functions $f$ such that the limit exists for any $x\in\RR^d$ is denoted by $\mathrm{Dom}(G)$.
+\end{definition}
+
+\begin{lemma}
+  \label{lemma:generator}
+  Let $\{Y_t\}$ be a $d_Y$-dimensional Itô diffusion and $\{W_t\}$ be a $d_W$-dimensional Wiener process, such that
+  $$Y_t := Y^{x}_t = x + \int\limits_0^t b(\omega, s) \d s + \int\limits_0^t \sigma(\omega, s) \d W.$$
+  Let $f:\RR^d\to \RR$ be twice differentiable and have a compact support. Then
+  \begin{equation}
+    \EE^x[f(Y_t)] = f(x) + \EE^x\left[\int\limits_0^t\left(\sum\limits_{i=1}^{d_Y} b_i(\omega,s)\dfrac{\partial f}{\partial x_i}(Y_s) + \dfrac{1}{2}\sum\limits_{i,j=1}^{d_Y} \sigma\sigma^\top (\omega, s)\dfrac{\partial^2f}{\partial x_i \partial x_j}(Y_s)\right)\d s \right].
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  Let $Z = f(Y)$. According to Itô formula, we have
+  \begin{align*}
+    \d Z
+     & = \sum\limits_{i=1}^{d_Y}\dfrac{\partial f}{\partial x_i}(Y)\d Y_i + \dfrac{1}{2}\sum\limits_{i,j=1}^{d_Y} \dfrac{\partial^2f}{\partial x_i \partial x_j}(Y)\d Y_i \d Y_j                                                                               \\
+     & = \sum\limits_{i=1}^{d_Y} b_i \dfrac{\partial f}{\partial x_i}\d t + \dfrac{1}{2}\sum\limits_{i,j=1}^{d_Y} \dfrac{\partial^2f}{\partial x_i \partial x_j}(v\d W)_i (v\d W)_j +  \sum\limits_{i=1}^{d_Y}\dfrac{\partial f}{\partial x_i}(\sigma \d W)_i.
+  \end{align*}
+  Also,
+  \begin{align*}
+    (v\d W)_i (v\d W)_j
+     & = \left(\sum\limits_{k=1}^{d_W}\sigma_{ik}\d W_k\right)\left(\sum\limits_{\ell=1}^{d_W}\sigma_{j\ell}\d W_\ell\right) \\
+     & = \left(\sum\limits_{k=1}^{d_W}\sigma_{ik}\sigma_{jk}\right)\d t                                                      \\
+     & = (\sigma\sigma^\top)_{ij}\d t.
+  \end{align*}
+  Therefore,
+  \begin{align*}
+    f(Y_t)
+    = f(Y_0) + \int\limits_0^t\left(\sum\limits_{i=1}^{d_Y}b_i\dfrac{\partial f}{\partial x_i} + \dfrac{1}{2}\sum\limits_{i,j=1}^{d_Y} (\sigma\sigma^\top)_{ij} \dfrac{\partial^2f}{\partial x_i \partial x_j}\right) \d s +  \sum\limits_{i=1}^{d_Y}\sum\limits_{j=1}^{d_W}\int\limits_0^t\sigma_{ij}\dfrac{\partial f}{\partial x_i} \d W_j.
+  \end{align*}
+  We finally take the expectations of two sides to complete the proof.
+\end{proof}
+
+\begin{theorem}
+  \label{theorem:generator}
+  Let $\{X_t\}$ be an Itô diffusion satisfying
+  $$\d X_t = b(X_t)\d t + \sigma(X_t)\d W.$$
+  If $f:\RR^d\to \RR$ is bounded and twice differentiable, then
+  \begin{equation}
+    Gf(x) = \sum\limits_{i=1}^{d_Y} b_i \dfrac{\partial f}{\partial x_i} + \dfrac{1}{2}\sum\limits_{i,j=1}^{d_Y} (\sigma\sigma^\top)_{ij}\dfrac{\partial^2f}{\partial x_i \partial x_j}.
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  The proof is derived using Lemma \ref{lemma:generator} and that $\{X_t\}$ is Markovian.
+\end{proof}
+
+\begin{theorem}[Kolmogorov Forward Equation]
+  Let $X$ be an Itô diffusion with generator
+  $$ Gf(x) = \sum\limits_{i=1}^{d_Y} b_i \dfrac{\partial f}{\partial x_i} + \dfrac{1}{2}\sum\limits_{i,j=1}^{d_Y} (\sigma\sigma^\top)_{ij}\dfrac{\partial^2f}{\partial x_i \partial x_j}.$$
+  Assume that there exists the transition density $p_{t}(x|y)$ i.e.
+  \begin{equation}
+    \EE^x[X_t] = \int_{\RR^{d_X}} f(y) p_{t}(x|y)\d y.
+  \end{equation}
+  Let $G^*$ be the adjoint of $G$ i.e.
+  \begin{equation}
+    A^*g = - \sum\limits_{i} \dfrac{\partial}{\partial y_i} (b_ig) + \sum\limits_{i,j} \dfrac{\partial^2}{\partial y_i\partial y_j} (\sigma_{ij}g) , g\in C^2.
+  \end{equation}
+  Then $p_t(x|y)$ solve the partial differential equation given by
+  \begin{equation}
+    \label{equation:forward-kolmogorov}
+    \partial_t p_{t}(x|y) = G^*p_{t}(x|y),
+  \end{equation}
+  called the Kolmogorov forward equation of $X$.
+\end{theorem}
+\begin{proof}
+  Rewrite Theorem \ref{theorem:generator} as an integral, we have
+  \begin{align*}
+    \EE^x[X_t]
+     & = \int_{\RR^d} G f(y) p_{t}(x|y)\d y                \\
+     & = \int_0^t\int_{\RR^d} f(y) G^*p_{s}(x|y)\d y \d s.
+  \end{align*}
+  Therefore,
+  $$\int_{\RR^d} f(y)\partial_t p_{t}(x|y)\d y = \int_{\RR^d} f(y) G^*p_{t}(x|y)\d y.$$
+  Choose $f(y) = \partial_t p_{t}(x|y)$, and then $f(y) = G^*p_{t}(x|y)$, we have
+  \begin{align*}
+    \int_{\RR^d} [\partial_t p_{t}(x|y)]^2 \d y
+     & = \int_{\RR^d} \partial_t p_{t}(x|y) G^*p_{t}(x|y)\d y, \\
+    \int_{\RR^d} [G^*p_{t}(x|y)]^2 \d y
+     & = \int_{\RR^d} \partial_t p_{t}(x|y) G^*p_{t}(x|y)\d y.
+  \end{align*}
+  Therefore,
+  $$\int_{\RR^d} \left[\partial_t p_{t}(x|y) - G^*p_{t}(x|y)\right]^2 \d y = 0.$$
+  Thus, $\partial_t p_{t}(x|y) = G^*p_{t}(x|y).$
+\end{proof}
+\begin{remark}
+  We can write Equation (\ref{equation:forward-kolmogorov}) as an ODE. Let $p(x,0)$ be the initial density, we have
+  \begin{equation}
+    \partial_t p(x,t) = G^*p(x,t) := -\mathrm{div} (bp) + \dfrac{1}{2}\Delta (\sigma g).
+  \end{equation}
+\end{remark}
+
+\subsection{Reverse-time SDEs}
+Let $\{X_t\}_{t\in[0,T]}$ be a stochastic process satisfying the SDE \ref{definition:sde}. We know that any $X_t$ for $t\in[0,T]$ can be sampled from $X_0$ using discretization. Suppose that the random variables $X_t, t\in[0,T]$ are continuous and the density function of $X_t$ is $p_{X_t}(x)$. We ask if it is possible to sample back from $\hat{X}_T = X_T$ so that the two sampling progresses coincide. i.e. $p_{X_t}(x) = p_{\hat{X}_t}(x)$, for any $t\in [0.T]$. Unfortunately, simple sampling
+
+$$X_{n-1} = X_n + b(X_n, n\Delta t)\Delta t + \sigma(X_n, n\Delta t)\sqrt{\Delta t} Z_n, n = N, N-1, \ldots, 1,$$
+where $Z_1,Z_2,\ldots, Z_n\sim\N(0,I)$ does not work. Meanwhile, the reverse-time model is not simply to make some adjustment to \ref{definition:sde} to permit use of a backward rather than forward Ito integral for expressing the solution of \ref{definition:sde} \cite{anderson1982reverse}.
+
+Firstly, we explicate the ingredients of the problem. Let $(\Omega, \F, \PP)$ be a probability space with a filtration $\{\F_t\}_{t\in\RR}$. Let $\{W_t\}_{t\in\RR}$ be a $d$-dimensional Brownian motion adapted to $\{\F_t\}_{t\in\RR}$ such that for any $s\ge t$
+
+\begin{equation}
+  \label{eqs:forward-sde-condition}
+  \begin{aligned}
+     & \EE[W_s - W_t | \F_t] = W_s - W_t,                \\
+     & \EE[W_s | \F_t] = W_t,                            \\
+     & \EE[(W_s - W_t)(W_s - W_t)^\top | \F_t] = (s-t)I.
+  \end{aligned}
+\end{equation}
+
+Recall that our forward stochastic differential equation has the form
+\begin{equation}
+  \label{equation:forward-sde}
+  \d X=b(X_n,t)\d t+\sigma(X_n,t)\d W,
+\end{equation}
+where $X$ is $d_X$-dimensional and $W$ is $d_W$-dimensional, $b$ and $\sigma$ guarantee the existence and uniqueness of a solution, given in Theorem \ref{theorem:existence-and-uniqueness-solution-to-sdes-in-multidimension}. Equation \ref{equation:forward-sde} is understood to be defined in some region $t\ge t_0$, and $X_{0}$ is an almost surely bounded random variable independent of $\{W_t\}_{t\in\RR}$. Commonly, $\F_t$ is the minimal $\sigma$-algebra with respect to which $X_{0}$ and $\{W_s\}_{s\le t}$ are measurable.
+
+For the reverse-time model, we require a decreasing family $\{\bar{\F}_t\}_{t\in\RR}$ of sub-$\sigma$-algebra of $\F$ and a $d$-dimensional stochastic process $\{\bar{W}_t\}_{t\in\RR}$ adapted to $\{\bar{\F}_t\}_{t\in\RR}$, such that
+
+\begin{equation}
+  \label{eqs:reverse-sde-condition}
+  \begin{aligned}
+     & \EE[\bar{W}_t | \F_s] = \bar{W}_s,                                        \\
+     & \EE[(\bar{W}_t - \bar{W}_s)(\bar{W}_t - \bar{W}_s)^\top | \F_s] = (s-t)I.
+  \end{aligned}
+\end{equation}
+
+This process drives a reverse-time SDE of the form
+\begin{equation}
+  \label{equation:reverse sde}
+  \d X=\bar{b}(X_n,t)\d t+\bar{\sigma}(X_n,t)\d \bar{W}.
+\end{equation}
+
+Equation \ref{equation:reverse sde} is understood to be defined in some region $t\le T$. One has $X_T$ a random variable independent of $\{W_t\}_{t\in\RR}$ and
+$$X_T - X_t = \int\limits_t^T \bar{b}(X_n,t)\d t + \int\limits_t^T\bar{\sigma}(X_n,t)\d \bar{W}.$$
+
+Again, it is understood that $\bar{b}$ and $\bar{\sigma}$ satisfy the growth and smoothness properties sufficient for existence and uniqueness of a solution.
+
+\begin{theorem}
+  \label{theorem:reverse-time-sde}
+  Let $\{X_t\}_{t \in [t_0,T]}$ be the process described by \ref{equation:forward-sde}, and suppose that $b$ and $\sigma$ guarantee the existence of the probability density $p_{X_t}(x_t) := p(x_t,t)$ as a smooth and unique solution of its associated Kolmogorov equation. Let $\{\bar{W}_t\}_{t \in [t_0,T]}$ be an $r$-dimensional process is defined by $\bar{W}_{0}=0$ and
+  \begin{equation}
+    \label{equation:bar-w}
+    \d\bar{W}_t^{k} = \dfrac{1}{p(x_t,t)}\sum\limits_{j} \left[p(x_t,t)\sigma^{jk}(x_t,t)\right]\d t + \d W_t^{(k)}.
+  \end{equation}
+  Suppose that the forward Kolmogorov equation associated with the joint process $\{(X_t, W_t)\}_{t \in [t_0,T]}$ yields a smooth and unique solution in $t>t_0$ for $p(x_t,\bar{w}_t,t)$ and in $t > s\ge t_0$ for $p(x_t,, \bar{w}_t, t |\bar{w}_s, s)$. Then
+  \begin{enumerate}[label=(\arabic*)]
+    \item $X_t$ and $W_t-W_s$ is are independent for any $t\ge s\ge t_0$.
+    \item With $\bar{\F}_s$ is the minimal $\sigma$-algebra with respect to which $\{X_t\}_{t\ge s}$ and $\{W_t\}_{t\ge s}$ are measurable.
+    \item The reverse-time SDE is defined by
+          $$\d X=\bar{b}(X_n,t)\d t+\bar{\sigma}(X_n,t)\d \bar{W},$$
+          where $\bar{b}^i(X_n,t) = b^i(X_n,t) - \dfrac{1}{p(x_t,t)}\sum\limits_{j,k} \left[p(x_t,t)\sigma^{ik}(x_t,t)\sigma^{jk}(x_t,t)\right]$.
+  \end{enumerate}
+\end{theorem}
+
+% \begin{proof}
+%   Consider the joint process $\{(X_t,\bar{W}_t)\}_{t\in[t_0,T]}$ defined by
+%   \begin{align}
+%      & \d X_t=b(X_n,t)\d t+\sigma(X_n,t)\d W,                                                                                                           \\
+%      & \d\bar{W}_t^{k} = \dfrac{1}{p(x_t,t)}\sum\limits_{j} \left[p(x_t,t)\sigma^{jk}(x_t,t)\right]\d t + \d W_t^{(k)}, \text{ for } k = 1,\ldots, d_W.
+%   \end{align}
+%   The associated forward Kolmogorov equation is
+%   \begin{equation}
+%     \label{equation:joint-kolmogorov-forward}
+%     \begin{aligned}
+%       \dfrac{\partial }{\partial_t}p(x_t,\bar{w}_t,t)
+%        & = -\sum\limits_{i=1}^{d_X} \dfrac{\partial }{\partial x_t^{(i)}} [p(x_t,\bar{w}_t,t) f^{(i)} (x_t,t)]                                                                                                                             \\
+%        & \,\,\,\, -\sum\limits_{k=1}^{d_W} \dfrac{\partial }{\partial \bar{w}_t^{(k)}} \left[\dfrac{p(x_t,\bar{w}_t,t)}{p(x_t,t)}\sum\limits_{j=1}^{d_X}\dfrac{\partial }{\partial x_t^{(i)}} \left[p(x_t,t) g^{(jk)}(x_t,t)\right]\right] \\
+%        & \,\,\,\, + \dfrac{1}{2}\sum\limits_{i,j = 1} ^{d_X} \dfrac{\partial^2}{\partial x_t^{(i)}\partial x_t^{(k)}}\left[p(x_t,\bar{w}_t,t)[\sigma(x_t,t)\sigma(x_t,t)]^{(ij)}\right]                                                    \\
+%        & \,\,\,\, + \dfrac{1}{2}\sum\limits_{k,\ell = 1} ^{d_W} \dfrac{\partial^2}{\partial \bar{w}_t^{(k)}\partial \bar{w}_t^{(\ell)}}\left[p(x_t,\bar{w}_t,t)\right]                                                                     \\
+%        & \,\,\,\, + \sum\limits_{i=1}^{d_X}\sum\limits_{k=1}^{d_W}\dfrac{\partial^2}{\partial x_t^{(i)}\partial \bar{w}_t^{(k)}}\left[p(x_t,\bar{w}_t,t)g^{(ik)}(x_t,t)\right].
+%     \end{aligned}
+%   \end{equation}
+%   The boundary condition is chosen to be the natural one
+%   \begin{equation}
+%     \label{equation:joint-kolmogorov-forward-boundary}
+%     p(x_0,\bar{w}_0, 0) = p(x_0,0)\mathbf{1}_{\{0\}}(\bar{w}_0).
+%   \end{equation}
+%   \begin{lemma}
+%     \label{lemma:factorize-joint-distribution}
+%     Suppose that $p(x_t,t)$ is the solution to the Kolmogorov forward equation \ref{equation:forward-sde}. Then the solution to the Kolmogorov forward equation of the joint process $\{(X_t,\bar{W}_t)\}$ given by Equations \ref{equation:joint-kolmogorov-forward} and \ref{equation:joint-kolmogorov-forward-boundary} is given by
+%     \begin{equation}
+%       p(x_t,\bar{w}_t, t) = p(x_t,t)\phi(\bar{w}_t,t),
+%     \end{equation}
+%     where
+%     \begin{equation}
+%       \label{equation:assumption-barw}
+%       \phi(x_t,t) = \dfrac{1}{[2\pi t]^{d_W/2}}\exp\left[-\dfrac{\bar{w}_t^\top \bar{w}_t}{2t}\right].
+%     \end{equation}
+%   \end{lemma}
+%   \begin{solution}
+%     Substituting $p(x_t,\bar{w}_t, t)$ by $p(x_t,t)\phi(\bar{w}_t,t)$ in (\ref{equation:joint-kolmogorov-forward}) yields
+%     \begin{equation}
+%       \begin{aligned}
+%          & \dfrac{\partial p(x_t,\bar{w}_t,t)}{\partial_t} \\
+%          & = \phi(x_t,t)\left[ -\sum\limits_{i=1}^{d_X} \dfrac{\partial }{\partial x_t^{(i)}} [p(x_t,t) f^{(i)} (x_t,t)]   \right.                 \,\,\,\, +\dfrac{1}{2}\sum\limits_{i,j=1}^{d_X}\left[p(x_t,\bar{w}_t,t)[\sigma(x_t,t)\sigma(x_t,t)]^{(ij)}\right]                                       \\
+%          & \,\,\,\, + \left.\dfrac{1}{2}p(x_t,t)\sum\limits_{k,\ell=1}^{d_W}\dfrac{\partial^2\phi(\bar{w}_t,t)}{\partial \bar{w}_t^{(k)}\bar{w}_t^{(\ell)}}\right]
+%       \end{aligned}
+%     \end{equation}
+%     Using the Kolmogorov forward equation of \ref{equation:forward-sde} and assumption \ref{equation:assumption-barw}, we have
+%     \begin{equation}
+%       \dfrac{\phi(\bar{w}_t,t)}{\partial_t} = \dfrac{1}{2}\sum\limits_{k,\ell=1}^{d_W}\dfrac{\partial^2\phi(\bar{w}_t,t)}{\partial \bar{w}_t^{(k)}\bar{w}_t^{(\ell)}}
+%     \end{equation}
+%     Therefore, $\dfrac{\partial }{\partial_t}p(x_t,\bar{w}_t,t) = \dfrac{\partial }{\partial_t}[p(x_t,t)\phi(\bar{w}_t,t)]$.
+%   \end{solution}
+%   \begin{lemma}
+%     The function $\phi(\bar{w}_t,t)$ defined in Lemma \ref{lemma:factorize-joint-distribution} is indeed the density of $\bar{W}_t$.
+%   \end{lemma}
+%   \begin{solution}
+%     By Bayes theorem, we have
+%     $$p(x_t,t)\phi(\bar{w}_t,t) = p(x_t,\bar{w}_t,t) = p(x_t,t) p(\bar{w}_t|x_t,t).$$
+%     Since $\bar{W_t}$ and $X_t$ are independent,
+%     $$\phi(\bar{w}_t,t) = p(\bar{w}_t|x_t,t) = p(\bar{w}_t,t).$$
+%   \end{solution}
+%   % \begin{lemma}
+
+%   % \end{lemma}
+% \end{proof}
+
+\begin{remark}
+  The reverse-time SDE is written compactly as
+  \begin{equation}
+    \d X_t = \left[b-\mathrm{div}(\sigma\sigma^\top) - \sigma\sigma^\top\nabla_x\log p(x,t) \right]\d t + \sigma \d W.
+  \end{equation}
+\end{remark}

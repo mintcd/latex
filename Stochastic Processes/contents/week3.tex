@@ -1,0 +1,27 @@
+\subsection*{Problem 2.} Suppose that $\Pi$ is a transition matrix of a Markov chain. Let $k\in\NN^*$.
+\begin{enumerate}
+    \item Assume that $\Pi^k$ has identical rows. Show that $\Pi^n$ has identical rows for all $n\ge k$.
+    \item Assume that $\Pi^k$ has a column all of whose elements are greater or equal to $\delta > 0$. Show that $\Pi^n$ has the same property for all $n \ge k$.
+\end{enumerate}
+
+\textit{Solution.} 
+
+Let us map the state space $S$ to $\NN$ to simplify later arguments i.e $S = \{1,\cdots, N\}$ for some $N\in\NN$ or $S = \NN$.
+\subsubsection*{1.} From the assumption, we have $\Pi^k_{i\ell} = \Pi^k_{j\ell}, \forall i,j,\ell\in S$. By induction, it is sufficient to show that $$\Pi^{k+1}_{i\ell}=\Pi^{k+1}_{j\ell}, \forall i,j,\ell\in S.$$
+For any $i,j\in S$, we have
+\begin{align*}
+    \Pi^{k+1}_{i\ell} = \sum\limits_{m=1}^{\sup S} \Pi^{k}_{im} \Pi^{k}_{m\ell}  = \sum\limits_{m=1}^{\sup S} \Pi^{k}_{jm} \Pi^{k}_{m\ell} = \Pi^{k+1}_{j\ell},
+\end{align*}
+
+which completes the proof.
+
+\subsubsection*{2.} Let $j_0$ be the column of $S$ such that $\Pi^k_{ij_0} \ge \delta > 0,\forall i\in S$. We have
+\begin{align*}
+\Pi^{k+1}_{ij_0} 
+= \sum\limits_{m=1}^{\sup S} \Pi^{k}_{im} \Pi^{k}_{mj_0}
+\ge \sum\limits_{m=1}^{\sup S} \Pi^{k}_{im} \delta
+= \delta,
+\end{align*}
+since $\sum\limits_{m=1}^{\sup S} \Pi^{k}_{im}=1$. Therefore, the $j_0$-column of $\Pi^{k+1}$ also has all elements greater than or equal to $\delta$. By induction, the proof is completed.
+
+\subsection*{Problem 3.} 

@@ -36,13 +36,9 @@ Label types
 7) figure
 8) table
 
-
-
-\emph{What is segmentation?} -> Definition
-\emph{Why we need segmentation?} -> Narrative, place in pipeline
-\emph{What type of segmentation we will use?} -> which model of segmentation.
-\emph{24H 6/5/2024}
-
-\emph{2 parts: SegFormer + Segment anything Deadline: 12H 10/5/2024}
-
-Explan every image carefully.
+Theorems:
+1) Density of Q
+2) We can find a irrational number in an interval.
+3) Q is countable
+4) Tonelli’s theorem
+5) Heine-Borel theorem

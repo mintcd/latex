@@ -1,33 +1,51 @@
 \documentclass[a4paper]{report}
 % \title{Capstone Project}
 % \author{Minh Huy}
-
+\usepackage{afterpage}
 \input{packages}
 \usepackage[utf8]{inputenc}
 \usepackage{styles}
 \usepackage{commands}
 \usepackage{times}
+\usepackage{scrextend} %change font size
+\changefontsizes{13pt}
 \usepackage[final]{pdfpages}
 
 \hypersetup{colorlinks=true,urlcolor=blue,linkbordercolor=red,citecolor=green}
 % \captionsetup[table]{name=Table}
 \makeindex[columns=3, title=Index, intoc]
 
-\def\thesislayout{
-	\geometry{
-		a4paper,
-		total={160mm,240mm}, 
-		left=30mm,
-		top=30mm,
-	}
-}
-\thesislayout
+\usepackage[
+    asymmetric,
+    a4paper,
+    left=3cm,
+    right=2cm,
+    top=2.75cm,
+    bottom=3cm,
+    footskip=0cm,
+    twoside]{geometry}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LO]{\bfseries\nouppercase\leftmark}
+\fancyhead[RE]{\bfseries\nouppercase\rightmark}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyfoot{}
+% \def\thesislayout{
+% 	\geometry{
+% 		a4paper,
+% 		total={160mm,240mm}, 
+% 		left=30mm,
+% 		top=30mm,
+% 	}
+% }
+% \thesislayout
 
 \setlength{\headheight}{40pt}
-\pagestyle{fancy}
+\setlength{\footskip}{4.68002pt}
+% \pagestyle{fancy}
 
-\fancyhead[L]{}
-\fancyhead[R]{\nouppercase{\textbf{\Roman{chapter}.\rightmark}}}
+% \fancyhead[L]{}
+% \fancyhead[R]{\nouppercase{\textbf{\Roman{chapter}.\rightmark}}}
 
 \renewcommand{\headrulewidth}{0.3pt}
 
@@ -54,7 +72,7 @@
 \setlength{\floatsep}{5pt plus 2pt minus 2pt}
 \setlength{\textfloatsep}{5pt plus 2pt minus 2pt}
 \setlength{\intextsep}{10pt plus 2pt minus 2pt}
-\thesislayout
+% \thesislayout
 
 
 %%%%%%%% LSTLISTING SETUP %%%%%%%%
@@ -67,12 +85,12 @@
   numbers=left,
   numberstyle=\tiny\color{gray},
   keywordstyle=\color{blue},
-  commentstyle=\color[HTML]{228B22},
-  stringstyle=\color[HTML]{228B22},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{dkgreen},
   breaklines=true,
   breakatwhitespace=true,
   tabsize=3,
-  backgroundcolor=\color[HTML]{F5F5F5}
+  backgroundcolor=\color{backcolour}
 }
 
 \everymath{\color{black}}
@@ -80,7 +98,7 @@
 %%%%%%%% DATE %%%%%%%%
 % \cttime{4/2022}
 %%%%%%%% THESIS %%%%%%%%
-\thesislayout
+% \thesislayout
 \addbibresource{refs.bib}
 
 
@@ -89,81 +107,158 @@
 
 \begin{document}
 
+% \begin{titlepage}
+%   \begin{tikzpicture}[remember picture, overlay]
+%     \draw[line width = 4pt] ($(current page.north west) + (2.5cm,-2cm)$) rectangle ($(current page.south east) + (-1.5cm,2cm)$);
+%   \end{tikzpicture}
+%   \begin{center}
+%     VIETNAM NATIONAL UNIVERSITY, HO CHI MINH CITY\\
+%     UNIVERSITY OF TECHNOLOGY\\
+%     FACULTY OF COMPUTER SCIENCE AND ENGINEERING
+%   \end{center}
+
+%   \vspace{1cm}
+
+%   \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=3cm]{hcmut.png}
+%   \end{figure}
+
+%   \vspace{1cm}
+
+%   \begin{center}
+%     \begin{tabular}{c}
+%       \multicolumn{1}{c}{\textbf{{\Large  CAPSTONE PROJECT}}}        \\ \\
+%       ~~                                                                         \\
+%       \hline
+%       \\
+
+%       \textcolor{black}{\textbf{{\Large RESEARCH AND DEVELOP}}}                  \\\\
+%       \textcolor{black}{\textbf{{\Large DIFFUSION-BASED ATTACKS ON WATERMARKS}}} \\
+%       ~~                                                                         \\
+%       \hline
+%       \\
+%                 \textbf{{\fontsize{12pt}{1.5pt} \selectfont Major: Computer Science}}\\[2mm]
+%       \\
+%     \end{tabular}
+%   \end{center}
+
+%   \vspace{2cm}
+
+%   \begin{table}[h]
+%     \begin{tabular}{rrll}
+
+%       \hspace{5 cm}
+%        & Committee:           & Computer Science                      \\
+%                         \\
+%        &                      &                                       \\
+%        & Supervisors:         & Dr. Nguyen An Khuong                  \\
+%        &                      & Assoc. Prof. Le Xuan Truong & UEH     \\
+%        &                      & Mr. Le Thanh Son            & KTH     \\
+%        &                      & Mr. Tran Dinh Vinh Thuy     & EC Lyon \\
+%        &                      &                                       \\
+%        & Reviewer: &........................................ &  \\
+%        & & \multicolumn{2}{@{}l}{---o0o---}\\[.5mm]
+%        & Students:            & Chau Dang Minh - 2013748              \\
+%        &                      & Le Xuan Huy - 2011266
+%     \end{tabular}
+%   \end{table}
+%   \vspace{2cm}
+%   \begin{center}
+%     {\footnotesize Ho Chi Minh City, May 2024}
+%   \end{center}
+% \end{titlepage}
+
 \begin{titlepage}
-  \begin{tikzpicture}[remember picture, overlay]
-    \draw[line width = 4pt] ($(current page.north west) + (2.5cm,-2cm)$) rectangle ($(current page.south east) + (-1.5cm,2cm)$);
-  \end{tikzpicture}
-  \begin{center}
-    VIETNAM NATIONAL UNIVERSITY, HO CHI MINH CITY\\
-    UNIVERSITY OF TECHNOLOGY\\
-    FACULTY OF COMPUTER SCIENCE AND ENGINEERING
-  \end{center}
+	\begin{tikzpicture}[remember picture, overlay]
+		\draw[line width = 4pt] ($(current page.north west) + (1in+5,-1in + 30)$) rectangle ($(current page.south east) + (-1in + 30,1in - 20) $);
+		\draw[line width = 1pt] ($(current page.north west) + (1in,-1in + 35)$) rectangle ($(current page.south east) + (-1in + 35,1in - 25) $);
+	\end{tikzpicture}
+	% \begin{tikzpicture}[remember picture, overlay]
+	%       \draw[line width = 4pt] ($(current page.north west) + (1in,-1in)$) rectangle ($(current page.south east) + (-1in,1in)$);
+	%     \end{tikzpicture}
 
-  \vspace{1cm}
+	\begin{center}
+		\fontsize{15pt}{1.5pt}\textbf{
+			VIET NAM NATIONAL UNIVERSITY HO CHI MINH CITY\vspace{.3cm}\\
+			HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY\vspace{.2cm}\\
+			FACULTY OF COMPUTER SCIENCE \& ENGINEERING}
+	\end{center}
 
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=3cm]{hcmut.png}
-  \end{figure}
+	\vspace{0.25cm}
 
-  \vspace{1cm}
 
-  \begin{center}
-    \begin{tabular}{c}
-      \multicolumn{1}{c}{\textbf{{\Large  CAPSTONE PROJECT}}}                    \\ \\
-      ~~                                                                         \\
-      \hline
-      \\
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=4cm]{hcmut.png}
+		\end{center}
+	\end{figure}
 
-      \textcolor{black}{\textbf{{\Large RESEARCH AND DEVELOP}}}                  \\\\
-      \textcolor{black}{\textbf{{\Large DIFFUSION-BASED ATTACKS ON WATERMARKS}}} \\
-      ~~                                                                         \\
-      \hline
-      \\
-      \textbf{{\fontsize{12pt}{1.5pt} \selectfont Major: Computer Science}}      \\[2mm]
-      \\
-    \end{tabular}
-  \end{center}
+	\vspace{.25cm}
 
-  \vspace{2cm}
+	\begin{center}
+		\fontsize{15pt}{1.5pt}\selectfont\textbf{GRADUATION THESIS}
+	\end{center}
 
-  \begin{table}[h]
-    \begin{tabular}{rrll}
+	\vspace{.25cm}
 
-      \hspace{5 cm}
-       & Committee:   & Computer Science                                   \\
-      \\
-       &              &                                                    \\
-       & Supervisors: & Dr. Nguyen An Khuong                               \\
-       &              & Assoc. Prof. Le Xuan Truong              & UEH     \\
-       &              & Mr. Le Thanh Son                         & KTH     \\
-       &              & Mr. Tran Dinh Vinh Thuy                  & EC Lyon \\
-       &              &                                                    \\
-       & Reviewer:    & ........................................ &         \\
-       &              & \multicolumn{2}{@{}l}{---o0o---}                   \\[.5mm]
-       & Students:    & Chau Dang Minh - 2013748                           \\
-       &              & Le Xuan Huy - 2011266
-    \end{tabular}
-  \end{table}
-  \vspace{2cm}
-  \begin{center}
-    {\footnotesize Ho Chi Minh City, May 2024}
-  \end{center}
+	\begin{center}
+		%   \textcolor{black}{\textbf{{\Large RESEARCH AND DEVELOP}}}                  \\\\
+		% \textcolor{black}{\textbf{{\Large DIFFUSION-BASED ATTACKS ON WATERMARKS}}} \\
+		\fontsize{19pt}{1.5pt}\textbf{RESEARCH AND DEVELOP \vspace{0.4cm}\\
+			DIFFUSION-BASED ATTACKS ON WATERMARKS}\vspace{1cm}\\
+		\textbf{{\fontsize{15pt}{1.5pt} \selectfont Major: Computer Science}}\\[2mm]
+	\end{center}
+
+	\vspace{.5cm}
+
+	\begin{center}
+		\begin{table}[h]
+			\centering
+			\begin{tabular}{r@{\hspace{3cm}}l@{\hspace{3mm}}l@{\hspace{3mm}\hspace{3mm}}l}
+				\fontsize{15pt}{1.5pt}\selectfont
+				 & \textbf{Commitee:}    & \multicolumn{2}{@{}l}{\textbf{Computer Science}}                                                  \\[.5mm]
+				 & \textbf{Supervisors:} & \multicolumn{2}{@{}l}{\textbf{Dr. Nguyen An Khuong}}                                              \\[.5mm]
+				 &                       & \multicolumn{2}{@{}l}{\textbf{Assoc. Prof. Le Xuan Truong, UEH}}                                  \\[.5mm]
+				 &                       & \multicolumn{2}{@{}l}{\textbf{Mr. Le Thanh Son, KTH}}                                             \\[.5mm]
+				 &                       & \multicolumn{2}{@{}l}{\textbf{Mr. Tran Dinh Vinh Thuy, EC Lyon}}                                  \\[.7mm]
+				 & \textbf{Reviewer:}    & \multicolumn{2}{@{}l}{\textbf{Dr. Truong Tuan Anh}}                                               \\[.5mm]
+				 &                       & \multicolumn{2}{@{}l}{\bf---o0o---}                                                               \\[.5mm]
+				 & \textbf{Student 1:}   & \textbf{Le Xuan Huy}                                             & \hspace{.38cm}\textbf{2011266} \\[.5mm]
+				 & \textbf{Student 2:}   & \textbf{Chau Dang Minh}                                          & \hspace{.38cm}\textbf{2013748}
+			\end{tabular}
+		\end{table}
+	\end{center}
+
+
+	\vspace{.25cm}
+	\begin{center}
+		{\footnotesize HO CHI MINH CITY, May 2024}
+	\end{center}
 \end{titlepage}
-\includepdf{img/PhieunhiemvuLVTN-DATN.docx.pdf}
 
+\includepdf{img/blank.pdf}
+\includepdf{img/PhieunhiemvuLVTN-DATN.docx.pdf}
+\includepdf{img/blank.pdf}
+\includepdf{img/PhieunhiemvuLVTN-DATN.docx.pdf}
+\includepdf{img/blank.pdf}
+\includepdf{img/PhieunhiemvuLVTN-DATN.docx.pdf}
+\includepdf{img/blank.pdf}
+
+\pagenumbering{roman}
 \include{chapters/declaration}
+% \afterpage{\null\newpage}
 \include{chapters/acknowledgements}
 \include{chapters/abstract}
 \include{chapters/notations}
-\pagestyle{empty}
+\pagestyle{plain}
 \tableofcontents
-\newpage
-% \addcontentsline{toc}{chapter}{List of Figures}
-
 \listoffigures
 \listoftables
+\newpage
 \pagestyle{fancy}
+% \addcontentsline{toc}{chapter}{List of Figures}
+\pagenumbering{arabic}
 \include{chapters/introduction}
 \include{chapters/theories}
 \include{chapters/backgrounds}

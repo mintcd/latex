@@ -33,7 +33,7 @@ Our reasonable model is
       \alpha = 0.1$}
 \end{figure}
 
-We want to generalize the model in order to predict the price at any time point in $t\in[0,T]$. Let $P^n[0,T]:=\{0=t^n_0<t^n_1<\ldots<t^n_{m_n}=t\}$ be partitions on $[0,T]$ such that $|P^n|\to 0$ as $n\to\infty$ and write
+By using time discretization, when it requires to estimate the price at non-integer time, say $t=n+\dfrac{1}{2}$, we need to completely rebuild our model. But intuitively, there must be some change from time $n$ to $n+\dfrac{1}{2}$, then to $n+1$. Itô successfully smoothed the model by Riemann approximation in order to predict the price at any time point in $t\in[0,T]$. Let $P^n[0,T]:=\{0=t^n_0<t^n_1<\ldots<t^n_{m_n}=t\}$ be partitions on $[0,T]$ such that $|P^n|\to 0$ as $n\to\infty$ and write
 \begin{align*}
   X(t^n_{k+1})- X(t^n_{k})
    & = b(X(t^n_{k}),t^n_{k})(t^n_{k+1} - t^n_{k+1})+ \sigma(X(t^n_{k}),t^n_{k})(W(t^n_{k+1})-W(t^n_{k})) \\
@@ -48,22 +48,29 @@ $$\hat{b}(\omega, t) :=  b(X_t(\omega),t) \text{ and } \hat{\sigma}(\omega, t) :
 
 Then
 \begin{equation}
-  \label{equation:stochastic-limit}
+  \label{equation:stochastic-sum}
   X(t,\omega)=X(0,\omega)+\sum\limits_{k=0}^{m_n-1}  \hat{b}(\omega, t_k^n)\Delta t^n_{k} + \sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\omega, t_k^n)\Delta W(t^n_{k}), \forall \omega\in\Omega.
 \end{equation}
 
-We have
-$$\sum\limits_{k=0}^{m_n-1}  \hat{b}(\omega, t_k^n)\Delta t^n_{k}\xrightarrow{n\to\infty} \int\limits_0^t \hat{b}(\omega, t_k^n)\d s$$
-as a Riemann sum. When $n\to\infty$, we will prove that the sum $\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\omega, t_k^n)\Delta W(t^n_{k})$ converges in appropriate sense and adapt the usual integration notation as
+For each $\omega\in\Omega$, the first sum $\hat{b}(\omega, t_k^n)\Delta t^n_{k}$ converges to the integral $\int\limits_0^T \hat{b}(\omega, t)\d t$, under an assumption that $t\mapsto \hat{b}(\omega, t)$ is Riemann integrable. Therefore, we will try to find the limit of the second sum under appropriate conditions. Note that when we construct such sum, we implicitly assume that $\hat{b}(\omega, t)$ does not depend on $W_s$, for $s\ge t$ i.e. $\hat{b}(\omega, t)$ only depends on the history of the Brownian motion $\{W_t\}$ up to time $t$, not the future of $\{W_t\}$. Let us give a definition for such process.
+
+\begin{definition}[Non-anticipating process]
+  Let $W:=\{W_t\}_{t\in[0,T]}$ be a Wiener process, and $\{\W_t\}_{t\in[0,T]}$ be the right-continuous completion of the natural filtration of $W$. Let $\G$ be a $\sigma$-algebra independent of ${\W_t}_{t\in[0,T]}$. Then the non-anticipating filtrations are the ones of the form
+  $$\{\sigma(\W_t \cup G)\}_{t\in[0,T]}.$$
+  A stochastic process $\{X_t\}_{t\in[0,T]}$ is non-anticipating if it is adapted to some non-anticipating filtration.
+\end{definition}
+
+Further conditions are added to guarantee the convergence of $hat{b}(\omega, t_k^n)$, which will be clarified later. In such case, we adapt the usual integration notation as
 \begin{equation}
   \sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\omega, t_k^n)\Delta W(t^n_{k}) \xrightarrow{n\to\infty} \int\limits_0^t \hat{\sigma}(\omega, t_k^n)\d W_s = \int\limits_0^t \sigma(X_s,s)\d W_s.
 \end{equation}
 
 \subsection{An Example on the Wiener Process}
 
-In Equation \ref{equation:stochastic-limit}. We have selected in initial points $(t_k^n)_{k=1}^{m_n-1}$ in the partition for the limit of the approximations. Unlike the Riemann integral, each point $\tau_k^n = (1-\lambda) t_k^n + \lambda t_{k+1}^n$, where $\lambda\in[0,1]$, for $k=1,\ldots, m_n-1$ results in different a value of the limit $\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\tau_k^n, \omega)\Delta W(t^n_{k})$. Let us take a ubiquitous example to emphasize this fact.
+In Equation \ref{equation:stochastic-sum}. We have selected in initial points $(t_k^n)_{k=1}^{m_n-1}$ in the partition for the limit of the approximations. Unlike the Riemann integral, each point $\tau_k^n = (1-\lambda) t_k^n + \lambda t_{k+1}^n$, where $\lambda\in[0,1]$, for $k=1,\ldots, m_n-1$ results in different a value of the limit
+$$\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\tau_k^n, \omega)\Delta W(\tau^n_{k}).$$
 
-
+Let us take a ubiquitous example to emphasize this fact.
 
 \begin{example}
   \label{example:wdw}
@@ -74,7 +81,6 @@ In Equation \ref{equation:stochastic-limit}. We have selected in initial points 
   where
   $\tau_k^n = (1-\lambda) t_k^n + \lambda t_{k+1}^n$ for some $\lambda\in[0,1]$.
 \end{example}
-% \textcolor{red}{State the result, move the solution to the Appendix}
 
 \begin{solution}
   We have
@@ -150,28 +156,19 @@ Two following choices of $\lambda$ are popular in particular
   \item If $\lambda = \dfrac{1}{2}$, it is called a Stratonovich integral, denoted by $\int\limits_0^T W\circ\d W$.
 \end{enumerate}
 
-In the scope of our project, we concerning about the Itô Integral for later applications on stochastic modeling.
+In the scope of our project, we concern about the Itô Integral for later applications on stochastic modeling.
 
 \subsection{Construction of the Itô Integral}
 
-In Equation \ref{equation:stochastic-limit}, we can regard the sum $\sum\limits_{k=0}^{m_n-1} \hat{\sigma}(\omega, t_k^n)\Delta W(t^n_{k})$ as the Itô integral of an elementary function. Similarly to Lebesgue integral construction, we define Itô integral for such class of elementary functions, then generalize the result for a function $\hat{\sigma}(\omega, t)$ satisfying some additional conditions. Now we make consistent definitions for such class of functions.
+Recall that we have adapted the bootstrapping process to construct the Lebesgue integral. In the construction of the Itô Integral, similar strategy is applicable. We define Itô integral for the class of elementary functions, then generalize the result for a function $\hat{\sigma}(\omega, t)$ satisfying some additional conditions. Now we make consistent definitions for such class of functions.
 
 \begin{definition}[Progressively measurable process]
-  Let $\{X_t\}_{t\in[0,T]}$ be a stochastic process adapted to a filtration $\{\F_t\}_{t\in[0,T]}$. Then $\{X_t\}_{t\in[0,T]}$ is said to be progressively measurable if $X_t$ is $\F_t\otimes\B([0,t])$, for any $t\in[0,T]$.
+  Let $\{X_t\}_{t\in[0,T]}$ be a stochastic process adapted to a filtration $\{\F_t\}_{t\in[0,T]}$. Then $\{X_t\}_{t\in[0,T]}$ is said to be progressively measurable (progressive) if $X_t$ is $\F_t\otimes\B([0,t])$, for any $t\in[0,T]$.
 \end{definition}
-
-\begin{definition}[Non-anticipating process]
-  Let $W:=\{W_t\}_{t\in[0,T]}$ be a Wiener process, and $\{\W_t\}_{t\in[0,T]}$ be the right-continuous completion of the natural filtration of $W$. Let $\G$ be a $\sigma$-algebra independent of ${\W_t}_{t\in[0,T]}$. Then the non-anticipating filtrations are the ones of the form
-  $$\{\sigma(\W_t \cup G)\}_{t\in[0,T]}.$$
-  A stochastic process $\{X_t\}_{t\in[0,T]}$ is non-anticipating if it is adapted to some non-anticipating filtration.
-\end{definition}
-
-\begin{remark}
-  A non-anticipating stochastic process $\{X_t\}_{t\in[0,T]}$ adapted to a sub-$\sigma$-algebra of the natural filtration of a Wiener process. In other words, for any $t\in[0,T]$ we allow $X_t$ to depend on the history of ${\W_t}_{t\in[0,T]}$ up to time $t$, but not the future from time $t$.
-\end{remark}
 
 \begin{definition}[Elementary process]
-  A progressive, non-anticipating process $\{X_t\}_{t\in[0,T]}$ is elementary if there exists a partition $P[0,T]:=\{0=t_0<t_1<\ldots<t^N=T\}$ such that
+  A progressive, non-anticipating process $\{X_t\}_{t\in[0,T]}$ is elementary if there exists a partition
+  $$P[0,T]:=\{0=t_0<t_1<\ldots<t^N=T\}$$ such that
   $$X(t) = X(t_n) \text{ if } t \in [t_n, t_{n+1}), \text{ for } j=0,\ldots,N-1.$$
 \end{definition}
 \begin{remark}
@@ -180,7 +177,7 @@ In Equation \ref{equation:stochastic-limit}, we can regard the sum $\sum\limits_
   where $\mathbf{1}$ is the indicator function.
 \end{remark}
 
-Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes progressively measurable, non-anticipating. We will prove that any process in $\V$ can be approximated by a sequence of elementary process. Throughout the proofs, we will see reasons why a process must be in class $\V$ so that it is Itô integrable. We follow Equation \ref{equation:stochastic-limit} to define the Itô integral for an elementary process.
+Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes that are progressively measurable and non-anticipating. We will prove that any process in $\V$ can be approximated by a sequence of elementary process. Throughout the proofs, we will see reasons why a process must be in class $\V$ so that it is Itô integrable.
 
 \begin{definition}
   Let $\{X_t\}_{t\in[0,T]}$ be an elementary process defined on a partition $P[0,T]:=\{0=t_0<t_1<\ldots<t_N=T\}$. The Itô integral of $\{X_t\}_{t\in[0,T]}$ on $[0,t]$ is
@@ -199,9 +196,17 @@ Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes progressively
   \begin{equation}
     X_n(t) := \sum\limits_{i=1}^\infty X\left(i/2^n\right) \1_{[i/2^n, (i+1)/2^n)}(t).
   \end{equation}
-  This is clearly elementary, bounded and square-integrable on $[0, T]$. For any fix $\omega$, we
-  $$\int\limits_0^T (X(t,\omega) - X_n(t,\omega))^2 \d t \xrightarrow{n\to\infty} 0,$$
-  since $X(t,\omega)$ is continuous. Therefore, the $\L^2$ norm of $X(t) - X_n(t)$, as the expectation of this integral, converges to $0$.
+  This is clearly elementary, bounded and square-integrable on $[0, T]$. For any fix $\omega$, since $X(t,\omega)$ is continuous, we have
+  $$\lim\limits_{n\to\infty}\int\limits_0^T (X(t,\omega) - X_n(t,\omega))^2 \d t = 0.$$
+
+  By dominated convergence,
+
+  \begin{align*}
+    \lim\limits_{n\to\infty}\|X(t) - X_n(t)\|_{\L^2}
+     & = \lim\limits_{n\to\infty}\int_\Omega\int\limits_0^T (X(t,\omega) - X_n(t,\omega))^2 \d t \d P \\
+     & = \int_\Omega\int\limits_0^T \lim\limits_{n\to\infty}(X(t,\omega) - X_n(t,\omega))^2 \d t \d P \\
+     & = 0.
+  \end{align*}
 \end{proof}
 
 \begin{lemma}[Approximation of a bounded process by bounded, continuous processes]
@@ -211,10 +216,10 @@ Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes progressively
 \end{lemma}
 \begin{proof}
   Let $M$ be the bound on the norm of X. For each $n$, pick a probability density $f_n(t):\RR\to\RR$ support is the interval $(-1/n, 0)$. Set
-  $$X_n := \int\limits_0^t f_n(s-t) X(s) \d s.$$
+  $$X_n(t) := \int\limits_0^t f_n(s-t) X(s) \d s.$$
   Then $X_n$ is continuous, bounded, progressively measurable, and non-anticipating. Therefore, for any fix $\omega$, we
-  $$\int\limits_0^T (X(t,\omega) - X_n(t,\omega))^2 \d t \xrightarrow{n\to\infty} 0,$$
-  and so as the $\L^2$ norm of $X(t) - X_n(t)$, as the expectation of this integral.
+  $$\int\limits_0^T (X(t,\omega) - X_n(t,\omega))^2 \d t \xrightarrow{n\to\infty} 0.$$
+  Convergence in $\L^2$ follows from dominated convergence.
 \end{proof}
 
 
@@ -224,7 +229,7 @@ Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes progressively
   $$X_n \xrightarrow{n\to\infty} X \text{ in } \L^2.$$
 \end{lemma}
 \begin{proof}
-  Set $X_n(t) = (-n \vee X(t)) \wedge n$. This has the desired properties, and the result follows from dominated convergence.
+  Set $X_n(t) = (-n \vee X(t)) \wedge n$. Then $X_n$ is bounded. The result follows from dominated convergence.
 \end{proof}
 
 \begin{theorem}[Approximation of a $\V$ process by elementary processes]
@@ -236,8 +241,9 @@ Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes progressively
 \end{proof}
 
 \begin{lemma}[Itô isometry for elementary processes]
+  \label{lemma:ito-isometry-for-elementary-process}
   Let $\{X_t\}_{t\in[0,T]}$ be a elementary process. Then
-  $$\EE\left[\left(\int\limits_0^T X\d W\right)^2\right] = \EE\left[\int\limits_0^T X^2\d W(\omega)\right].$$
+  $$\EE\left[\left(\int\limits_0^T X\d W\right)^2\right] = \EE\left[\int\limits_0^T X^2\d t\right] = \|X\|_{\L^2}.$$
 \end{lemma}
 
 
@@ -269,15 +275,21 @@ Denote by $\V := \V[0,T]$ the class of $\L^2$ stochastic processes progressively
   Taking the limits when $n\to\infty$, we complete the proof.
 \end{proof}
 
-\begin{theorem}[Itô integrals of approximating elementary processes converge]
+\begin{theorem}[Itô integrals of Approximating Elementary Processes Converge]
   Let $(X_n)_{n\in\NN}$ be a sequence of $\V$ elementary processes converging to $X$ in $\L^2$. Then the sequence
   $$R_n(X) = \lim\limits_{n\to\infty}\int\limits_0^T X_n\d W$$
   converges in $L^2$. Moreover, this limit is the same for any such approximating sequence $(X_n)$.
 \end{theorem}
 
-% \begin{proof}
-
-% \end{proof}
+\begin{proof}
+  Since $\L^2$ is Banach and $(X_n)$ converges, $(X_n)$ is Cauchy. Hence, for any $\epsilon>0$, there exists $N\in\NN$ such that
+  $$\|X_{n+N} - X_{N}\|\le\epsilon.$$
+  Since $X_{n+N}$ and $X_{N}$ are elementary, so is their difference. By Lemma \ref{lemma:ito-isometry-for-elementary-process},
+  $$\EE\left[\left(\int\limits_a^b (X_{n+N}-X_n)\d W \right)^2\right] < \epsilon^2.$$
+  Therefore, $(R_n)$ is Cauchy in $L^2$. Since $L^2$ is Banach, $(R_n)$ has a limit. If there exists another approximating elementary sequence $(Y_n)$, then their Itô integral sequence $(S_n)$ is also Cauchy. On the other hand, for any $\epsilon >0$, there exist $m,n\in\NN$ such that
+  $$\|X_m-Y_n\| \le \|X_m-X\| + \|Y_n - X\|\le \epsilon.$$
+  Hence, the limits of their Itô integral must be equal.
+\end{proof}
 
 \begin{definition}
   Let $X\in \V$. The Itô integral of $X$ is defined by
@@ -305,9 +317,9 @@ With the linearity property, we are able to define multidimensional Itô integra
   Let $\sigma=(G_{ij})$, where $G_{ij}, 1\le i\le n, 1\le j\le m$ be real-valued stochastic processes. Also, $W=(W_j)$, where $W_j,1\le j\le m$ be real-valued Wiener process. Then for some $T\ge S\ge 0$
   \begin{equation}
     \int\limits_S^T \sigma\d W=\int\limits_S^T\begin{pmatrix}
-      G_{11} & \cdots  & G_{1m} \\
+      G_{11} & \cdots & G_{1m} \\
       \vdots & \ddots & \vdots \\
-      G_{n1} & \cdots  & G_{nm}
+      G_{n1} & \cdots & G_{nm}
     \end{pmatrix}\begin{pmatrix}
       \d W_1 \\\vdots\\\d W_m
     \end{pmatrix}

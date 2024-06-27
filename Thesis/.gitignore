@@ -14,3 +14,6 @@
 *.synctex.gz
 
 sections/*.aux
+
+*.pdf
+*.lot

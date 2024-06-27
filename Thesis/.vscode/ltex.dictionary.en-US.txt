@@ -119,3 +119,6 @@ Unwatermarked
 measurability
 inpainted
 >>>>>>> Stashed changes
+Vitali
+Heine-Borel
+conviniently

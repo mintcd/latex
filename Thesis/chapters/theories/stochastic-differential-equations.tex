@@ -138,9 +138,9 @@ where $Z_1,Z_2,\ldots, Z_n\sim\N(0,I)$.
   For each $t\in[0,T]$ and $\omega\in\Omega$, we have
   \begin{align*}
     \left|PX_t(\omega)-PY_t(\omega)\right|
-     & = \left|\int\limits_0^t (b(X_s(\omega))-b(Y_s(\omega)))\d s + \int\limits_0^t (\sigma(X_s(\omega))-\sigma(Y_s(\omega)))\d W\right|                                                 \\
-     & \le \left|\int\limits_0^t (b(X_s(\omega))-b(Y_s(\omega)))\d s\right| + \left|\int\limits_0^t (\sigma(X_s(\omega))-\sigma(Y_s(\omega)))\d W\right|                                  \\
-     & \le \int\limits_0^t K_b|X_s(\omega)-Y_s(\omega)|\d s + \int\limits_0^t K_\sigma|X_s(\omega)-Y_s(\omega)|\d W                                      & \text{ (Lipschitz continuity)} \\
+                                   & = \left|\int\limits_0^t (b(X_s(\omega))-b(Y_s(\omega)))\d s + \int\limits_0^t (\sigma(X_s(\omega))-\sigma(Y_s(\omega)))\d W\right|                \\
+                                   & \le \left|\int\limits_0^t (b(X_s(\omega))-b(Y_s(\omega)))\d s\right| + \left|\int\limits_0^t (\sigma(X_s(\omega))-\sigma(Y_s(\omega)))\d W\right| \\
+    \text{ (Lipschitz continuity)} & \le \int\limits_0^t K_b|X_s(\omega)-Y_s(\omega)|\d s + \int\limits_0^t K_\sigma|X_s(\omega)-Y_s(\omega)|\d W                                      \\
   \end{align*}
   Hence
   \begin{align*}
@@ -151,15 +151,17 @@ where $Z_1,Z_2,\ldots, Z_n\sim\N(0,I)$.
   Therefore,
   \begin{align*}
     \left\|PX-PY\right\|_{\Q\M(t)}^2
-     & \le \EE\left[\left(\sup\limits_{0\le r\le t}\left(PX_t-PY_t\right)^2\right)\right]                                                                           \\
-     & \le  \EE\left[\left(\int\limits_0^t K_b|X_s-Y_s|\d s + \int\limits_0^t K_\sigma|X_s-Y_s|\d W\right)^2\right]                                                 \\
-     & \le \dfrac{1}{2}\EE\left[\left(\int\limits_0^t K_b|X_s-Y_s|\d s\right)^2+\left(\int\limits_0^t K_\sigma|X_s-Y_s|\d W\right)^2\right]                         \\
+     & \le \EE\left[\left(\sup\limits_{0\le r\le t}\left(PX_t-PY_t\right)^2\right)\right]                                                   \\
+     & \le  \EE\left[\left(\int\limits_0^t K_b|X_s-Y_s|\d s + \int\limits_0^t K_\sigma|X_s-Y_s|\d W\right)^2\right]                         \\
+     & \le \dfrac{1}{2}\EE\left[\left(\int\limits_0^t K_b|X_s-Y_s|\d s\right)^2+\left(\int\limits_0^t K_\sigma|X_s-Y_s|\d W\right)^2\right] \\
      & \le \dfrac{1}{2}\EE\left[K_b t\int\limits_0^t (X_s-Y_s)^2\d s+K_\sigma\left(\int\limits_0^t |X_s-Y_s|\d W\right)^2\right]
-     & \text{(Jensen inequality)}                                                                                                                                   \\
-     & \le 2\EE\left[K_b^2 t\int\limits_0^t (X_s-Y_s)^2\d s+K_\sigma^2\int\limits_0^t (X_s-Y_s)^2\d s\right]                                & \text{(Itô isometry)} \\
-     & = 2(K_b^2 t+K_\sigma^2)\EE\left[\int\limits_0^t (X_s-Y_s)^2\d s\right]                                                                                       \\
-     & \le 2t(K_b^2 t+K_\sigma^2)\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s                                                                                        \\
-     & \le 2T(K_b^2 T+K_\sigma^2)\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s                                                                                        \\
+    \\
+     & \text{(Jensen inequality)}                                                                                                           \\
+     & \le 2\EE\left[K_b^2 t\int\limits_0^t (X_s-Y_s)^2\d s+K_\sigma^2\int\limits_0^t (X_s-Y_s)^2\d s\right]                                \\
+     & \text{(Itô isometry)}                                                                                                                \\
+     & = 2(K_b^2 t+K_\sigma^2)\EE\left[\int\limits_0^t (X_s-Y_s)^2\d s\right]                                                               \\
+     & \le 2t(K_b^2 t+K_\sigma^2)\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s                                                                \\
+     & \le 2T(K_b^2 T+K_\sigma^2)\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s                                                                \\
      & = D\int\limits_0^t \|X_s-Y_s\|^2_{\Q\M(s)}\d s.
   \end{align*}
   The proof is completed.
@@ -169,7 +171,7 @@ where $Z_1,Z_2,\ldots, Z_n\sim\N(0,I)$.
   \label{theorem:existence-and-uniqueness-solution-to-sdes-in-one-dimension}
   Let there be the autonomous one-dimensional SDE
   \begin{equation}
-  \label{equation:autonomous-one-dimensional-sde}
+    \label{equation:autonomous-one-dimensional-sde}
     \begin{cases}
       \d X_t = b(X_t)\d t+\sigma(X_t)\d W \\
       X_{0} = Z.

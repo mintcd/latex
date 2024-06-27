@@ -23,13 +23,13 @@ SegFormer employed Overlap Patch Embedding, with two additional hyperparameters 
 \textbf{Efficient Self-Attention.} This is an subblock of the Transformer block. After extracted as the keys $\mathbf{K}$ and queries $\mathbf{Q}$ of the same size as the sequence, the matrices go through a self-reduction process of ratio $r$. For instance, let $N=\frac{HW}{4}$, we have
 \begin{align*}
   \mathbf{K'} & = \mathrm{Reshape}\left(\dfrac{N}{r}, C\cdot r\right)(\mathbf{K}) \\
-  \mathbf{K}  & = \mathrm{Linear}\left(\dfrac{N}{r}, C\right)(\mathbf{K'}).
+  \mathbf{K}  & = \mathrm{Linear}\left(C\cdot r, C\right)(\mathbf{K'}).
 \end{align*}
-Thus, $\mathbf{K}$ is reduced to dimension $\frac{N}{r}\times C$ and similarly for $\mathbf{Q}$. The complexity is reduced from $O(N^2)$ to $O\left(\frac{N^2}{r}\right)$ comparing to original Multi-head Attention \cite{xie2021segformer}. In particular, the matrices $\mathbf{K}$, $\mathbf{Q}$ and $\mathbf{V}$ are constrained to be of equal size, enabling them to be generated simultaneously from the token sequence, which results in improved computational performance.
+Thus, $\mathbf{K}$ is reduced to dimension $\frac{N}{r}\times C$ and similarly for $\mathbf{V}$. The complexity is reduced from $O(N^2)$ to $O\left(\frac{N^2}{r}\right)$ comparing to original Multi-head Attention \cite{xie2021segformer}. In particular, the matrices $\mathbf{K}$, $\mathbf{Q}$ and $\mathbf{V}$ are constrained to be of equal size, enabling them to be generated simultaneously from the token sequence, which results in improved computational performance.
 
 \textbf{Mix-FFN.} This subblock is used as an alternative to Positional Encoding in ViT that only takes care of the distance between the tokens. The approach in ViT leads to the drop of accuracy for semantic segmentation task when the test set resolution differs from the training set. In SegFormer, the authors included a convolutional layer to encode positional information
 $$\xbf_{\mathrm{out}} = \mathrm{MLP}(\mathrm{GELU}(\mathrm{Conv_{3\times 3}(\mathrm{MLP}(\xbf_{in}))})).$$
-Their approach was based on an argument that adding PE to feature map is not necessary in semantic segmentation, and was empirically proved to be sufficient for this task.
+Their approach was based on an argument that adding PE to feature map is not necessary in semantic segmentation, and was empirically proved to be sufficient for this task. 
 
 
 \textbf{Overlapped Patch Merging.} This is the final subblock of the Transformer block that reshapes the previous output to size $\frac{W}{2}\times \frac{H}{2} \times C$, and processes similarly to Overlap Patch Embedding, returning a sequence of size $\frac{WR}{16}\times C_1$, where $C_1>C$. The other three following Transformer Blocks work similar, getting the sequence after the previous block and outputting a sequence of size $\frac{WR}{2^{2i+2}}\times C_i$, for $i\in\{2,3,4\}$.
@@ -49,7 +49,7 @@ The other choice for the watermark detection stage in our pipeline is the Segmen
 \end{figure}
 
 \subsubsection{Image Encoder}
-The authors of the Segment Anything model followed standard practices, that they firstly rescale an image and pad the shorter side to attain an input resolution of $1024\times1024$. They employed several ViT backbones \cite{dosovitskiy2020image}, one of them is a ViT-H/16, followed by a Masked Autoencoder \cite{he2022masked}, returning an image of 16-time lower resolution. The image is then passed through convolutional layers to arrive at an output size of $256\times 64\times 64$.
+The authors of the Segment Anything model followed standard practices, that they firstly rescale an image and pad the shorter side to attain an input resolution of $1024\times1024$. They employed several ViT backbones \cite{dosovitskiy2020image}, one of them is a ViT-H/16, followed by a Masked Autoencoder \cite{he2022masked}, returning an image of 16-time lower resolution.   The image is then passed through convolutional layers to arrive at an output size of $256\times 64\times 64$.
 
 \subsubsection{Prompt Encoder}
 The model allows prompts of two types: sparse (points, boxes, text) and dense (masks). Each prompt is mapped to a $256$-dimensional vectorial embedding. A point is represented by the sum of a foreground-background learned embedding and a positional encoding. The latter value is a general approach of the sinusoid function called Fourier features \cite{tancik2020fourier}. A box is represented by an representation pair. For the top-left corner, the representation is the sum its positional encoding and its learned ``top-left corner'' embedding. A similar structure is applied for the bottom-right corner, except for that a learned ``bottom-right corner'' embedder is used. A text encoder can be any available one. The authors used continuous bag of words and Text Transformer \cite{vaswani2017attention} for their experiments. A mask is firstly converted a 4-time lower resolution than the input image. Then it is downscaled  by additional 4 times, using two $\mathrm{Conv}_{2\times 2}$ with stride 2 and output channels 4 and 16, respectively. A final $\mathrm{Conv}_{1\times 1}$ maps the channel dimension to $256$. Each layer is separated by GELU activations and layer normalization. Finally, the mask are added to the image element-wise. If there is no mask prompt, a learned embedding representing ``no mask'' is added to each image embedding location.
@@ -66,18 +66,18 @@ The previous image embedding is treated as a set of $64^2$ 256-dimensional vecto
 \end{figure}
 
 \begin{figure}[H]
-  \centering
-  \begin{subfigure}[b]{0.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{img/sam-segmented-after-point.png}
-    \label{fig:sam_point}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{img/sam-segment-bounding-box.png}
-    \label{fig:sam_box}
-  \end{subfigure}
-  \caption[Segmented regions returned by SAM]{Segmented regions returned by SAM. In the left figure, three points are selected, while in the right figure, a box is drawn. In both cases, the leftmost chair is not fully recognized.}
-  \label{fig:sam_segments}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sam-segmented-after-point.png}
+        \label{fig:sam_point}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/sam-segment-bounding-box.png}
+        \label{fig:sam_box}
+    \end{subfigure}
+    \caption[Segmented regions returned by SAM]{Segmented regions returned by SAM. In the left figure, three points are selected, while in the right figure, a box is drawn. In both cases, the leftmost chair is not fully recognized.}
+    \label{fig:sam_segments}
 \end{figure}

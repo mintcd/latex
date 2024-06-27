@@ -8,412 +8,415 @@ Classical probability theory faces difficulties in problems whose statement is a
 \subsection{Probability Space}
 
 \begin{definition}
- Let $(\Omega, \F)$ be a measurable space. A measure $\PP$ on $(\Omega, \F)$ is called a \textbf{probability measure}\index{probability measure} if $P(\Omega)=1$. The triplet $(\Omega, \F, P)$ is called a \textbf{probability space}\index{probability space}.
+  Let $(\Omega, \F)$ be a measurable space. A measure $\PP$ on $(\Omega, \F)$ is called a \textbf{probability measure}\index{probability measure} if $P(\Omega)=1$. The triplet $(\Omega, \F, P)$ is called a \textbf{probability space}\index{probability space}.
 \end{definition}
 
 \begin{example}
- One rolls a fair dice once. Let $\Omega=\{1,2,3,4,5,6\}$ be the set of possible outcomes. Using classical probability, one can compute probability of several events, such as
- \begin{itemize}
-  \item The probability of receiving an odd-number face is $P(\{1,3,5\})=\dfrac{1}{2}$.
-  \item The probability of receiving a face whose number is less that $3$ is $P(\{1,2\})=\dfrac{1}{3}$.
- \end{itemize}
- The probability space $(\Omega, \F, P)$ for this problem contains
- \begin{itemize}
-  \item $\Omega=\{1,2,3,4,5,6\}$.
-  \item $\F=2^\Omega$.
-  \item $P(A)=\dfrac{|A|}{6},\forall A\in\F$, where $|A|$ is the number of elements in $A$.
- \end{itemize}
+  One rolls a fair dice once. Let $\Omega=\{1,2,3,4,5,6\}$ be the set of possible outcomes. Using classical probability, one can compute probability of several events, such as
+  \begin{itemize}
+    \item The probability of receiving an odd-number face is $P(\{1,3,5\})=\dfrac{1}{2}$.
+    \item The probability of receiving a face whose number is less that $3$ is $P(\{1,2\})=\dfrac{1}{3}$.
+  \end{itemize}
+  The probability space $(\Omega, \F, P)$ for this problem contains
+  \begin{itemize}
+    \item $\Omega=\{1,2,3,4,5,6\}$.
+    \item $\F=2^\Omega$.
+    \item $P(A)=\dfrac{|A|}{6},\forall A\in\F$, where $|A|$ is the number of elements in $A$.
+  \end{itemize}
 \end{example}
 
 \begin{remark}
- By convention, for $A,B\in\F$, we usually write the joint probability
- $P(A\cap B)$ by $P(A,B)$.
+  By convention, for $A,B\in\F$, we usually write the joint probability
+  $P(A\cap B)$ by $P(A,B)$.
 \end{remark}
 
 \begin{definition}
- \label{definition:property-almost-surely}
- Given a probability space $(\Omega, \F, \PP)$. A property $\P:\Omega\to\{0,1\}$ is said to hold \textbf{almost surely}\index{almost surely} with respect to $\PP$, abbreviated by $\PP$-a.s. if
- \begin{equation}
-  \PP\left(\left\{\omega\in\Omega : \P(\omega)\right\}\right) = 1.
- \end{equation}
- If $\PP$ is clear, we can just say $\P$ a.s.
+  \label{definition:property-almost-surely}
+  Given a probability space $(\Omega, \F, \PP)$. A property $\P:\Omega\to\{0,1\}$ is said to hold \textbf{almost surely}\index{almost surely} with respect to $\PP$, abbreviated by $\PP$-a.s. if
+  \begin{equation}
+    \PP\left(\left\{\omega\in\Omega : \P(\omega)\right\}\right) = 1.
+  \end{equation}
+  If $\PP$ is clear, we can just say $\P$ a.s.
 \end{definition}
 
 \begin{remark}
- The definition implies
- $$P(A\cap B)=P(B|A)P(A)=P(A)P(B)$$
- and
- $$P(A|B)=\dfrac{P(A\cap B)}{P(B)}=\dfrac{P(A\cap B)}{P(B|A)}=P(A).$$
- One can also check that three formulas are equivalent. Any of them can be used to define independent events.
+  The definition implies
+  $$P(A\cap B)=P(B|A)P(A)=P(A)P(B)$$
+  and
+  $$P(A|B)=\dfrac{P(A\cap B)}{P(B)}=\dfrac{P(A\cap B)}{P(B|A)}=P(A).$$
+  One can also check that three formulas are equivalent. Any of them can be used to define independent events.
 \end{remark}
 
 \subsection{Random Variables}
 A probability calculation problem can sometimes be solved using more than one probability space. Consider the following example.
 
 \begin{example}
- \label{example:probability-space-map}
- Locate four students Adam, Ben, Cam and Don to four chairs $A,B,C$ and $D$ randomly. We can compute the probability that Adam sits on chair $A$ as one of the followings. The more complicated inference is that there are $4! = 24$ ways to locate the students, whereas there are $3! = 6$ locating ways such that Adam sits on chair $A$, so the probability is $\dfrac{6}{24}=\dfrac{1}{4}$. On the other hand, we can think more simply that there is no bias of any chair that Adam sits, so the probability that Adam sits on chair $A$ is $\dfrac{1}{4}$. The first probability space $(\Omega_1, \F_1, \PP_1)$ has $24$ outcomes, whereas the second one $(\Omega_2, \F_2, \PP_2)$ has $4$ outcomes.
+  \label{example:probability-space-map}
+  Locate four students Adam, Ben, Cam and Don to four chairs $A,B,C$ and $D$ randomly. We can compute the probability that Adam sits on chair $A$ as one of the followings. The more complicated inference is that there are $4! = 24$ ways to locate the students, whereas there are $3! = 6$ locating ways such that Adam sits on chair $A$, so the probability is $\dfrac{6}{24}=\dfrac{1}{4}$. On the other hand, we can think more simply that there is no bias of any chair that Adam sits, so the probability that Adam sits on chair $A$ is $\dfrac{1}{4}$. The first probability space $(\Omega_1, \F_1, \PP_1)$ has $24$ outcomes, whereas the second one $(\Omega_2, \F_2, \PP_2)$ has $4$ outcomes.
 \end{example}
 
 The equivalence of two probability spaces in solving the problem suggests that there is a map from the probability space with larger sample space to the one with smaller sample space $X : \Omega_1 \to \Omega_2$ such that for any two semantic-equivalent events $E_1\in\F_1$ and $E_2\in\F_2$, we have $\PP_1(E_1) = \PP_2(E_2)$.
 
 \begin{example}
- In Example \ref{example:probability-space-map}, denote by $(X,Y)$ the outcome that student $X$ sits on chair $Y$. For the first probability space, we have
- $$\Omega_1=\{
-  ((\text{Adam}, A), (\text{Ben}, B), (\text{Cam}, C), (\text{Don}, D)),
-  \ldots,
-  ((\text{Adam}, D), (\text{Ben}, C), (\text{Cam}, B), (\text{Don}, D))\}$$
- and $P_1(E_1) = \dfrac{|E_1|}{|\Omega_1|}$ for any $E_1\subset \Omega_1$. While for the second probability space, we have
- $$\Omega_2=\{(\text{Adam}, A), (\text{Adam}, B), (\text{Adam}, C), (\text{Adam}, D)\}$$
- and $P_2(E_2) = \dfrac{|E_2|}{|\Omega_2|}$ for any $E_2\subset \Omega_2$.
- The map $X$ in this cased is defined as $X(((\text{Adam}, Y), \ldots)) = (\text{Adam}, Y)$, for any $Y\in\{A,B,C,D\}$.
+  In Example \ref{example:probability-space-map}, denote by $(X,Y)$ the outcome that student $X$ sits on chair $Y$. For the first probability space, we have
+  \begin{align*}
+    \Omega_1
+     & =\{((\text{Adam}, A), (\text{Ben}, B), (\text{Cam}, C), (\text{Don}, D)),        \\
+     & \ldots, ((\text{Adam}, D), (\text{Ben}, C), (\text{Cam}, B), (\text{Don}, D))\}.
+  \end{align*}
+
+  and $P_1(E_1) = \dfrac{|E_1|}{|\Omega_1|}$ for any $E_1\subset \Omega_1$. While for the second probability space, we have
+  $$\Omega_2=\{(\text{Adam}, A), (\text{Adam}, B), (\text{Adam}, C), (\text{Adam}, D)\}$$
+  and $P_2(E_2) = \dfrac{|E_2|}{|\Omega_2|}$ for any $E_2\subset \Omega_2$.
+  The map $X$ in this cased is defined as $X(((\text{Adam}, Y), \ldots)) = (\text{Adam}, Y)$, for any $Y\in\{A,B,C,D\}$.
 \end{example}
 
 It derives that such map $X : \Omega_2 \to \Omega_1$ is measurable. In general, such map $X$ is called a probability preserving map.
 
 \begin{definition}
- Let $(\Omega_1, \F_1, \PP_1)$ and $(\Omega_2, \F_2, \PP_2)$ be probability spaces. A measurable map $X : \Omega_1 \to \Omega_2$ is said to be \textbf{probability preserving}\index{probability preserving map} if
- $$\PP_1(X^{-1}(E_2)) = \PP_2(E_2), \forall E_2 \in \F_2.$$
+  Let $(\Omega_1, \F_1, \PP_1)$ and $(\Omega_2, \F_2, \PP_2)$ be probability spaces. A measurable map $X : \Omega_1 \to \Omega_2$ is said to be \textbf{probability preserving}\index{probability preserving map} if
+  $$\PP_1(X^{-1}(E_2)) = \PP_2(E_2), \forall E_2 \in \F_2.$$
 \end{definition}
 
 \begin{theorem}
- \label{theorem:probability-measure-wrt-measurable-map}
- Let $(\Omega_1, \F_1, \PP_1)$ be a probability space and $(\Omega_2, \F_2)$ be a measurable space. For any measurable map $X : \Omega_1 \to \Omega_2$, there exists a probability measure $\PP_2$ such that $X$ is probability preserving.
+  \label{theorem:probability-measure-wrt-measurable-map}
+  Let $(\Omega_1, \F_1, \PP_1)$ be a probability space and $(\Omega_2, \F_2)$ be a measurable space. For any measurable map $X : \Omega_1 \to \Omega_2$, there exists a probability measure $\PP_2$ such that $X$ is probability preserving.
 \end{theorem}
 
 \begin{proof}
- Since $X$ is measurable, for any $E_2 \in \F_2, \PP_1(X^{-1}(E_2))$. The measure $\P_2$ is established such that
- $$\PP_2(E_2) = \PP_1(X^{-1}(E_2)), \forall E_2 \in \F_2.$$
+  Since $X$ is measurable, for any $E_2 \in \F_2, \PP_1(X^{-1}(E_2))$. The measure $\PP_2$ is established such that
+  $$\PP_2(E_2) = \PP_1(X^{-1}(E_2)), \forall E_2 \in \F_2.$$
 \end{proof}
 
 For computational purposes, we select $\Omega_2$ to be a real vector space, $\F_2 = \B(\Omega)$. The map $X$ is then called a \textit{random variable}.
 
 \begin{definition}
- \label{definition:random-variable}
- Let $(\Omega, \F, P)$ be a probability space. A function $X:\Omega\to\RR^d$ is called a $d$-dimensional \textbf{random variable}\index{random variable} if $X$ is $(\F,\B(\RR^d))$-measurable. If $X_1,\ldots, X_N$, where $N\ge 2$ are random variables, then $(X_1,\ldots,X_N)$ is called a \textbf{random vector}\index{random vector}.
+  \label{definition:random-variable}
+  Let $(\Omega, \F, P)$ be a probability space. A function $X:\Omega\to\RR^d$ is called a $d$-dimensional \textbf{random variable}\index{random variable} if $X$ is $(\F,\B(\RR^d))$-measurable. If $X_1,\ldots, X_N$, where $N\ge 2$ are random variables, then $(X_1,\ldots,X_N)$ is called a \textbf{random vector}\index{random vector}.
 \end{definition}
 
+Originally, random variables are defined in a probability computation problem to work more conviniently with numbers rather than events. Later on, in numerical problems, we only consider real-valued realizations of a random variable. In such cases, the existence of a probability space $(\Omega, \F, \PP)$ such that $X$ is $\F$-measurable is implicitly assumed. To avoid scripting with $\Omega$, we usually briefly write $\PP(\{\omega\in\Omega : X(\omega)\in B\})$ as $\PP(X\in B)$.
 
-% New page if possible, don't let this Remark title alone
-\begin{remark}
- \begin{enumerate}[label = (\roman*)]
-  \item []
-  \item When we mention a random variable $X$ without further specification, we implicitly assume the existence of a probability space $(\Omega, \F, \PP)$ such that $X$ is $\F$-measurable.
-  \item If the range $X(\Omega)$ is countable, then $X$ is said to be a \textbf{discrete random variable}\index{discrete random variable}.
-  \item As a consequence of Theorem \ref{theorem:probability-measure-wrt-measurable-map}, every random variable $X$ induces a probability measure $\PP_X: \B(\RR^d)\to\RR$ such that
-        \begin{equation}
-         \PP_X(B) = \PP(\{\omega\in\Omega : X(\omega)\in B\}),
-        \end{equation}
-        called the distribution\index{distribution} of $X$. We usually briefly write $P(X\in B):= \PP(\{\omega\in\Omega : X(\omega)\in B\})$.
- \end{enumerate}
-\end{remark}
-
-\begin{proposition}[A Random Vector is a Random Variable]
- The following functions $X_1,\ldots,X_d: \Omega\to\RR$ are random variables if and only if the function $Y=(X_1,\ldots, X_d)$ defined by
- $$Y(\omega) = (X_1(\omega),\ldots, X_d(\omega)), \forall \omega\in\Omega$$
- is a random variable.
+\begin{proposition}[Random Vector is Random Variable]
+  \label{proposition-random-vector-is-random-variable}
+  Let $(\Omega, \F, P)$ be a probability space. The following functions $X_1,\ldots,X_d: \Omega\to\RR$ are random variables if and only if the function $Y=(X_1,\ldots, X_d)$ defined by
+  $$Y(\omega) = (X_1(\omega),\ldots, X_d(\omega)), \forall \omega\in\Omega$$
+  is a random variable.
 \end{proposition}
 
 \begin{proof}
- Suppose that $X_1,\ldots,X_d$ are random variables, then
- $$X_i^{-1}((-\infty, b])\in \F, \forall b\in \RR, i\in \{1,\ldots,d\}.$$
+  Suppose that $X_1,\ldots,X_d$ are random variables, then
+  $$X_i^{-1}((-\infty, b])\in \F, \forall b\in \RR, i\in \{1,\ldots,d\}.$$
 
- Therefore,
- \begin{align*}
-  Y^{-1}(\{(x_1,\ldots,x_d): x_1\le b_1,\ldots, x_d\le b_d\})
-   & = \bigcap\limits_{i=1}^d X_i^{-1}((-\infty, b_i]) \in \F, \forall b_1,\ldots,b_d\in \RR.
- \end{align*}
- Thus, $Y$ is a random variable. Conversely, suppose that $Y$ is a random variable, we have
- \begin{align*}
-  X_i^{-1}((-\infty, b_i])
-   & = X_i^{-1}((-\infty, b_i]) \cap \Omega                                                                                                 \\
-   & = X_i^{-1}((-\infty, b_i]) \cap \left(\bigcap\limits_{j\ne i}^d X_j^{-1}(\RR)\right)                                                   \\
-   & = Y^{-1}\left(\{(x_1,\ldots, x_d) : x_i \le b_i \text{ and } x_j \in \RR, \forall j\ne i\}\right) \in \F, \forall i\in\{0,\ldots, d\}.
- \end{align*}
- Thus, each $X_i$ where $i\in\{0,\ldots, d\}$ is a random variable.
+  Therefore,
+  \begin{align*}
+    Y^{-1}(\{(x_1,\ldots,x_d): x_1\le b_1,\ldots, x_d\le b_d\})
+     & = \bigcap\limits_{i=1}^d X_i^{-1}((-\infty, b_i]) \in \F, \forall b_1,\ldots,b_d\in \RR.
+  \end{align*}
+  Thus, $Y$ is a random variable. Conversely, suppose that $Y$ is a random variable, we have
+  \begin{align*}
+    X_i^{-1}((-\infty, b_i])
+     & = X_i^{-1}((-\infty, b_i]) \cap \Omega                                                                                                 \\
+     & = X_i^{-1}((-\infty, b_i]) \cap \left(\bigcap\limits_{j\ne i}^d X_j^{-1}(\RR)\right)                                                   \\
+     & = Y^{-1}\left(\{(x_1,\ldots, x_d) : x_i \le b_i \text{ and } x_j \in \RR, \forall j\ne i\}\right) \in \F, \forall i\in\{0,\ldots, d\}.
+  \end{align*}
+  Thus, each $X_i$ where $i\in\{0,\ldots, d\}$ is a random variable.
 \end{proof}
 
+Proposition \ref{proposition-random-vector-is-random-variable} lets us work safely with elements of a multidimensional random variable as independent random variables.
+
+\begin{proposition}[Measure Induced by a Random Variable]
+  Let $(\Omega,\F,\PP)$ be a probability space and $X$ be a $d$-dimensional random variable. Then the function $\PP_X: \B(\RR^d)\to\RR$ defined by
+  \begin{equation}
+    \PP_X(B) = \PP(\{\omega\in\Omega : X(\omega)\in B\})
+  \end{equation}
+  is a measure on $(\RR^d,\B(\RR^d))$, called the \textbf{distribution} of $X$.
+\end{proposition}
+
+
 \begin{definition}
- Let $(\Omega, \F, P)$ be a probability space and $X:\Omega\to\RR^d$ be a random variable. Then
- $$\sigma(X)=\{X^{-1}(B) : B\in \B\}$$
- is called the $\sigma$-algebra generated\index{generated $\sigma$-algebra} by $X$ (See Proposition \ref{preposition:preimage-of-a-measurable-map-over-the imaged-sigma-algebra-is-a-sigma-algebra} that $\sigma(X)$ is indeed a $\sigma$-algebra). The $\sigma$-algebra generated by a random variable $X$ is interpreted as containing on information relevant to $X$.
+  Let $(\Omega, \F, P)$ be a probability space and $X:\Omega\to\RR^d$ be a random variable. Then
+  $$\sigma(X)=\{X^{-1}(B) : B\in \B(\RR^d)\}$$
+  is called the $\sigma$-algebra generated\index{generated $\sigma$-algebra} by $X$ (See Proposition \ref{preposition:preimage-of-a-measurable-map-over-the imaged-sigma-algebra-is-a-sigma-algebra} that $\sigma(X)$ is indeed a $\sigma$-algebra). The $\sigma$-algebra generated by a random variable $X$ is interpreted as containing on information relevant to $X$.
 \end{definition}
 
 \begin{definition}
- Let $(\Omega, \F, P)$ be a probability space and $X:\Omega\to\RR^n$ be a random variable. Then the vector in $\RR^n$
- \begin{equation}
-  \EE[X]=\int_{\Omega}X\d\PP=\int_{\RR^n}x\d \PP_x
- \end{equation}
- is called the \textbf{expectation}\index{expectation} of $X$.
+  Let $(\Omega, \F, P)$ be a probability space and $X$ be a real-valued random variable. The quantity
+  \begin{equation}
+    \EE[X]=\int_{\Omega}X\d\PP=\int_{\RR}x\d \PP_x
+  \end{equation}
+  is called the \textbf{expectation}\index{expectation} of $X$.
 \end{definition}
 
-With the notion of expectation, we can restate the $L^2$ space for random variables as
+For any event $E$, we have $\PP(E) = \EE[\1_E]$. Therefore, expectation of a random variable is more general than probability of an event. With the notion of expectation, we can restate the $L^2$ space for real-valued random variables as
 \begin{equation}
- L^2(\PP) = \left\{X : \EE[\|X\|_2^2] < \infty \right\}.
+  L^2(\PP) = \left\{X : \EE[X^2] < \infty \right\}.
 \end{equation}
 
+Also, note that for each $X\in L^2(\PP)$, $\|X\|_{L^2} = (\EE[X^2])^{1/2}$.
+
 \begin{definition}
- Let $X$ be a $d$-dimensional random variable. If there exists a function $p_X:\RR^n\to [0,1]$ such that
- \begin{equation}
-  \label{equation:density}
-  \PP(X\in B)=\int_B p_X(x)\d \xbf, \forall B\in \B(\RR^d)
- \end{equation}
- then $X$ is said to be absolutely continuous\index{absolutely continuous}. We call $p_X$ the \textbf{probability density function}\index{probability density function} (PDF) of $X$, and denote by $X\sim p_X$.
+  Let $X$ be a $d$-dimensional random variable. If there exists a function $p_X:\RR^n\to [0,1]$ such that
+  \begin{equation}
+    \label{equation:density}
+    \PP(X\in B)=\int_B p_X(x)\d \xbf, \forall B\in \B(\RR^d)
+  \end{equation}
+  then $X$ is said to be absolutely continuous\index{absolutely continuous}. We call $p_X$ the \textbf{probability density function}\index{probability density function} (PDF) of $X$, and denote by $X\sim p_X$.
 \end{definition}
 
 \begin{remark}
- Using Proposition \ref{proposition:equivalent-borel-core}, the condition (\ref{equation:density}) is equivalent to
- \begin{equation}
-  \PP(x_1\le b_1, \ldots, x_n\le b_n)=\int\limits_{-\infty}^{b_d}\ldots\int\limits_{-\infty}^{b_1} p_X(x_1,\ldots,x_d)\d x_1\ldots\d x_d, \forall (b_1,\ldots,b_d)\in \RR^d.
- \end{equation}
- Therefore, in later proofs we will simply take the integral in Borel sets $B=\{(x_1,\ldots,x_d): x_i\le b_i, i=1,\ldots,d\}$.
+  Using Proposition \ref{proposition:equivalent-borel-core}, the condition (\ref{equation:density}) is equivalent to
+  \begin{equation}
+    \PP(x_1\le b_1, \ldots, x_n\le b_n)=\int\limits_{-\infty}^{b_d}\ldots\int\limits_{-\infty}^{b_1} p_X(x_1,\ldots,x_d)\d x_1\ldots\d x_d, \forall (b_1,\ldots,b_d)\in \RR^d.
+  \end{equation}
+  Therefore, in later proofs we will simply take the integral in Borel sets $B=\{(x_1,\ldots,x_d): x_i\le b_i, i=1,\ldots,d\}$.
 \end{remark}
 
 \begin{example}
- A ubiquitous distribution used probability theory and statistics is the Gaussian distribution $\N(\bm{\mu}, \Sigma)$. The normal density is given by
- \begin{equation}
-  \N(\xbf;\bm{\mu}, \Sigma) := \N(\bm{\mu}, \Sigma)(\xbf) = \dfrac{1}{\sqrt{(2\pi)^d\det(\Sigma)}}\exp\left\{-\dfrac{1}{2}(\xbf-\bm{\mu})(\xbf-\bm{\mu})^\top\right\}.
- \end{equation}
+  A ubiquitous distribution used probability theory and statistics is the Gaussian distribution $\N(\bm{\mu}, \Sigma)$. The normal density is given by
+  \begin{equation}
+    \N(\xbf;\bm{\mu}, \Sigma) := \N(\bm{\mu}, \Sigma)(\xbf) = \dfrac{1}{\sqrt{(2\pi)^d\det(\Sigma)}}\exp\left\{-\dfrac{1}{2}(\xbf-\bm{\mu})(\xbf-\bm{\mu})^\top\right\}.
+  \end{equation}
 \end{example}
 
 \begin{remark}
- When we say $\{\xbf_n\}_{n=1}^N$ is sample from a PDF $p_X$, we mean that
- $$\lim\limits_{N\to\infty}\dfrac{|\{n: \xbf_n\in B\}|}{N} = \int\limits_{B}p_X(\xbf)\d\xbf,$$
- for any $B\in\B(\RR^d)$.
+  When we say $\{\xbf_n\}_{n=1}^N$ is sample from a PDF $p_X$, we mean that
+  $$\lim\limits_{N\to\infty}\dfrac{|\{n: \xbf_n\in B\}|}{N} = \int\limits_{B}p_X(\xbf)\d\xbf,$$
+  for any $B\in\B(\RR^d)$.
 \end{remark}
 
 If a random variable $X$ is discrete, then the function $p_X:\RR^d\to[0,1]$, such that $p_X(x) = \PP_X(x)$ is called the probability mass function (PMF) of $X$. Discreteness and absolute continuity are two extreme class of random variables. In such cases, the probability density function or mass function, if exists, contains all information about $X$. We do not concern discrete random variables in our scope. For absolutely continuous random variables, we define the joint density and the marginal density as an analogy to events.
 
 \begin{definition}
- Let $X:\Omega\to\RR^{d_X}$ and $Y:\Omega\to\RR^{d_Y}$ are absolutely continuous random variables with density $p_X$ and $p_Y$, respectively. A function $p_{XY}:\RR^{d_X}\times \RR^{d_Y}\to[0,1]$ is called the \textbf{joint PDF}\index{joint PDF} if
- \begin{equation}
-  \int_B\int_{A}p_{XY}(x,y)\d\xbf\d\ybf = \PP(\xbf\in A, \ybf\in B),\forall A\in\B(\RR^{d_X}), B\in\B(\RR^{d_Y}).
- \end{equation}
- A function $p_{X|Y}:\RR^{d_X} \times \RR^{d_y} \to[0,1]$ is called a \textbf{conditional PDF}\index{conditional PDF} if
- \begin{equation}
-  \int_B \int_{A}p_{X|Y}(x, y) p_Y(y) \d\xbf \d\ybf  = \PP(\xbf\in A , \ybf\in B), \forall A\in\B(\RR^{d_X}), B\in\B(\RR^{d_Y}).
- \end{equation}
+  Let $X:\Omega\to\RR^{d_X}$ and $Y:\Omega\to\RR^{d_Y}$ are absolutely continuous random variables with density $p_X$ and $p_Y$, respectively. A function $p_{XY}:\RR^{d_X}\times \RR^{d_Y}\to[0,1]$ is called the \textbf{joint PDF}\index{joint PDF} if
+  \begin{equation}
+    \int_B\int_{A}p_{XY}(x,y)\d\xbf\d\ybf = \PP(\xbf\in A, \ybf\in B),\forall A\in\B(\RR^{d_X}), B\in\B(\RR^{d_Y}).
+  \end{equation}
+  A function $p_{X|Y}:\RR^{d_X} \times \RR^{d_y} \to[0,1]$ is called a \textbf{conditional PDF}\index{conditional PDF} if
+  \begin{equation}
+    \int_B \int_{A}p_{X|Y}(x, y) p_Y(y) \d\xbf \d\ybf  = \PP(\xbf\in A , \ybf\in B), \forall A\in\B(\RR^{d_X}), B\in\B(\RR^{d_Y}).
+  \end{equation}
 \end{definition}
 
 \begin{theorem}[Algebra of density functions]
- \label{theorem:algebra-of-density-functions}
- Let $X$ and $Y$ be random variables with PDFs $p_X$ and $p_X$, respectively.
- \begin{enumerate}[label=(\roman*), ref=(\roman*)]
-  \item The joint PDF of $X$ and $Y$ is given by
-        \begin{equation}
-         p_{X,Y}(x,y)=\dfrac{\partial^2 P_{X,Y}(x,y)}{\partial x\partial y},
-        \end{equation}
-        where $P_{X,Y}$ be the CDF of the random variable $(X,Y)$.
-  \item Assume that $p_Y$ takes only positive values. The conditional PDF of $X$ given $Y$ is
-        \begin{equation}
-         p_{X|Y}(x,y)=\dfrac{p_{X,Y}(x,y)}{p_Y(y)}.
-        \end{equation}
- \end{enumerate}
+  \label{theorem:algebra-of-density-functions}
+  Let $X$ and $Y$ be random variables with PDFs $p_X$ and $p_X$, respectively.
+  \begin{enumerate}[label=(\roman*), ref=(\roman*)]
+    \item The joint PDF of $X$ and $Y$ is given by
+          \begin{equation}
+            p_{X,Y}(x,y)=\dfrac{\partial^2 P_{X,Y}(x,y)}{\partial x\partial y},
+          \end{equation}
+          where $P_{X,Y}$ be the CDF of the random variable $(X,Y)$.
+    \item Assume that $p_Y$ takes only positive values. The conditional PDF of $X$ given $Y$ is
+          \begin{equation}
+            p_{X|Y}(x,y)=\dfrac{p_{X,Y}(x,y)}{p_Y(y)}.
+          \end{equation}
+  \end{enumerate}
 \end{theorem}
 \begin{proof}
- Consider
- $$A=\{(x_1,\ldots,x_d): x_i\le a_i, i=1,\ldots,d\} \text{ and } B=\{(x_1,\ldots,x_d): x_i\le b_i, i=1,\ldots,d\}.$$
- The proof is derived from the Fundamental Theorem of Calculus.
+  Consider
+  $$A=\{(x_1,\ldots,x_d): x_i\le a_i, i=1,\ldots,d\} \text{ and } B=\{(x_1,\ldots,x_d): x_i\le b_i, i=1,\ldots,d\}.$$
+  The proof is derived from the Fundamental Theorem of Calculus.
 \end{proof}
 
 \begin{remark}
- If there is no ambiguity, we usually abbreviate the expressions
- $$p_{X,Y}(x\in A,y\in B) := p(x\in A,y\in B) \text{ and } p_{X|Y}(x\in A,y\in B) := p(x\in A|y\in B).$$
+  If there is no ambiguity, we usually abbreviate the expressions
+  $$p_{X,Y}(x\in A,y\in B) := p(x\in A,y\in B) \text{ and } p_{X|Y}(x\in A,y\in B) := p(x\in A|y\in B).$$
 \end{remark}
 
 Along with equality and convergence defined in $L^2$ space, almost sure equality and convergence are applicable for random variables as a stronger comparing criterion.
 
 \begin{definition}
- Let $(\Omega, \F, P)$ be a probability space. Two random variables $X$ and $Y$ are said to be equal almost surely if
- $$\PP(\{\omega\in\Omega : X(\omega)=Y(\omega)\})=1,$$
- denoted by $X=Y, \,\,a.s.$
+  Let $(\Omega, \F, P)$ be a probability space. Two random variables $X$ and $Y$ are said to be equal almost surely if
+  $$\PP(\{\omega\in\Omega : X(\omega)=Y(\omega)\})=1,$$
+  denoted by $X=Y, \,\,a.s.$
 \end{definition}
 
 \begin{definition}
- Let $(\Omega, \F, P)$ be a probability space. A sequence $(X_n)_{n\in \NN}$ of random variables is said to converge almost surely to a random variable $X$ if
- $$\PP\left(\left\{\omega\in\Omega : \lim\limits_{n\to\infty}X_n(\omega)=X(\omega)\right\}\right)=1.$$
+  Let $(\Omega, \F, P)$ be a probability space. A sequence $(X_n)_{n\in \NN}$ of random variables is said to converge almost surely to a random variable $X$ if
+  $$\PP\left(\left\{\omega\in\Omega : \lim\limits_{n\to\infty}X_n(\omega)=X(\omega)\right\}\right)=1.$$
 \end{definition}
 
 We can approximate how two random variables $X$ and $Y$ behave similarly to each other by their PDFs. In such case, we define a divergence\index{divergence}. A divergence is not a metric, but it gives more information than equality in distribution. Here we introduce the popular Kullback–Leibler divergence, which used in diffusion models (see Section \ref{section:diffusion-models}).
 
 \begin{definition}
- \label{definition:KL-divergence}
- Let $P,Q$ be distribution functions. Assume that the corresponding densities $p$ and $q$ exist. The \textbf{Kullback–Leibler divergence}\index{Kullback–Leibler divergence} from $P$ to $Q$ is defined as
- \begin{equation}
-  D_{\mathrm{KL}}(P\|Q) = \int_{\RR^d} p(x)\ln\dfrac{p(x)}{q(x)}\d x.
- \end{equation}
+  \label{definition:KL-divergence}
+  Let $P,Q$ be distribution functions. Assume that the corresponding densities $p$ and $q$ exist. The \textbf{Kullback–Leibler divergence}\index{Kullback–Leibler divergence} from $P$ to $Q$ is defined as
+  \begin{equation}
+    D_{\mathrm{KL}}(P\|Q) = \int_{\RR^d} p(x)\ln\dfrac{p(x)}{q(x)}\d x.
+  \end{equation}
 \end{definition}
 
 \begin{remark}
- We can check that $D_{\mathrm{KL}}(P\|Q)\ge0$ with equality holds if $p=q$. In general, KL divergence is not symmetric i.e. $D_{\mathrm{KL}}(P\|Q)\ne D_{\mathrm{KL}}(Q\|P).$ Each expression serves a different purpose \cite{bishop2006pattern}.
+  We can check that $D_{\mathrm{KL}}(P\|Q)\ge0$ with equality holds if $p=q$. In general, KL divergence is not symmetric i.e. $D_{\mathrm{KL}}(P\|Q)\ne D_{\mathrm{KL}}(Q\|P).$ Each expression serves a different purpose \cite{bishop2006pattern}.
 
- The symmetrized version developed from KL divergence called Jensen-Shannon (JS) divergence is also applicable
- \begin{equation}
-  D_{\mathrm{JS}}(P\|Q) = \dfrac{1}{2}\left(D_{\mathrm{KL}}(P\|Q) + D_{\mathrm{KL}}(Q\|P)\right).
- \end{equation}
+  The symmetrized version developed from KL divergence called Jensen-Shannon (JS) divergence is also applicable
+  \begin{equation}
+    D_{\mathrm{JS}}(P\|Q) = \dfrac{1}{2}\left(D_{\mathrm{KL}}(P\|Q) + D_{\mathrm{KL}}(Q\|P)\right).
+  \end{equation}
 \end{remark}
 
 \begin{example}
- Let $P:\left(a:\dfrac{3}{5}, b:\dfrac{1}{5}, c:\dfrac{1}{5}\right)$ is a categorical distribution. Here we mean that $P(x=a)=\dfrac{3}{5}$ and so on. Also let $Q:\left(a:\dfrac{1}{9}, b:\dfrac{4}{9}, c:\dfrac{4}{9}\right)$. Then
- $$D_{\mathrm{KL}}(P\|Q)=\dfrac{3}{5}\ln\left(\dfrac{3}{5}\cdot \dfrac{1}{9}\right)+\dfrac{1}{5}\ln\left(\dfrac{1}{5}\cdot \dfrac{4}{9}\right)+\dfrac{1}{5}\ln\left(\dfrac{1}{5}\cdot \dfrac{4}{9}\right)\approx 0.692,$$
- $$D_{\mathrm{KL}}(Q\|P)=\dfrac{1}{9}\ln\left(\dfrac{1}{9}\cdot \dfrac{3}{5}\right)+\dfrac{4}{9}\ln\left(\dfrac{4}{9}\cdot \dfrac{1}{5}\right)+\dfrac{4}{9}\ln\left(\dfrac{4}{9}\cdot \dfrac{1}{5}\right)\approx 0.522.$$
+  Let $P:\left(a:\dfrac{3}{5}, b:\dfrac{1}{5}, c:\dfrac{1}{5}\right)$ is a categorical distribution. Here we mean that $P(x=a)=\dfrac{3}{5}$ and so on. Also let $Q:\left(a:\dfrac{1}{9}, b:\dfrac{4}{9}, c:\dfrac{4}{9}\right)$. Then
+  $$D_{\mathrm{KL}}(P\|Q)=\dfrac{3}{5}\ln\left(\dfrac{3}{5}\cdot \dfrac{1}{9}\right)+\dfrac{1}{5}\ln\left(\dfrac{1}{5}\cdot \dfrac{4}{9}\right)+\dfrac{1}{5}\ln\left(\dfrac{1}{5}\cdot \dfrac{4}{9}\right)\approx 0.692,$$
+  $$D_{\mathrm{KL}}(Q\|P)=\dfrac{1}{9}\ln\left(\dfrac{1}{9}\cdot \dfrac{3}{5}\right)+\dfrac{4}{9}\ln\left(\dfrac{4}{9}\cdot \dfrac{1}{5}\right)+\dfrac{4}{9}\ln\left(\dfrac{4}{9}\cdot \dfrac{1}{5}\right)\approx 0.522.$$
 \end{example}
 
 \begin{example}
- Let $p=\N(0,1)$ and $q=\N(1,1)$. Then
- \begin{align*}
-  D_{\mathrm{KL}}(P\|Q)
-   & =\int\limits_{-\infty}^\infty p(x)\ln\dfrac{p(x)}{q(x)}\d x                                                                                                                                                                \\
-   & =\int\limits_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\ln\dfrac{\frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{1}{2}x^2\right\}}{\frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{1}{2}(x-1)^2\right\}}\d x \\
-   & =\int\limits_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\left(-\dfrac{1}{2}x^2+\dfrac{1}{2}(x-1)^2\right)\d x                                                                               \\
-   & =\int\limits_{-\infty}^\infty \dfrac{1}{2\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\left(1-2x\right)\d x                                                                                                              \\
-   & =\dfrac{1}{2}\int\limits_{-\infty}^\infty\dfrac{1}{\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\d x-\dfrac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty\exp\left\{-\dfrac{1}{2}x^2\right\}\cdot x\d x                    \\
-   & =\dfrac{1}{2},
- \end{align*}
- since $\exp\left\{-\dfrac{1}{2}x^2\right\}\cdot x$ is an odd function.
+  Let $p=\N(0,1)$ and $q=\N(1,1)$. Then
+  \begin{align*}
+    D_{\mathrm{KL}}(P\|Q)
+     & =\int\limits_{-\infty}^\infty p(x)\ln\dfrac{p(x)}{q(x)}\d x                                                                                                                                                                \\
+     & =\int\limits_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\ln\dfrac{\frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{1}{2}x^2\right\}}{\frac{1}{\sqrt{2\pi}}\exp\left\{-\frac{1}{2}(x-1)^2\right\}}\d x \\
+     & =\int\limits_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\left(-\dfrac{1}{2}x^2+\dfrac{1}{2}(x-1)^2\right)\d x                                                                               \\
+     & =\int\limits_{-\infty}^\infty \dfrac{1}{2\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\left(1-2x\right)\d x                                                                                                              \\
+     & =\dfrac{1}{2}\int\limits_{-\infty}^\infty\dfrac{1}{\sqrt{2\pi}}\exp\left\{-\dfrac{1}{2}x^2\right\}\d x-\dfrac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty\exp\left\{-\dfrac{1}{2}x^2\right\}\cdot x\d x                    \\
+     & =\dfrac{1}{2},
+  \end{align*}
+  since $\exp\left\{-\dfrac{1}{2}x^2\right\}\cdot x$ is an odd function.
 \end{example}
 
-\subsection{Independence of Events and Random Variables}
+\subsection{Independence}
 \begin{definition}[Independent Events]
- Let $(\Omega, \F,\PP)$ be a probability space. Two events $A,B\in\F$ are said to be independent if
- \begin{equation}
-  \PP(A \cap B)=\PP(A)\PP(B).
- \end{equation}
+  Let $(\Omega, \F,\PP)$ be a probability space. Two events $A,B\in\F$ are said to be independent if
+  \begin{equation}
+    \PP(A \cap B)=\PP(A)\PP(B).
+  \end{equation}
 \end{definition}
 
 \begin{theorem}[Conditional probability measure]
- Let $(\Omega, \F,\PP)$ be a probability space and an event $E\in\F$ such that $\PP(E)>0$. Define a function $\PP(\cdot|E):\F\to\RR$ as
- \begin{equation}
-  \PP(X|E) = \dfrac{\PP(X\cap E)}{\PP(E)}
- \end{equation}
- Then $\PP(\cdot|E)$ is a probability measure, called $\PP(\cdot|E)$ the probability conditioned on an event $E$.
+  Let $(\Omega, \F,\PP)$ be a probability space and an event $E\in\F$ such that $\PP(E)>0$. Define a function $\PP(\cdot|E):\F\to\RR$ as
+  \begin{equation}
+    \PP(X|E) = \dfrac{\PP(X\cap E)}{\PP(E)}
+  \end{equation}
+  Then $\PP(\cdot|E)$ is a probability measure, called $\PP(\cdot|E)$ the probability conditioned on an event $E$.
 \end{theorem}
 
 \begin{proof}
- For any $X\in\F$, we have $X\cap E\subset X$. Hence, $P(X,A)\le P(A)$, implying that $0\le P(X|A)\le 1.$
+  For any $X\in\F$, we have $X\cap E\subset X$. Hence, $P(X,A)\le P(A)$, implying that $0\le P(X|A)\le 1.$
 
- On the other hand,
- $$\PP(\varnothing | E)=\dfrac{P(\varnothing\cap E)}{\PP(E)} = \dfrac{P(\varnothing)}{\PP(E)}=0 \text{ and } \PP(\Omega | E) =\dfrac{P(\Omega\cap E)}{\PP(E)} = \dfrac{\PP(E)}{\PP(E)} = 1.$$
+  On the other hand,
+  $$\PP(\varnothing | E)=\dfrac{\PP(\varnothing\cap E)}{\PP(E)} = \dfrac{\PP(\varnothing)}{\PP(E)}=0 \text{ and } \PP(\Omega | E) =\dfrac{\PP(\Omega\cap E)}{\PP(E)} = \dfrac{\PP(E)}{\PP(E)} = 1.$$
 
- Finally, for a pairwise disjoint collection $\{X_i\}_{i=1}^\infty$, the collection $\{X_i\cap A\}_{i=1}^\infty$ is also pairwise disjoint. Therefore,
- \begin{align*}
-  \sum\limits_{i=1}^\infty P(X_i|A)
-   & = \dfrac{1}{P(A)}\sum\limits_{i=1}^\infty P(X\cap A)                  \\
-   & =\dfrac{1}{P(A)}P\left(\bigcup\limits_{i=1}^\infty (X_i\cap A)\right) \\
-   & =\dfrac{1}{P(A)}P\left(\bigcup\limits_{i=1}^\infty X_i \cap A \right) \\
-   & = P\left(\bigcup\limits_{i=1}^\infty X_i|A\right).
- \end{align*}
- Thus, $\PP(\cdot|E)$ is a probability measure.
+  Finally, for a pairwise disjoint collection $\{X_i\}_{i=1}^\infty$, the collection $\{X_i\cap A\}_{i=1}^\infty$ is also pairwise disjoint. Therefore,
+  \begin{align*}
+    \sum\limits_{i=1}^\infty \PP(X_i|A)
+     & = \dfrac{1}{\PP(A)}\sum\limits_{i=1}^\infty \PP(X\cap A)                \\
+     & =\dfrac{1}{\PP(A)}P\left(\bigcup\limits_{i=1}^\infty (X_i\cap A)\right) \\
+     & =\dfrac{1}{\PP(A)}P\left(\bigcup\limits_{i=1}^\infty X_i \cap A \right) \\
+     & = \PP\left(\bigcup\limits_{i=1}^\infty X_i|A\right).
+  \end{align*}
+  Thus, $\PP(\cdot|E)$ is a probability measure.
 \end{proof}
 
 \begin{remark}
- One can check that the independence between events $A$ and $B$ can be equivalently defined by one of the following formulas
- \begin{enumerate}[label=(\arabic*)]
-  \item $\PP(A \cap B)=\PP(A)\PP(B)$,
-  \item $\PP(A | B)=\PP(A)$,
-  \item $\PP(B | A)=\PP(B)$.
- \end{enumerate}
+  One can check that the independence between events $A$ and $B$ can be equivalently defined by one of the following formulas
+  \begin{enumerate}[label=(\arabic*)]
+    \item $\PP(A \cap B)=\PP(A)\PP(B)$,
+    \item $\PP(A | B)=\PP(A)$,
+    \item $\PP(B | A)=\PP(B)$.
+  \end{enumerate}
 \end{remark}
 
 \begin{definition}
- Two random variables $X:\Omega\to\RR^{d_X}$ and $Y:\Omega\to\RR^{d_Y}$ are said to be independent if
- \begin{equation}
-  \label{definition:independent-random-variables}
-  \PP(X\in B_X, Y\in B_Y)=\PP(X\in B_X)\PP(Y\in B_Y), \forall B_X\in\B(\RR^{d_X}), B_Y\in\B(\RR^{d_Y}).
- \end{equation}
+  Two random variables $X:\Omega\to\RR^{d_X}$ and $Y:\Omega\to\RR^{d_Y}$ are said to be independent if
+  \begin{equation}
+    \label{definition:independent-random-variables}
+    \PP(X\in B_X, Y\in B_Y)=\PP(X\in B_X)\PP(Y\in B_Y), \forall B_X\in\B(\RR^{d_X}), B_Y\in\B(\RR^{d_Y}).
+  \end{equation}
 \end{definition}
 
 \begin{proposition}
- Let $X:\Omega\to\RR^{d_X}$ and $Y:\Omega\to\RR^{d_Y}$ be absolutely continuous random variables. Then $X$ and $Y$ are independent if either
- \begin{enumerate}[label=(\arabic*)]
-  \item $p_{XY}=p_Xp_Y$,
-  \item $p_{X|Y}=p_X$,
-  \item $p_{Y|X}=p_Y$.
- \end{enumerate}
+  Let $X:\Omega\to\RR^{d_X}$ and $Y:\Omega\to\RR^{d_Y}$ be absolutely continuous random variables. Then $X$ and $Y$ are independent if either
+  \begin{enumerate}[label=(\arabic*)]
+    \item $p_{XY}=p_Xp_Y$,
+    \item $p_{X|Y}=p_X$,
+    \item $p_{Y|X}=p_Y$.
+  \end{enumerate}
 \end{proposition}
 
 \begin{proposition}
- \label{theorem:independent-expectation}
- Let $X$ and $Y$ be absolutely continuous $L^1$ real-value random variables. If $X$ and $Y$ are independent, then
- \begin{equation}
-  \EE[XY]=\EE[X]\EE[Y].
- \end{equation}
+  \label{theorem:independent-expectation}
+  Let $X$ and $Y$ be absolutely continuous $L^1$ real-value random variables. If $X$ and $Y$ are independent, then
+  \begin{equation}
+    \EE[XY]=\EE[X]\EE[Y].
+  \end{equation}
 \end{proposition}
 
 \begin{proof}
- We have
- \begin{align*}
-  \EE[XY]
-   & = \int_{\RR}\int_{\RR}p_{X,Y}(x,y)\d x\d y  \\
-   & = \int\_{\RR}\int_{\RR}p_X(x)p_Y(y)\d x\d y \\
-   & =\int_{\RR}p_X(x)\d x\int_{\RR}p_Y(y)\d y   \\
-   & =\EE[X]\EE[Y].
- \end{align*}
+  We have
+  \begin{align*}
+    \EE[XY]
+     & = \int_{\RR}\int_{\RR}p_{X,Y}(x,y)\d x\d y  \\
+     & = \int\_{\RR}\int_{\RR}p_X(x)p_Y(y)\d x\d y \\
+     & =\int_{\RR}p_X(x)\d x\int_{\RR}p_Y(y)\d y   \\
+     & =\EE[X]\EE[Y].
+  \end{align*}
 \end{proof}
 
 \subsection{Conditional Expectations}
 The concept of conditional expectations generalizes the study of expectation and independence.
 
 \begin{definition}[Expectation Conditioned on an Event]
- Let $(\Omega, \F,\PP)$ be a probability space and an event $E\in\F$. The conditional expectation of $X$ given $E$ is defined as
- \begin{equation}
-  \EE(X|E)=\int_{E}X\d \PP(X|E).
- \end{equation}
+  Let $(\Omega, \F,\PP)$ be a probability space and an event $E\in\F$. The conditional expectation of $X$ given $E$ is defined as
+  \begin{equation}
+    \EE(X|E)=\int_{E}X\d \PP(X|E).
+  \end{equation}
 \end{definition}
 
 \begin{example}
- Three coins, 10p, 20p and 50p are tossed. The values of those coins that land heads up are added to work out the total amount $X$. Calculate the expected total amount given that two coins have landed heads up.
+  Three coins, 10p, 20p and 50p are tossed. The values of those coins that land heads up are added to work out the total amount $X$. Calculate the expected total amount given that two coins have landed heads up.
 \end{example}
 
 \begin{solution}
- Let $E$ denote the even that two coins have landed heads up, then $E=\{HHT, HTH, THH\}$. Each element has the same probability of $\dfrac{1}{8}$ so $P(E)=\dfrac{3}{8}$. Therefore,
+  Let $E$ denote the even that two coins have landed heads up, then $E=\{HHT, HTH, THH\}$. Each element has the same probability of $\dfrac{1}{8}$ so $P(E)=\dfrac{3}{8}$. Therefore,
 
- $$P(X|E)=\dfrac{1}{P(E)}\left(\dfrac{1}{8}(10+20)+\dfrac{1}{8}(10+50)+\dfrac{1}{8}(20+50)\right)=53\dfrac{1}{3}.$$
+  $$P(X|E)=\dfrac{1}{P(E)}\left(\dfrac{1}{8}(10+20)+\dfrac{1}{8}(10+50)+\dfrac{1}{8}(20+50)\right)=53\dfrac{1}{3}.$$
 \end{solution}
 
-The expectation conditioned on a random variable and the expectation conditioned on a $\sigma$-algebra is closely related. Intuitively, let $X$ and $Y$ be random variables. The expectation of $X$ given $Y$ is a random variable $Z := \EE[X|Y]$ such that $\EE[Z]$ is the best guess for the value of $X$ given all possible occurrences of $Y$. However, formal definition of $\EE[X|Y]$ concerns about $\sigma(Y)\subset\F$. Generally, consider a sub-$\sigma$-algebra $\G$ of $\F$. Because $X$ may not be $\G$-measurable, when just looking at $\G$, we may lack information about $X$. The expectation of $X$ given $\G$ is thought of as a random variable $T:= \EE[X|\G]$ such that $\EE[T]$ is the best guess for the value of $X$ when seeing $\G$.
+The expectation conditioned on a random variable and the expectation conditioned on a $\sigma$-algebra is closely related. Intuitively, let $X$ and $Y$ be random variables. The expectation of $X$ given $Y$ is a random variable $Z := \EE[X|Y]$ such that $\EE[Z]$ is the best guess for the value of $X$ given all possible occurrences of $Y$. However, formal definition of $\EE[X|Y]$ requires $\sigma(Y)$. Generally, consider a sub-$\sigma$-algebra $\G$ of $\F$. Because $X$ may not be $\G$-measurable, when just looking at $\G$, we may lack information about $X$. The expectation of $X$ given $\G$ is thought of as a random variable $T:= \EE[X|\G]$ such that $\EE[T]$ is the best guess for the value of $X$ when seeing $\G$.
 
 \begin{definition}[Expectation Conditioned on a $\sigma$-algebra]
- Let $(\Omega, \F, \PP)$ be a probability space and $\G$ be a sub-$\sigma$-algebra of $\F$. The conditional expectation a random variable of $X$ conditioned on $\G$ is a $\G$-measurable random variable $\EE(X|\G)$ such that
- \begin{equation}
-  \int_A \EE(X|\G)\d \PP=\int_A X\d \PP, \forall A\in\G.
- \end{equation}
+  Let $(\Omega, \F, \PP)$ be a probability space and $\G$ be a sub-$\sigma$-algebra of $\F$. The conditional expectation a random variable of $X$ conditioned on $\G$ is any $\G$-measurable random variable $\EE[X|G]$ such that
+  \begin{equation}
+    \int_A \EE[X|\G]\d \PP=\int_A X\d \PP, \forall A\in\G.
+  \end{equation}
 \end{definition}
 
 \begin{definition}[Expectation Conditioned on a Random Variable]
- Let $(\Omega, \F, \PP)$ be a probability space and $X,Y$ be random variables. The expectation of $X$ conditioned on $Y$ a $\sigma(Y)$-measurable random variable $\EE(X|Y)$ such that
- \begin{equation}
-  \int_A \EE(X|Y)\d \PP = \int_A X\d \PP, \forall A\in\sigma(Y).
- \end{equation}
+  Let $(\Omega, \F, \PP)$ be a probability space and $X,Y$ be random variables. The expectation of $X$ conditioned on $Y$ a $\sigma(Y)$-measurable random variable $\EE(X|Y)$ such that
+  \begin{equation}
+    \int_A \EE(X|Y)\d \PP = \int_A X\d \PP, \forall A\in\sigma(Y).
+  \end{equation}
 \end{definition}
 
 The next theorem indicates that the conditional expectation depends only on the $\sigma$-algebra generated by a random variable, but not the random variable itself.
 
 \begin{theorem}
- Let $Y,Z$ be random variables such that $\sigma(Y)=\sigma(Z)$. Then for any random variable $X$,
- $$\EE(X|Y)=\EE(X|Z),\,\,a.s.$$
+  Let $Y,Z$ be random variables such that $\sigma(Y)=\sigma(Z)$. Then for any random variable $X$,
+  $$\EE(X|Y)=\EE(X|Z),\,\,a.s.$$
 \end{theorem}
 
 \begin{proof}
- Let $\G=\sigma(Y)=\sigma(Z)$. For any $B\in\G$, we have
+  Let $\G=\sigma(Y)=\sigma(Z)$. For any $B\in\G$, we have
 
- $$ \int_B X\d P=\int_B \EE(X|Y)\d P=\int_B \EE(X|Z)\d P.$$
+  $$ \int_B X\d P=\int_B \EE(X|Y)\d P=\int_B \EE(X|Z)\d P.$$
 
- Let $T=\EE(X|Y)-\EE(X|Z)$, we have
+  Let $T=\EE(X|Y)-\EE(X|Z)$, we have
 
- $$\int_B T\d P = 0,\,\,\forall B\in\G.$$
+  $$\int_B T\d P = 0,\,\,\forall B\in\G.$$
 
- We will prove that $T=0 \,\,a.s.$ For any $\epsilon>0$,
+  We will prove that $T=0 \,\,a.s.$ For any $\epsilon>0$,
 
- \begin{align*}
-  0\ge\epsilon P(T\ge \epsilon) =\int_{T\ge\epsilon}\epsilon\d P\ge \int_{T\ge\epsilon}X\d P=0.
- \end{align*}
+  \begin{align*}
+    0\ge\epsilon P(T\ge \epsilon) =\int_{T\ge\epsilon}\epsilon\d P\ge \int_{T\ge\epsilon}X\d P=0.
+  \end{align*}
 
- The last equality holds since $\{T\ge\epsilon\}\in\G$. Hence, $P(T\ge \epsilon)=0$. Similarly, $P(T\le -\epsilon)=0$. Therefore,
+  The last equality holds since $\{T\ge\epsilon\}\in\G$. Hence, $P(T\ge \epsilon)=0$. Similarly, $P(T\le -\epsilon)=0$. Therefore,
 
- $$P(-\epsilon < T <\epsilon) = P(|T|<\epsilon) = 1.$$
+  $$P(-\epsilon < T <\epsilon) = P(|T|<\epsilon) = 1.$$
 
- By letting $\epsilon\to 0$, we conclude that $T=0\,\,a.s.$ Thus, $\EE(X|Y)=\EE(X|Z),\,\,a.s.$
+  By letting $\epsilon\to 0$, we conclude that $T=0\,\,a.s.$ Thus, $\EE(X|Y)=\EE(X|Z),\,\,a.s.$
 \end{proof}
 
 % \begin{theorem}

@@ -1,6 +1,6 @@
 \chapter{Proposed Method and Experiments}
 \label{chap:experiment}
-
+\thispagestyle{empty}
 In this chapter, we will propose a diffusion-based pipeline for watermark removal. We will then focus on conducting experiments using the proposed pipeline for watermark removal, as detailed in Section \ref{sec:pipeline}. The experiments utilize the ImageNet dataset, with the Pokémon dataset serving as the watermark. Further information about the datasets will be provided in Section \ref{sec:dataset}. The results of our pipeline, from watermark embedding to removal and image inpainting, will be presented step by step. Section \ref{sec:removal} will discuss the outcomes in detail.
 
 Upon completing all experiments, we aim to establish metrics for evaluation. Section \ref{sec:metrics} will provide a comprehensive discussion on these metrics, offering an overview and assisting in selecting the most suitable metric to assess the effectiveness of our pipeline in watermark removal.
@@ -211,7 +211,7 @@ The motivation of SSIM's development comes from the limitations of traditional m
 The SSIM index is calculated between two image patches, $x$ and $y$, using the following formula
 
 \begin{equation}
-    SSIM(x, y) = [\ell(x, y)]^\alpha \cdot [c(x, y)]^\beta \cdot [s(x, y)]^\gamma,
+    \text{SSIM}(x, y) = [\ell(x, y)]^\alpha \cdot [c(x, y)]^\beta \cdot [s(x, y)]^\gamma,
 \end{equation}
 where
 \begin{itemize}
@@ -232,9 +232,9 @@ where
           where $\sigma_{xy}$ is the covariance between patches $x$ and $y$ and $C3$ ($C3=\frac{C2}{2}$ in the usual case) is a small constant (for stability)
     \item $\alpha, \beta$, and $\gamma$ are parameters used to control the relative importance of the three components
 \end{itemize}
-Finally, the mean SSIM (MSSIM) value, which is pooled over the entire images $I$ and $\hat{I}$, which include the image patches x and y respectively, is  
+Finally, the mean SSIM (mSSIM) value, which is pooled over the entire images $I$ and $\hat{I}$, which include the image patches x and y respectively, is  
 \begin{equation}
-    \text{MSSIM}(I, \hat{I}) = \frac{1}{WH} \sum \limits_{x,y} \text{SSIM}(x,y), 
+    \text{mSSIM}(I, \hat{I}) = \frac{1}{WH} \sum \limits_{x,y} \text{SSIM}(x,y), 
 \end{equation}
 where $W,H$ are width and height of target image $I$ and predicted image $\hat{I}$.
 % \textcolor{red}{-> use $\ell$ instead of $l$\\

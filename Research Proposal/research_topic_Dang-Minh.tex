@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,hyperref}
+%\geometry{a4paper, left=2in, right=2in, top=2in, bottom=2in}
+\usepackage[a4paper, margin=1in]{geometry}
+
+
+\begin{document}
+
+\begin{center}
+
+  {\Large{\bf Research interests and proposal}}\\
+
+  CHAU Dang Minh (M2 Master's student, ACSYON, University of Limoges)\\
+\end{center}
+
+My research interests evolve around numerical (convex) optimization and dynamical systems, more precisely I am very interested in understanding more precisely the interplay between proximal point methods and their continuous versions expressed as dynamical systems, in order to ``export'' the convergence properties of each class to the other.
+
+Proximal algorithms play a crucial role in large-scale optimization, dating back to the pioneering work of Moreau and Rockafellar. Their ability to handle non-smooth terms efficiently has led to widespread use in variational methods and learning \cite{Bach2012}. These methods iteratively apply the resolvent operator of a maximal monotone operator, forming the basis for many modern algorithms. Accelerated versions, mostly inspired by Nesterov's acceleration \cite{Nesterov1983}, show improved convergence rates \cite{Beck2009, Attouch2016, Apidopoulos2018}. Many optimization algorithms can be interpreted as discretizations of dynamical systems \cite{SBC, Attouch2013} which provide insights into their convergence properties.
+
+However, classical proximal algorithms often rely on fixed regularization parameters, which may lead to suboptimal performance. Recent work \cite{Attouch2013,ACFR,SDJS}  demonstrated that adaptive regularization, guided by continuous-time analysis, can significantly enhance convergence rates and stability, while  adaptively adjusting the step-size or penalty parameters can lead to significant improvements as well \cite{Xu2021}.
+
+My plan would be to contribute to investigating new iterative methods for solving problems of type
+$$
+  \min_{x \in \mathcal{H}} \{ f(x) + g(x) \},
+$$
+where $\mathcal{H}$ is a real Hilbert space, $f: \mathcal{H} \to \mathbb{R}$ is a smooth convex function with Lipschitz continuous gradient, and $g: \mathcal{H} \to \mathbb{R} \cup \{+\infty\}$ is a proper, lower semicontinuous, convex function that may be nonsmooth. Such problems arise naturally in signal processing, inverse problems, and machine learning.
+Forward-backward splitting is the first choice for dealing with such optimization problems. Extensively studied in \cite{Beck2009, Bauschke2011, AAD2}, this method decomposes the problem into smooth and non-smooth components.
+
+However, no accelerations by means of adaptive regularization, guided by continuous-time analysis, capable of solving the considered class of optimization problems faster and cheaper than the standard approaches \cite{Beck2009, Attouch2016, Apidopoulos2018} are known to me, so my general goal would be to contribute to adding such features into existing algorithms. I expect the beneficial effects of such procedures to lead to faster algorithms for solving this class of optimization problems.
+
+To this end, the first step would be to investigate continuous-time proximal dynamics, including damping mechanisms and energy decay properties \cite{Attouch2013}. Designing adaptive regularization strategies based on second-order variational properties and incorporating problem-specific geometric information would follow. Applying discretization techniques, I expect to be able to deliver new fast and reliable algorithms for explicitly solving the mentioned optimization problem. I aim to produce theoretical guarantees for both continuous and discrete-time formulations, utilizing Lyapunov function techniques and variational arguments. These iterative methods should be implemented on real applications modeled as structured optimization problems (stemming from imaging, inverse problems, logistics and machine learning but not only \cite{Chambolle2011, Beck2017}) and their performance evaluated in comparison with baseline approaches.
+\vspace{1ex}
+
+As my CV and study records show, I have a strong mathematical background, in particular in optimization and variational analysis, in applied mathematics in general. I am proficient in several programming languages (in particular, Python, MATLAB and C++, that are usually employed for solving convex optimization problems). Moreover, I bring to the table a strong interest and motivation in both theoretical and applied research in the field of optimization.
+
+
+\begin{thebibliography}{99}
+  \bibitem{Bach2012} F. Bach, ``Optimization with sparsity-inducing penalties,'' Found. Trends Mach. Learn., 4 (2012), pp. 1-106.
+
+  %\bibitem{Moreau1965} J.J. Moreau, ``Proximité et dualité dans un espace hilbertien,'' Bull. Soc. Math. France, 93 (1965), pp. 273-299.
+
+  %\bibitem{Rockafellar1976} R.T. Rockafellar, ``Monotone operators and the proximal point algorithm,'' SIAM J. Control Optim., 14 (1976), pp. 877-898.
+
+  \bibitem{Attouch2013} H. Attouch, J. Bolte, and B.F. Svaiter, ``Convergence of descent methods for semi-algebraic and tame problems,'' Math. Program., 137 (2013), pp. 91-129.
+
+  \bibitem{ACFR} H. Attouch, Z. Chbani, J. Fadili, H. Riahi, \textit{First order optimization algorithms via inertial  systems with Hessian driven damping,}  Math. Program. (2020).
+
+  \bibitem{AAD2} V. Apidopoulos, J.-F. Aujol,  C. Dossal, {\it Convergence rate of inertial Forward-Backward algorithm beyond Nesterov's rule}, Math. Program., 180 (2020), pp. 137--156.
+
+  \bibitem{Beck2009} A. Beck and M. Teboulle, ``A fast iterative shrinkage-thresholding algorithm for linear inverse problems,'' SIAM J. Imaging Sci., 2 (2009), pp. 183-202.
+
+  \bibitem{Bauschke2011} H.H. Bauschke and P.L. Combettes, ``Convex Analysis and Monotone Operator Theory in Hilbert Spaces,'' Springer, New York, 2011.
+
+  \bibitem{Nesterov1983} Y. Nesterov, ``A method for solving the convex programming problem with convergence rate O(1/k²),'' Soviet Math. Dokl., 27 (1983), pp. 372-376.
+
+  \bibitem{Attouch2016} H. Attouch and J. Peypouquet, ``The rate of convergence of Nesterov's accelerated forward-backward method is actually faster than 1/k²,'' SIAM J. Optim., 26 (2016), pp. 1824-1834.
+
+  \bibitem{Apidopoulos2018} V. Apidopoulos, J.-F. Aujol, and C. H. Dossal, ``The Differential Inclusion Modeling FISTA Algorithm and Optimality of Convergence Rate in the Case $b<3$,'' SIAM J. Optim., 28 (1), 2018, pp. 551-574.
+
+  \bibitem{Xu2021} P. Xu and S. Bubeck, ``Adaptive algorithms for stochastic optimization,'' Math. Oper. Res., 46 (2021), pp. 475-500.
+
+  \bibitem{Chambolle2011} A. Chambolle and T. Pock, ``A first-order primal-dual algorithm for convex optimization problems with applications to imaging,'' J. Math. Imaging Vis., 40 (2011), pp. 120-145.
+
+  \bibitem{Beck2017} A. Beck, ``First-Order Methods in Optimization,'' SIAM, Philadelphia, 2017.
+
+  \bibitem{SDJS} B. Shi, S.  S. Du,  M. I. Jordan,  W. J. Su,
+  {\it Understanding the acceleration phenomenon via high-resolution differential equations},
+  Math. Program., 2021.
+
+  \bibitem{SBC} W.  Su,  S. Boyd,  E. J. Cand\`es, {\it A Differential Equation for Modeling Nesterov's Accelerated Gradient Method},
+  Advances in Neural Information Processing Systems \textbf{27} (NIPS 2014).
+\end{thebibliography}
+
+\end{document}

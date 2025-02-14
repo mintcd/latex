@@ -1,0 +1,76 @@
+% Project:  TeX PhD Motivation Letter Template
+% Author:   Deep Ghuge
+
+% EDIT main.tex directly
+
+\documentclass[11pt]{report}
+\usepackage[margin=0.59in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{hyperref}
+
+\definecolor{goodcream}{RGB}{255, 230, 208} % corrected the RGB values to represent royal purple more accurately
+\newcommand{\mediumsize}{\fontsize{15pt}{16pt}\selectfont}
+
+\begin{document}
+\begin{titlepage}
+
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[line width=15 pt, color=goodcream]
+        ($(current page.north west) + (0.30in,-0.30in)$) rectangle
+        ($(current page.south east) + (-0.30in,0.30in)$);
+    \end{tikzpicture}
+
+    \begin{minipage}[t]{0.95\textwidth}
+        \hfill
+        \raggedleft
+        \textbf{ CHAU Dang Minh} \\
+        University of Limoges \\
+        \today\\
+        \href{mailto:dang-minh.chau@etu.unilim.fr}{dang-minh.chau@etu.unilim.fr} \\
+        +33 745 55 83 93 \\
+    \end{minipage}
+
+    % \raggedright \textbf{Maria Winter, Ph.D.} \\ Department of Political Science \\ Harvard University \\ Cambridge, MA 02138, USA \\ \href{mailto:maria.winter@harvard.edu}{maria.winter@harvard.edu}\\
+
+    \vspace{0.7em}
+
+    \raggedright Subject: Application for MSCA COFUND PhD Fellowship in Applied Mathematics
+
+    \vspace{0.7em}
+
+    Dear Members of the Selection Committee,
+
+    \vspace{0.7em}
+
+    I am writing to express my strong interest in the MSCA COFUND PhD fellowship in Mathematical Sciences. My academic background in Computer Science and Applied Mathematics, along with my passion for optimization, make me a suitable candidate for this program. I am particularly interested in contributing to the generalization and unification of optimization methods, and I am confident that this PhD opportunity will provide the ideal environment for me to pursue my research goals.
+
+    \vspace{0.7em}
+
+
+    I obtained my Bachelor's degree in Computer Science from Ho Chi Minh City University of Technology, where I focused my thesis on watermark attacks based on diffusion models. This research introduced me to various mathematical concepts and optimization techniques, from measure theory to stochastic differential equations, shaping my interest in applied mathematics. To deepen my knowledge, I pursued the ACSYON Master's program at the University of Limoges, where I took the course in Fast Algorithmic Methods for Optimization and Learning lectured by Professor Samir Adly, and related subjects. These experiences enhanced my proficiency in mathematical optimization and algorithmic problem-solving, as well as my solid technical skills in Python, MATLAB and C++.
+
+    \vspace{0.7em}
+
+    Optimization fascinates me because of its fundamental role in numerous scientific and engineering disciplines. From the time I knew about the Lyapunov's argument, my main research motivation was shaped into contributing to the unification of optimization techniques, bridging theoretical advancements with practical applications. The MSCA COFUND PhD program offers multiple projects that align with my research interests, and I am particularly keen on working under the supervision of Professor Adly. His expertise in optimization theory and variational analysis strongly resonates with my academic aspirations.
+
+    \vspace{0.7em}
+
+    In the long term, I am committed to a research-oriented career, either in academia or in an advanced research institute. I aim to develop novel optimization frameworks that can be widely applied across different domains, from machine learning to operations research. The interdisciplinary nature of the MSCA COFUND program, along with its international research environment, provides an excellent platform for me to collaborate with experts and contribute meaningfully to the field.
+
+    \vspace{0.7em}
+
+    I am a highly motivated and dedicated student, eager to engage in rigorous research and academic discussions. Given my background, skills, and aspirations, I am confident that I will be a fitting addition to the PhD program. I sincerely appreciate your time and consideration, and I look forward to the possibility of contributing to your esteemed research community.
+
+    \vspace{0.7em}
+
+    Thank you for your time and consideration.
+
+    \vspace{0.7em}
+
+    \raggedright Yours sincerely,\\
+    \textbf{CHAU Dang Minh}
+
+\end{titlepage}
+\end{document}

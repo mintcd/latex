@@ -1,0 +1,58 @@
+
+% Project:  TeX PhD Motivation Letter Template
+% Author:   Deep Ghuge
+
+\documentclass[11pt]{report}
+\usepackage[margin=0.59in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{hyperref}
+
+\definecolor{goodcream}{RGB}{255, 230, 208}
+\newcommand{\mediumsize}{\fontsize{15pt}{16pt}\selectfont}
+
+\begin{document}
+\begin{titlepage}
+
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[line width=15 pt, color=goodcream]
+        ($(current page.north west) + (0.30in,-0.30in)$) rectangle
+        ($(current page.south east) + (-0.30in,0.30in)$);
+    \end{tikzpicture}
+
+    \begin{minipage}[t]{0.95\textwidth}
+        \hfill
+        \raggedleft
+        \textbf{CHAU Dang Minh} \\
+        University of Limoges \\
+        \today\\
+        \href{mailto:dang-minh.chau@etu.unilim.fr}{dang-minh.chau@etu.unilim.fr} \\
+        +33 745 55 83 93 \\
+    \end{minipage}
+
+    \vspace{0.7em}
+
+    \raggedright Subject: Application for PhD Position on Verification of Differential Privacy
+
+    \vspace{0.7em}
+
+    Dear Dr. Baillot,
+
+    \vspace{0.7em}
+
+    I am writing to express my keen interest in the PhD position on Verification of Differential Privacy (Offer #2024-08486) within the SyCoMoRES project-team at Inria Lille. With a strong foundation in Computer Science and ongoing advanced studies in Applied Mathematics, I am enthusiastic about contributing to the development of program logic approaches for reasoning about differential privacy in probabilistic higher-order functional programs.
+
+    During my Bachelor's degree in Computer Science, I cultivated a deep interest in Logic and Computation, which has guided my academic trajectory. Currently, as a Master's student in Applied Mathematics, I am engaged in an internship focused on Concurrency Theory, further honing my analytical and formal reasoning skills. My undergraduate project on Diffusion Models provided me with valuable experience in probabilistic modeling, aligning well with the objectives of this PhD project.
+
+    The interdisciplinary nature of the HOPR project, aiming to define expressive logical frameworks for reasoning about cryptographic primitives and protocols, resonates with my academic pursuits. I am particularly drawn to the challenge of developing general and expressive approaches for proving differential privacy properties, ensuring both the correctness of basic primitives and the sound composition of high-level functions.
+
+    I am eager to join the SyCoMoRES team under your supervision, contributing to the advancement of formal verification methods in the realm of differential privacy. Thank you for considering my application. I look forward to the opportunity to discuss how my background and interests align with the goals of this PhD position.
+
+    \vspace{0.7em}
+
+    Yours sincerely,\\
+    \textbf{CHAU Dang Minh}
+
+\end{titlepage}
+\end{document}

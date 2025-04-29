@@ -1,0 +1,62 @@
+\documentclass[11pt]{report}
+\usepackage[margin=0.59in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{hyperref}
+
+\definecolor{goodcream}{RGB}{255, 230, 208}
+\newcommand{\mediumsize}{\fontsize{15pt}{16pt}\selectfont}
+
+\begin{document}
+\setlength{\parindent}{0pt}
+\begin{titlepage}
+
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[line width=15 pt, color=goodcream]
+        ($(current page.north west) + (0.30in,-0.30in)$) rectangle
+        ($(current page.south east) + (-0.30in,0.30in)$);
+    \end{tikzpicture}
+
+    \begin{minipage}[t]{0.95\textwidth}
+        \hfill
+        \raggedleft
+        \textbf{CHAU Dang Minh} \\
+        University of Limoges \\
+        \today\\
+        \href{mailto:dang-minh.chau@etu.unilim.fr}{dang-minh.chau@etu.unilim.fr} \\
+        +33 745 55 83 93 \\
+    \end{minipage}
+
+    \vspace{0.7em}
+
+    \raggedright Subject: Application for MSCA COFUND PhD Fellowship in Applied Mathematics
+
+    \vspace{0.7em}
+
+    Dear Members of the Selection Committee,
+
+    \vspace{0.7em}
+
+    I am writing to express my keen interest in the PhD position on ``Proximal Algorithms with Adaptive Regularization: A Continuous-Discrete Perspective for Non-smooth Optimization'', supervised by Dr. Samir Adly and Dr. Sorin-Mihai Grad. With a strong foundation in Computer Science and ongoing advanced studies in Applied Mathematics through the \href{https://www.unilim.fr/acsyon/}{ACSYON} curriculum, I am enthusiastic about contributing to the development of optimization algorithms for various behavioral functions.
+
+    \vspace{0.7em}
+
+    I obtained my Bachelor's degree in Computer Science from Ho Chi Minh City University of Technology, during which I developed a deep interest in mathematical analysis and programming---the interest that has guided my academic trajectory ever since. I focused my undergraduate thesis on watermark attacks based on diffusion models. The research introduced me to various mathematical concepts and optimization techniques, from measure theory to stochastic differential equations and also gave me valuable insights into the analytical and optimization processes required to ensure model performance. To deepen my knowledge, I pursued the ACSYON Master’s program at the University of Limoges, where I took the course in Fast Algorithmic Methods for Optimization and Learning lectured by Professor Samir Adly, and related subjects. These experiences strengthened my proficiency in mathematical optimization, algorithmic problem-solving, and technical programming skills in Python, MATLAB and C++. As part of my Master’s program in applied mathematics,  I am completing an internship focused on \href{https://www.telecom-paris.fr/wp-content-EvDsK19/uploads/2023/12/Master-Internship_Ameur-Boulifa-Ramea_Open-Automata.pdf}{Concurrency Theory}, further honing my analytical and formal reasoning skills.
+
+    \vspace{0.7em}
+
+    The project ``Proximal Algorithms with Adaptive Regularization'', aiming to bridge continuous and discrete optimization algorithms through adaptive
+    proximal methods, resonates with my academic pursuits. I am particularly drawn to the challenge of developing a general and efficient theory for optimizing a large class of functions, which then can be specified to apply to smaller subclasses.
+
+    \vspace{0.7em}
+
+    I am excited about the possibility of joining your team and contributing to the theoretical and practical advancements of non-smooth optimization. Thank you for considering my application. I would welcome the opportunity to further discuss how my academic background, technical experience, and research interests align with the goals of this PhD fellowship.
+
+    \vspace{0.7em}
+
+    Yours sincerely,\\
+    \textbf{CHAU Dang Minh}
+
+\end{titlepage}
+\end{document}

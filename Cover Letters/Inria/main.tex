@@ -1,0 +1,60 @@
+\documentclass[11pt]{report}
+\usepackage[margin=0.59in]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{hyperref}
+
+\definecolor{goodcream}{RGB}{255, 230, 208}
+\newcommand{\mediumsize}{\fontsize{15pt}{16pt}\selectfont}
+
+\begin{document}
+\begin{titlepage}
+
+    \begin{tikzpicture}[remember picture,overlay]
+        \draw[line width=15 pt, color=goodcream]
+        ($(current page.north west) + (0.30in,-0.30in)$) rectangle
+        ($(current page.south east) + (-0.30in,0.30in)$);
+    \end{tikzpicture}
+
+    \begin{minipage}[t]{0.95\textwidth}
+        \hfill
+        \raggedleft
+        \textbf{CHAU Dang Minh} \\
+        University of Limoges \\
+        \today\\
+        \href{mailto:dang-minh.chau@etu.unilim.fr}{dang-minh.chau@etu.unilim.fr} \\
+        +33 745 55 83 93 \\
+    \end{minipage}
+
+    \vspace{0.7em}
+
+    \raggedright Subject: Application for PhD Position on Verification of Differential Privacy
+
+    \vspace{0.7em}
+
+    Dear Dr. Baillot,
+
+    \vspace{0.7em}
+
+    I am writing to express my keen interest in the PhD position on Verification of Differential Privacy within the SyCoMoRES project-team at Inria Lille. With a strong foundation in Computer Science and ongoing advanced studies in Applied Mathematics through the \href{https://www.unilim.fr/acsyon/}{ACSYON} curriculum, I am enthusiastic about contributing to the development of program logic approaches for reasoning about differential privacy in probabilistic higher-order functional programs.
+
+    \vspace{0.7em}
+
+    I obtained my Bachelor's degree in Computer Science from Ho Chi Minh City University of Technology, during which I developed a deep interest in Logic and Computation---an interest that has guided my academic trajectory ever since. My undergraduate project on watermark attacks based on diffusion models provided me with valuable experience in probabilistic modeling, aligning well with the objectives of this PhD project. As part of my Master’s program in Applied Mathematics, I am completing an internship focused on \href{https://www.telecom-paris.fr/wp-content-EvDsK19/uploads/2023/12/Master-Internship_Ameur-Boulifa-Ramea_Open-Automata.pdf}{Concurrency Theory}, further honing my analytical and formal reasoning skills.
+
+    \vspace{0.7em}
+
+    The interdisciplinary nature of the HOPR project, aiming to define expressive logical frameworks for reasoning about cryptographic primitives and protocols, resonates with my academic pursuits. I am particularly drawn to the challenge of developing general and expressive approaches for proving differential privacy properties, ensuring both the correctness of basic primitives and the sound composition of high-level functions.
+
+    \vspace{0.7em}
+
+    I am eager to join the SyCoMoRES team under your supervision, contributing to the advancement of formal verification methods in the realm of differential privacy. Thank you for considering my application. I look forward to the opportunity to discuss how my background and interests align with the goals of this PhD position.
+
+    \vspace{0.7em}
+
+    Yours sincerely,\\
+    \textbf{CHAU Dang Minh}
+
+\end{titlepage}
+\end{document}
